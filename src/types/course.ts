@@ -1,4 +1,4 @@
-﻿export interface LecturerCue {
+export interface LecturerCue {
   narrationPrompt: string;
   keyPoints: string[];
   misconceptionAlert?: string;
@@ -62,13 +62,6 @@ export interface WorkedExample {
    */
   lecturerNotes?: string;
 
-  /*
-   * Legacy fields retained temporarily so existing Part 1
-   * content continues to compile during migration.
-   */
-  source?: string;
-  problem?: string;
-  answer?: string;
 }
 
 /**
@@ -124,11 +117,19 @@ export interface Checkpoint {
   tasks: CheckpointTask[];
 }
 
+export interface PracticeProblem {
+  id: string;
+  title: string;
+  provenance: string;
+  problem: string;
+  solution: string;
+  reasoning?: string;
+}
+
 export interface PartContent {
   title: string;
   subtitle: string;
   sections: LessonSection[];
-  workedExamples: WorkedExample[];
   checkpoints: Checkpoint[];
 }
 

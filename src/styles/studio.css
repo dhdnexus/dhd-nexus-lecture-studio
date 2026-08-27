@@ -1878,3 +1878,255 @@ h1 {
   color: #f8fafc;
 }
 
+
+
+/* Part 1 remediation: canonical checkpoints, practice and lecture note */
+
+/* ------------------------------------------------------------
+   Checkpoint controls
+   ------------------------------------------------------------ */
+
+.checkpoint-controls {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.checkpoint-controls button,
+.practice-card > button {
+  appearance: none;
+  border: 1px solid rgba(77, 183, 255, 0.45);
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  min-height: 38px;
+  background: rgba(20, 35, 60, 0.95);
+  color: #eaf6ff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.checkpoint-controls button:hover:not(:disabled),
+.practice-card > button:hover {
+  background: rgba(30, 55, 90, 0.98);
+  border-color: rgba(77, 183, 255, 0.8);
+}
+
+.checkpoint-controls button:active:not(:disabled),
+.practice-card > button:active {
+  transform: translateY(1px);
+}
+
+.checkpoint-controls button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  background: rgba(77, 183, 255, 0.16);
+  border-color: rgba(77, 183, 255, 0.65);
+  color: #ffffff;
+}
+
+.checkpoint-controls button:focus-visible,
+.practice-card > button:focus-visible {
+  outline: 2px solid rgba(77, 183, 255, 0.9);
+  outline-offset: 2px;
+}
+
+.checkpoint-options {
+  display: grid;
+  gap: 0.55rem;
+  margin: 1rem 0;
+}
+
+.checkpoint-option {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.025);
+  color: #eaf0f7;
+  cursor: pointer;
+}
+
+.checkpoint-option:hover {
+  border-color: rgba(77, 183, 255, 0.55);
+  background: rgba(77, 183, 255, 0.06);
+}
+
+.checkpoint-option:has(input:checked) {
+  border-color: rgba(77, 183, 255, 0.85);
+  background: rgba(77, 183, 255, 0.1);
+}
+
+.checkpoint-math {
+  overflow-x: auto;
+  padding: 0.6rem 0;
+}
+
+
+/* ------------------------------------------------------------
+   Practice
+   ------------------------------------------------------------ */
+
+.practice-provenance {
+  margin: 0.35rem 0 0.6rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.practice-solution {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-left: 3px solid currentColor;
+  background: rgba(127, 127, 127, 0.08);
+}
+
+
+/* ------------------------------------------------------------
+   Lecture Note renderer
+   ------------------------------------------------------------ */
+
+.lecture-note-view {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.lecture-note-content {
+  min-width: 0;
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+  overflow-x: auto;
+  line-height: 1.72;
+  color: var(--text-primary, #eaf0f7);
+}
+
+.lecture-note-content h1,
+.lecture-note-content h2,
+.lecture-note-content h3,
+.lecture-note-content h4 {
+  color: var(--text-primary, #ffffff);
+  line-height: 1.25;
+  margin-top: 1.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.lecture-note-content h1 {
+  font-size: 1.55rem;
+}
+
+.lecture-note-content h2 {
+  font-size: 1.3rem;
+}
+
+.lecture-note-content h3 {
+  font-size: 1.1rem;
+}
+
+.lecture-note-content p {
+  margin: 0.7rem 0;
+}
+
+.lecture-note-content ul,
+.lecture-note-content ol {
+  margin: 0.7rem 0 0.9rem 1.4rem;
+  padding-left: 1rem;
+}
+
+.lecture-note-content li {
+  margin: 0.35rem 0;
+}
+
+.lecture-note-content hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lecture-note-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.4rem;
+  font-size: 0.9rem;
+}
+
+.lecture-note-content th,
+.lecture-note-content td {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.lecture-note-content th {
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.lecture-note-content pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: "Cascadia Mono", "Consolas", monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.lecture-note-content code {
+  font-family: "Cascadia Mono", "Consolas", monospace;
+}
+
+.lecture-note-content :not(pre) > code {
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lecture-note-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.35rem 0;
+  margin: 1rem 0;
+}
+
+.lecture-note-content .katex {
+  font-size: 1.05em;
+}
+
+@media (max-width: 760px) {
+  .lecture-note-content {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .lecture-note-content table {
+    min-width: 620px;
+  }
+
+  .checkpoint-controls {
+    align-items: stretch;
+  }
+
+  .checkpoint-controls button,
+  .practice-card > button {
+    min-height: 42px;
+  }
+}
+

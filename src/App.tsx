@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { part1Content } from "./content/part1";
 import { part1WorkedExamples } from "./content/part1WorkedExamples";
@@ -9,16 +9,12 @@ import { LectureView } from "./components/lecture/LectureView";
 import { WorkedExampleView } from "./components/lecture/WorkedExamplePanel";
 import { CheckpointView } from "./components/lecture/CheckpointView";
 import { PracticeView } from "./components/lecture/PracticeView";
-
-const practiceProblems = [
-  { id: "P1", title: "Coordinate reasoning", question: "Choose an origin and positive direction, then describe the position of a particle at x = −12 m." },
-  { id: "P2", title: "Distance vs displacement", question: "A particle travels 60 m forward and 20 m backward. Determine its distance and displacement." },
-  { id: "P3", title: "Sign analysis", question: "A particle has v < 0 and a > 0. Is it speeding up or slowing down? Explain." }
-];
+import { LectureNoteView } from "./components/lecture/LectureNoteView";
+import { part1PracticeProblems } from "./content/practice";
 
 const App: React.FC = () => {
   const [currentSectionId, setCurrentSectionId] = useState("sec-01");
-  const [activeViewMode, setActiveViewMode] = useState<"LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE">("LESSON");
+  const [activeViewMode, setActiveViewMode] = useState<"LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE">("LESSON");
   const [lecturerMode, setLecturerMode] = useState(true);
 
   const index = part1Content.sections.findIndex((s) => s.id === currentSectionId);
@@ -87,8 +83,9 @@ const App: React.FC = () => {
               <CheckpointView checkpoints={part1Content.checkpoints} />
             )}
             {activeViewMode === "PRACTICE" && (
-              <PracticeView problems={practiceProblems} />
+              <PracticeView problems={part1PracticeProblems} />
             )}
+            {activeViewMode === "LECTURE_NOTE" && <LectureNoteView />}
 
             {activeViewMode === "LESSON" && (
               <div className="presentation-controls">

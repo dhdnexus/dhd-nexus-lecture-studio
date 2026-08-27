@@ -1,19 +1,21 @@
 ﻿import React, { useEffect, useState } from "react";
 import { BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, PencilLine } from "lucide-react";
+import type { PartContent } from "../../types/course";
 
 interface Props {
-  part: any;
+  part: PartContent;
   currentSectionId: string;
-  activeViewMode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE";
+  activeViewMode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE";
   onSelectSection: (id: string) => void;
-  onChangeViewMode: (mode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE") => void;
+  onChangeViewMode: (mode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE") => void;
 }
 
 const modes = [
   { id: "LESSON", label: "Lesson", icon: CirclePlay },
   { id: "WORKED_EXAMPLE", label: "Worked Examples", icon: FileText },
   { id: "CHECKPOINT", label: "Checkpoints", icon: CheckCircle2 },
-  { id: "PRACTICE", label: "Practice", icon: PencilLine }
+  { id: "PRACTICE", label: "Practice", icon: PencilLine },
+  { id: "LECTURE_NOTE", label: "Lecture Note", icon: BookOpen }
 ] as const;
 
 export const StudioSidebar: React.FC<Props> = ({
@@ -75,7 +77,7 @@ export const StudioSidebar: React.FC<Props> = ({
             {part.title || "EPISODE 1"}
           </div>
 
-          {part.sections.map((section: any, index: number) => (
+          {part.sections.map((section, index) => (
             <button
               key={section.id}
               className={`sidebar-section ${
@@ -98,7 +100,7 @@ export const StudioSidebar: React.FC<Props> = ({
 
       {activeViewMode === "LESSON" && collapsed && (
         <div className="sidebar-collapsed-sections">
-          {part.sections.map((section: any, index: number) => (
+          {part.sections.map((section, index) => (
             <button
               key={section.id}
               className={`collapsed-section ${
@@ -115,3 +117,7 @@ export const StudioSidebar: React.FC<Props> = ({
     </aside>
   );
 };
+
+
+
+

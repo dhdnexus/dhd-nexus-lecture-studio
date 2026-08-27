@@ -1,4 +1,4 @@
-﻿import type { PartContent } from "../types/course";
+import type { PartContent } from "../types/course";
 
 export const part1Content: PartContent = {
   title: "Mastering Kinematics",
@@ -221,96 +221,44 @@ export const part1Content: PartContent = {
     }
   ],
 
-  workedExamples: [
-    {
-      id: "ex-01",
-      title: "Displacement from Average Velocity",
-      source: "Nile University of Nigeria, PHY 101, 2022/2023-1, Q18",
-      provenance: "Authentic Nigerian University Examination",
-      problem: "A car travels in the +x direction. For the first 4.00 s, its average velocity is +6.25 m/s. How far does it travel in 4.00 s?",
-      answer: "25.00 m"
-    },
-    {
-      id: "ex-02",
-      title: "Average Speed — Equal-Distance Trap",
-      source: "Ekiti State University, PHY 101, 2019/2020, Q25",
-      provenance: "Authentic Nigerian University Examination — Clean",
-      problem: "A two-leg journey uses equal-distance segments. Determine the average speed and avoid treating the two speeds as an ordinary arithmetic mean.",
-      answer: "Use total distance divided by total time."
-    },
-    {
-      id: "ex-03",
-      title: "Velocity Change & Sign Reasoning",
-      source: "DHD-P1-01 — Adapted Academic Problem",
-      provenance: "Adapted from OpenStax University Physics Vol. 1 / DHD Nexus design",
-      problem: "Track a change in velocity using acceleration and time, then determine whether the particle is speeding up or slowing down from the directions of v and a.",
-      answer: "Determine Δv from aΔt, then compare the directions/signs of v and a."
-    }
-  ],
-
   checkpoints: [
     {
-      id: "cp-01",
-      title: "Direction Check",
-      provenance: "DHD NEXUS CONCEPTUAL CHECKPOINT",
-      provenanceDetails:
-        "Kinematics — coordinate direction and physical motion",
-      prompt:
-        "Pause and reason before answering: If the positive direction is reversed, does the physical motion change?",
+      id: "cp-1-1",
+      title: "Distance vs. Displacement in a Security Patrol",
+      provenance: "DHD NEXUS CANONICAL CHECKPOINT",
+      provenanceDetails: "Approved Part 1 Checkpoint 1.1 — Security Patrol",
+      prompt: "A security guard at a university gate walks 50 m due East along a straight fence, then turns around and walks 20 m due West. The entire walk takes 70 seconds. Taking East as the positive direction, determine the requested motion quantities.",
+      pauseSeconds: 5,
       tasks: [
-        {
-          id: "cp-01-task-01",
-          label: "CONCEPT",
-          prompt:
-            "If the positive direction is reversed, does the physical motion change?",
-          correctAnswer: "No.",
-          reasoning:
-            "The coordinate description changes, but the physical motion does not."
-        }
+        { id: "cp-1-1-a", label: "(a) DISTANCE", prompt: "What is the total distance travelled?", correctAnswer: "70 m", reasoning: "Distance is the total path length: 50 m + 20 m = 70 m.", mathBlocks: ["d = 50\\,\\text{m} + 20\\,\\text{m} = 70\\,\\text{m}"] },
+        { id: "cp-1-1-b", label: "(b) DISPLACEMENT", prompt: "What is the net displacement?", correctAnswer: "+30 m (East)", reasoning: "Taking East as positive, the westward leg is negative: Δx = (+50 m) + (−20 m) = +30 m.", mathBlocks: ["\\Delta x = (+50\\,\\text{m}) + (-20\\,\\text{m}) = +30\\,\\text{m}"] },
+        { id: "cp-1-1-c", label: "(c) AVERAGE SPEED", prompt: "What is the guard's average speed?", correctAnswer: "1.0 m/s", reasoning: "Average speed uses total distance divided by total elapsed time: 70 m / 70 s = 1.0 m/s.", mathBlocks: ["v_{\\text{avg speed}} = \\frac{70\\,\\text{m}}{70\\,\\text{s}} = 1.0\\,\\text{m/s}"] },
+        { id: "cp-1-1-d", label: "(d) AVERAGE VELOCITY", prompt: "What is the guard's average velocity?", correctAnswer: "+0.43 m/s (East)", reasoning: "Average velocity uses displacement divided by elapsed time: +30 m / 70 s = +0.43 m/s, so the direction is East.", mathBlocks: ["v_{\\text{avg}} = \\frac{+30\\,\\text{m}}{70\\,\\text{s}} = +0.43\\,\\text{m/s}"] },
       ]
     },
-
     {
-      id: "cp-02",
-      title: "Sign Reasoning",
-      provenance: "DHD NEXUS CONCEPTUAL CHECKPOINT",
-      provenanceDetails:
-        "Kinematics — velocity and acceleration sign reasoning",
-      prompt:
-        "Pause and reason from the signs of velocity and acceleration.",
+      id: "cp-1-2",
+      title: "The Sign Meaning of Velocity and Acceleration",
+      provenance: "AUTHENTIC NIGERIAN UNIVERSITY EXAM",
+      provenanceDetails: "Ekiti State University, PHY 101, 2019/2020, Q2 (KIN-031)",
+      prompt: "When both the velocity and acceleration of an object have the same algebraic sign, it means the object:",
+      pauseSeconds: 5,
       tasks: [
-        {
-          id: "cp-02-task-01",
-          label: "SIGN REASONING",
-          prompt:
-            "If v < 0 and a < 0, is the particle slowing down?",
-          correctAnswer: "No.",
-          reasoning:
-            "Velocity and acceleration point in the same direction, so the particle speeds up."
-        }
+        { id: "cp-1-2-main", label: "MULTIPLE CHOICE", prompt: "Choose the correct answer.", options: ["(A) Slows down", "(B) Is at rest", "(C) Speeds up", "(D) None of the above"], correctAnswer: "(C) Speeds up", reasoning: "If both v and a are positive, the object moves forward while being accelerated forward. If both are negative, the object moves backward while being accelerated backward. In both cases, acceleration acts in the direction of motion, increasing the magnitude of velocity (speed)." }
       ]
     },
-
     {
-      id: "cp-03",
-      title: "Zero-State Check",
-      provenance: "DHD NEXUS CONCEPTUAL CHECKPOINT",
-      provenanceDetails:
-        "Kinematics — vertical motion and turning points",
-      prompt:
-        "At the top of a vertical throw, distinguish between instantaneous velocity and acceleration.",
+      id: "cp-1-3",
+      title: "The Meaning of Zero Acceleration",
+      provenance: "AUTHENTIC NIGERIAN UNIVERSITY EXAM",
+      provenanceDetails: "Adekunle Ajasin University, PHY 101, 2023/2024, Q7 (KIN-002)",
+      prompt: "An object moving at constant velocity has zero acceleration because:",
+      pauseSeconds: 5,
       tasks: [
-        {
-          id: "cp-03-task-01",
-          label: "TURNING POINT",
-          prompt:
-            "At the top of a vertical throw, is acceleration zero?",
-          correctAnswer: "No.",
-          reasoning:
-            "Velocity is momentarily zero, but gravitational acceleration remains downward."
-        }
+        { id: "cp-1-3-main", label: "MULTIPLE CHOICE", prompt: "Choose the correct answer.", options: ["(A) Final velocity equals initial velocity (Δv = 0)", "(B) Final velocity equals two times initial velocity", "(C) Final velocity equals half of initial velocity", "(D) All of the above"], correctAnswer: "(A) Final velocity equals initial velocity (Δv = 0)", reasoning: "Acceleration is the rate of change of velocity. If velocity is constant, vf = vi, so Δv = 0, which requires a = 0 m/s².", mathBlocks: ["a = \\frac{\\Delta v}{\\Delta t}", "v_f = v_i \\Rightarrow \\Delta v = 0 \\Rightarrow a = 0\\,\\text{m/s}^2"] }
       ]
     }
   ]
+
 };
 

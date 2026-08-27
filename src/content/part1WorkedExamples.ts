@@ -130,24 +130,29 @@ export const part1WorkedExamples: WorkedExample[] = [
 
   {
     id: "we-03",
-    title: "Sign Reasoning and the Turning Point",
+    title: "Sign Reasoning, Opposing Rates, and the Turning Point",
     provenance: "ADAPTED ACADEMIC PROBLEM",
     provenanceDetails:
       "Adapted from OpenStax University Physics Vol 1, Chapter 3 Conceptual Exercises by DHD Nexus",
     problemStatement:
-      "A cart moves along a straight track where +x is defined to the right. At t = 0, the cart is at x = +10.0 m with velocity v = +6.0 m/s and constant acceleration a = -2.0 m/s² directed to the left. Without using kinematic formulas, analyze its motion, turning point, and post-reversal behavior.",
+      "A motorized test cart moves along a straight horizontal track. The positive direction (+x) points to the right (East). At an instant t₀, the cart is at x = +10.0 m, moving right with v = +6.0 m/s, while its constant acceleration is a = −2.0 m/s² to the left. Without using v = u + at, answer the five physical-reasoning questions: (1) direction of motion, (2) direction of acceleration, (3) speeding up or slowing down, (4) what happens as v reaches zero, and (5) what happens after reversal if the same acceleration continues.",
     lecturerNotes:
       "Strictly avoid v = u + at calculations. Focus purely on directional signs, vector opposition, and the physical turning point.",
     steps: [
       {
         stepName: "PROBLEM",
         content:
-          "Determine motion direction, acceleration direction, speeding up vs slowing down, and turning point state without SUVAT formulas.",
+          "Analyze the cart strictly from velocity, acceleration, coordinate signs, and physical direction — without using v = u + at.",
+      },
+      {
+        stepName: "THINK",
+        content:
+          "Answer these five questions before revealing the solution: 1) Which direction is the cart moving? 2) Which direction does acceleration point? 3) Is it speeding up or slowing down? 4) What happens when v reaches 0? 5) If a = −2.0 m/s² continues, what happens after the reversal?",
       },
       {
         stepName: "WHAT IS HAPPENING?",
         content:
-          "The cart travels rightward, but experiences an opposing leftward pull. It slows down to a momentary stop, reverses, and speeds up moving leftward.",
+          "The cart travels rightward while acceleration points leftward. The opposing acceleration reduces the rightward speed until the cart reaches a momentary turning point, then the continuing leftward acceleration makes the cart move leftward and speed up.",
       },
       {
         stepName: "REFERENCE FRAME",
@@ -166,7 +171,7 @@ export const part1WorkedExamples: WorkedExample[] = [
       {
         stepName: "SOLUTION",
         content:
-          "1. At t = 0: Moving right, slowing down because v and a have opposite signs.\n2. At turning point: Velocity is momentarily v = 0, but acceleration is STILL a = -2.0 m/s².\n3. Post-reversal: Cart moves left (v < 0) with a < 0. Since both signs are now negative, it is SPEEDING UP in the negative direction.",
+          "1. At t₀: v = +6.0 m/s, so the cart moves East. 2. a = −2.0 m/s², so acceleration points West. 3. v and a have opposite signs, so the cart is slowing down. 4. As speed is removed, v reaches 0 at a momentary turning point while a remains non-zero. 5. The continuing leftward acceleration reverses the cart; after reversal v < 0 and a < 0, so the cart speeds up Westward.",
       },
       {
         stepName: "INTERPRETATION",
