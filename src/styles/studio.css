@@ -1998,135 +1998,836 @@ h1 {
    Lecture Note renderer
    ------------------------------------------------------------ */
 
+/* Lecture Note renderer â€” replacement block only */
+
 .lecture-note-view {
   min-width: 0;
   max-width: 100%;
-  overflow-x: hidden;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
 }
 
 .lecture-note-content {
   min-width: 0;
-  max-width: 900px;
-  margin: 1.5rem auto 0;
-  overflow-x: auto;
-  line-height: 1.72;
-  color: var(--text-primary, #eaf0f7);
-}
-
-.lecture-note-content h1,
-.lecture-note-content h2,
-.lecture-note-content h3,
-.lecture-note-content h4 {
-  color: var(--text-primary, #ffffff);
-  line-height: 1.25;
-  margin-top: 1.8rem;
-  margin-bottom: 0.75rem;
+  max-width: 960px;
+  margin: 2rem auto 0;
+  line-height: 1.8;
+  color: var(--text, #0f172a);
+  font-size: 1rem;
 }
 
 .lecture-note-content h1 {
-  font-size: 1.55rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text, #0f172a);
+  padding-bottom: 0.6rem;
+  margin: 2.2rem 0 1.2rem;
+  border-bottom: 2px solid var(--cyan, #38bdf8);
 }
 
 .lecture-note-content h2 {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--cyan, #38bdf8);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 2.5rem 0 1rem;
 }
 
 .lecture-note-content h3 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text, #0f172a);
+  margin: 2rem 0 0.8rem;
+}
+
+.lecture-note-content h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cyan, #38bdf8);
+  margin: 1.5rem 0 0.6rem;
 }
 
 .lecture-note-content p {
-  margin: 0.7rem 0;
+  margin: 0.9rem 0;
+  color: var(--text, #0f172a);
+  line-height: 1.8;
+}
+
+.lecture-note-content hr {
+  margin: 2.2rem 0;
+  border: 0;
+  border-top: 1px solid var(--border, #cbd5e1);
 }
 
 .lecture-note-content ul,
 .lecture-note-content ol {
-  margin: 0.7rem 0 0.9rem 1.4rem;
-  padding-left: 1rem;
+  margin: 0.8rem 0 1.2rem 1.4rem;
+  padding-left: 0.8rem;
 }
 
 .lecture-note-content li {
-  margin: 0.35rem 0;
+  margin: 0.45rem 0;
+  line-height: 1.75;
+  color: var(--text, #0f172a);
 }
 
-.lecture-note-content hr {
-  margin: 1.5rem 0;
-  border: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+.lecture-note-content strong {
+  color: var(--text, #0f172a);
+  font-weight: 600;
 }
 
-.lecture-note-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0 1.4rem;
-  font-size: 0.9rem;
-}
-
-.lecture-note-content th,
-.lecture-note-content td {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  padding: 0.65rem 0.75rem;
-  text-align: left;
-  vertical-align: top;
-}
-
-.lecture-note-content th {
-  font-weight: 700;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.lecture-note-content pre {
-  margin: 1rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  overflow-x: auto;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  font-family: "Cascadia Mono", "Consolas", monospace;
-  font-size: 0.82rem;
-  line-height: 1.55;
-}
-
-.lecture-note-content code {
-  font-family: "Cascadia Mono", "Consolas", monospace;
-}
-
-.lecture-note-content :not(pre) > code {
-  padding: 0.1rem 0.3rem;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
+.lecture-note-content blockquote {
+  margin: 1.8rem 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  background: var(--bg-card, rgba(127, 127, 127, 0.08));
+  border: 1px solid var(--border, #cbd5e1);
+  border-left: 4px solid var(--cyan, #38bdf8);
 }
 
 .lecture-note-content .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0.35rem 0;
-  margin: 1rem 0;
+  padding: 0.85rem 1.2rem;
+  margin: 1.2rem 0;
+  background: var(--bg-base, rgba(0, 0, 0, 0.08));
+  border: 1px solid var(--border, #cbd5e1);
+  border-radius: 8px;
+  text-align: center;
 }
 
 .lecture-note-content .katex {
-  font-size: 1.05em;
+  font-size: 1.08em;
+}
+
+.lecture-note-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0 2rem;
+  border: 1px solid var(--border, #cbd5e1);
+  border-radius: 10px;
+  background: var(--bg-card, rgba(127, 127, 127, 0.08));
+}
+
+.lecture-note-content table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.lecture-note-content th,
+.lecture-note-content td {
+  border: 1px solid var(--border, #cbd5e1);
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.lecture-note-content th {
+  background: var(--bg-panel, rgba(127, 127, 127, 0.12));
+  color: var(--cyan, #38bdf8);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lecture-note-content code {
+  font-family: "Cascadia Mono", "Consolas", monospace;
+  font-size: 0.88em;
+}
+
+.lecture-note-content :not(pre) > code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  background: rgba(127, 127, 127, 0.12);
+  color: var(--cyan, #38bdf8);
+}
+
+.lecture-note-spacer {
+  height: 0.35rem;
 }
 
 @media (max-width: 760px) {
+  .lecture-note-view {
+    padding: 1rem 0.75rem 3rem;
+  }
+
   .lecture-note-content {
     max-width: 100%;
-    overflow-x: auto;
+  }
+
+  .lecture-note-content blockquote {
+    padding: 1rem 1.1rem;
   }
 
   .lecture-note-content table {
-    min-width: 620px;
+    min-width: 720px;
+  }
+}
+
+
+
+
+
+/* ============================================================
+   PART 1 FINAL RESPONSIVE VISUAL POLISH
+   Prevent conceptual visual cards and explanatory text from
+   overflowing their parent containers at narrow widths.
+   ============================================================ */
+
+/* Allow grid children to shrink inside their parent. */
+.sv-comparison,
+.zva-grid {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Prevent long explanatory content from forcing card expansion. */
+.sv-card,
+.sv-question,
+.sv-formula,
+.sv-type,
+.zva-case,
+.zva-equations,
+.visual-teaching-note {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* The two-card Zero Velocity ≠ Zero Acceleration layout must
+   consume the available desktop width rather than overflow it. */
+.zva-grid {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+/* Keep the interactive journey content contained. */
+.journey-visual,
+.journey-svg,
+.coordinate-readout,
+.visual-teaching-note {
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Narrow-screen protection. */
+@media (max-width: 700px) {
+  .sv-comparison,
+  .zva-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .checkpoint-controls {
-    align-items: stretch;
+  .sv-divider,
+  .zva-divider {
+    justify-self: center;
   }
 
-  .checkpoint-controls button,
-  .practice-card > button {
-    min-height: 42px;
+  .sv-card,
+  .zva-case {
+    width: 100%;
+  }
+
+  .sv-question,
+  .visual-teaching-note {
+    overflow-wrap: anywhere;
+  }
+
+  .journey-visual {
+    overflow-x: auto;
+  }
+}
+
+/* ============================================================
+   PART 1 — FINAL RESPONSIVE CONTAINMENT FIX
+   ------------------------------------------------------------
+   Purpose:
+   - Allow text-bearing visual components to shrink correctly.
+   - Prevent intrinsic content width from expanding grid/flex items.
+   - Keep explanatory text inside its visual container.
+   - Keep Zero Velocity ≠ Zero Acceleration within the viewport.
+   - Preserve intentional horizontal scrolling for large SVGs.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. UNIVERSAL BOX SIZING FOR VISUAL SUBSYSTEM
+   ------------------------------------------------------------ */
+
+.concept-visual *,
+.speed-velocity-visual *,
+.zva-visual *,
+.interactive-visual * {
+  box-sizing: border-box;
+}
+
+
+/* ------------------------------------------------------------
+   2. ROOT VISUAL CONTAINERS MUST BE SHRINKABLE
+   ------------------------------------------------------------ */
+
+.concept-visual,
+.speed-velocity-visual,
+.zva-visual,
+.interactive-visual {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+
+/* ------------------------------------------------------------
+   3. TEXT CONTAINMENT
+   ------------------------------------------------------------
+   The previous overflow-wrap rule alone was insufficient because
+   an ancestor/grid item could still retain an intrinsic minimum
+   width. These rules explicitly permit the text boxes to shrink.
+   ------------------------------------------------------------ */
+
+.concept-visual-header,
+.concept-visual-header *,
+.sv-card,
+.sv-card *,
+.sv-question,
+.sv-formula,
+.sv-type,
+.zva-header,
+.zva-header *,
+.zva-case,
+.zva-case *,
+.zva-case-label,
+.zva-equations,
+.zva-equations *,
+.zva-takeaway,
+.zva-takeaway *,
+.visual-header,
+.visual-header *,
+.visual-teaching-note,
+.visual-teaching-note *,
+.coordinate-readout,
+.coordinate-readout * {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+
+/* ------------------------------------------------------------
+   4. SPEED VS VELOCITY
+   ------------------------------------------------------------ */
+
+.sv-comparison {
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.sv-card {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.sv-question {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+
+/* ------------------------------------------------------------
+   5. ZERO VELOCITY ≠ ZERO ACCELERATION
+   ------------------------------------------------------------
+   Critical fix:
+   Each case is explicitly allowed to shrink below its
+   content's intrinsic width.
+   ------------------------------------------------------------ */
+
+.zva-grid {
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.zva-case {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.zva-case > *,
+.zva-equations > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.zva-case-label,
+.zva-equations {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+
+/* ------------------------------------------------------------
+   6. DISTANCE / DISPLACEMENT TEXT
+   ------------------------------------------------------------ */
+
+.visual-teaching-note {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.visual-teaching-note strong,
+.visual-teaching-note span,
+.visual-teaching-note p {
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+
+/* ------------------------------------------------------------
+   7. INTERACTIVE VISUAL HEADER / DESCRIPTION
+   ------------------------------------------------------------ */
+
+.visual-header {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.visual-header > *,
+.visual-header p,
+.visual-header h1,
+.visual-header h2,
+.visual-header h3 {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+
+/* ------------------------------------------------------------
+   8. COORDINATE READOUT
+   ------------------------------------------------------------ */
+
+.coordinate-readout {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.coordinate-readout > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+
+/* ------------------------------------------------------------
+   9. LARGE SVG / JOURNEY VISUAL
+   ------------------------------------------------------------
+   The SVG itself may legitimately be wider than a narrow viewport.
+   Keep scrolling INSIDE the graphical region rather than allowing
+   the text/layout system to expand the entire page.
+   ------------------------------------------------------------ */
+
+.journey-visual {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.journey-svg {
+  display: block;
+  max-width: none;
+}
+
+
+/* ------------------------------------------------------------
+   10. NARROW VIEWPORT
+   ------------------------------------------------------------
+   Once the two-column comparison becomes too narrow, stack the
+   conceptual cards vertically. This is preferable to clipping.
+   ------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+
+  .sv-comparison,
+  .zva-grid {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sv-card,
+  .zva-case {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .sv-divider,
+  .zva-divider {
+    justify-self: center;
+    align-self: center;
+    margin: 0.35rem 0;
+  }
+
+  .sv-question,
+  .sv-formula,
+  .zva-equations,
+  .visual-teaching-note {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   11. VERY NARROW DEVICES
+   ------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+
+  .concept-visual,
+  .zva-visual,
+  .interactive-visual,
+  .sv-card,
+  .zva-case {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .concept-visual-header,
+  .visual-header,
+  .zva-header {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .sv-question,
+  .zva-equations,
+  .visual-teaching-note {
+    font-size: 0.95em;
+    line-height: 1.6;
+  }
+}
+
+
+/* ============================================================
+   PART 1 — TARGETED VISUAL TEXT CONTAINMENT
+   ------------------------------------------------------------
+   These rules address the actual text-bearing elements inside
+   the Part 1 interactive visuals.
+
+   IMPORTANT:
+   - No TypeScript/content changes.
+   - No redesign.
+   - No forced page-wide horizontal scrolling.
+   - Graphical SVG regions retain their existing behavior.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. VISUAL COMPONENTS MUST BE SHRINKABLE
+   ------------------------------------------------------------ */
+
+.speed-velocity-visual,
+.instantaneous-velocity-visual,
+.acceleration-visual,
+.interactive-visual,
+.zva-visual {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+
+/* ------------------------------------------------------------
+   2. SPEED VS VELOCITY
+   ------------------------------------------------------------ */
+
+.sv-comparison {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.sv-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.sv-question,
+.sv-formula,
+.sv-type,
+.sv-takeaway {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.sv-takeaway {
+  display: block;
+}
+
+
+/* ------------------------------------------------------------
+   3. INSTANTANEOUS VELOCITY
+   ------------------------------------------------------------ */
+
+.iv-intro,
+.iv-takeaway {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.iv-controls,
+.iv-display,
+.iv-formula {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.iv-metric {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.iv-metric span,
+.iv-metric strong,
+.iv-formula span,
+.iv-formula strong,
+.iv-takeaway strong {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+
+/* ------------------------------------------------------------
+   4. ACCELERATION
+   ------------------------------------------------------------ */
+
+.acc-intro,
+.acc-takeaway {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.acc-controls,
+.acc-display,
+.acc-equation,
+.acc-change {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.acc-control,
+.acc-metric {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.acc-control label,
+.acc-change strong,
+.acc-takeaway strong {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+
+/* ------------------------------------------------------------
+   5. DISTANCE VS DISPLACEMENT
+   ------------------------------------------------------------ */
+
+/* The descriptive paragraph immediately below the visual title. */
+.visual-header {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.visual-header > div {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.visual-header p {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* The teaching point beneath the readout. */
+.visual-teaching-note {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.visual-teaching-note strong {
+  white-space: normal;
+}
+
+
+/* ------------------------------------------------------------
+   6. ZERO VELOCITY ≠ ZERO ACCELERATION
+   ------------------------------------------------------------ */
+
+.zva-grid {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.zva-case {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.zva-case p,
+.zva-case h4,
+.zva-equations,
+.zva-takeaway {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.zva-diagram {
+  max-width: 100%;
+}
+
+
+/* ------------------------------------------------------------
+   7. MOBILE / NARROW VIEW
+   ------------------------------------------------------------ */
+
+@media (max-width: 700px) {
+
+  .sv-comparison,
+  .zva-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sv-card,
+  .zva-case,
+  .iv-intro,
+  .iv-takeaway,
+  .acc-intro,
+  .acc-takeaway,
+  .visual-header p,
+  .visual-teaching-note {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .sv-divider,
+  .zva-divider {
+    justify-self: center;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   8. VERY NARROW VIEWPORT PROTECTION
+   ------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+
+  .speed-velocity-visual,
+  .instantaneous-velocity-visual,
+  .acceleration-visual,
+  .interactive-visual,
+  .zva-visual {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sv-takeaway,
+  .iv-intro,
+  .iv-takeaway,
+  .acc-intro,
+  .acc-takeaway,
+  .visual-header p,
+  .visual-teaching-note {
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 }
 

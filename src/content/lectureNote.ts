@@ -1,1 +1,244 @@
-export const comprehensiveLectureNote = '# 12. COMPREHENSIVE LECTURE NOTE (TEXTBOOK-GRADE REFERENCE)\n\n─────────────────────────────────────────────────────────────────────────────────────\n\n## CHAPTER 1: THE LANGUAGE OF MOTION\n\n\n## 1.1 Mechanics and the Role of Kinematics\n\nClassical mechanics is divided into two primary disciplines:\nKinematics:\xa0The branch of mechanics that describes the spatial and temporal properties of motion—position, displacement, velocity, and acceleration—without considering the masses or forces that create or alter that motion.\nDynamics:\xa0The study of how forces acting on masses determine the kinematic behavior of systems.\nKinematics is the geometric and temporal foundation upon which all of physics and mechanical engineering is built.\n─────────────────────────────────────────────────────────────────────────────────────\n\n## 1.2 Reference Frames, Coordinate Systems, and Position\n\nMotion is inherently relational. An object cannot be described as "in motion" without defining an observer\'s perspective.\n\n## Definition: Reference Frame\n\nA\xa0Reference Frame\xa0is a physical coordinate system (origin and spatial axes) combined with a synchronized clock relative to which an observer measures the spatial coordinates and temporal evolution of an event.\n\n## One-Dimensional Position Coordinate (\n\nxx\n)\nIn one-dimensional (1D) rectilinear motion, a particle is constrained to move along a straight line. We construct:\nAn\xa0Origin (\nOO\n):\xa0A fixed reference location where the spatial coordinate is defined as zero (\nx=0x=0\n).\nA\xa0Positive Direction (\n+x+x\n):\xa0A chosen orientation along the line. The opposite orientation is defined as the negative direction (\n−x−x\n).\nThe\xa0Position Coordinate\nx(t)x(t)\nof a particle is its location along the axis at time\ntt\n. In 1D kinematics, the algebraic sign (\n±±\n) completely specifies the direction of the particle relative to the origin:\n-\nx>0x>0\n: The particle is on the positive side of the origin.\n-\nx<0x<0\n: The particle is on the negative side of the origin.\n-\nx=0x=0\n: The particle is located exactly at the origin.\nSI\xa0Unit\xa0of\xa0Position:\xa0Metre\xa0(m)SI\xa0Unit\xa0of\xa0Position:\xa0Metre\xa0(m)\n─────────────────────────────────────────────────────────────────────────────────────\n\n## 1.3 Distance and Displacement\n\ncodeCode\nPath Traversed (Distance d)\n            ╭─────────────────────────────────────────╮\n           A ●                                         ● B\n            ╰─────────────────────────────────────────►\n                    Net Displacement (Δx)\n\n## Definition: Distance (\n\ndd\n)\nDistance\xa0is a scalar quantity equal to the total length of the continuous path traversed by a particle during a time interval\n`\nΔt=tf−tiΔt=tf\u200b−ti\u200b\n`\n.\nProperties of Distance:\n1.\nd≥0d≥0\nunder all physical conditions.\nDistance is monotonically non-decreasing over time:\nΔd≥0Δd≥0\n.\nDistance is strictly path-dependent.\n\n## Definition: Displacement (\n\nΔxΔx\n)\nDisplacement\xa0is a vector quantity defined as the straight-line change in position coordinate between initial time\n`\ntiti\u200b\n`\nand final time\n`\ntftf\u200b\n`\n:\n`\nΔx=x(tf)−x(ti)=xf−xiΔx=x(tf\u200b)−x(ti\u200b)=xf\u200b−xi\u200b\n`\nProperties of Displacement:\n1.\nΔxΔx\ncan be positive, negative, or zero.\nDisplacement is path-independent; it depends exclusively on the initial and final endpoints (\nxi,xfxi\u200b,xf\u200b\n).\nThe magnitude of displacement is always less than or equal to the distance travelled:\n∣Δx∣≤d∣Δx∣≤d\nEquality (\n∣Δx∣=d∣Δx∣=d\n) holds if and only if motion along the straight line occurs without any change in direction.\n─────────────────────────────────────────────────────────────────────────────────────\n\n## 1.4 Speed and Velocity\n\n\n## Average Speed (\n\nvavgvavg\u200b\n)\nAverage Speed\xa0is the total scalar distance traversed divided by the total time elapsed:\n`\nvavg=dtotalΔt=dtotaltf−tivavg\u200b=Δtdtotal\u200b\u200b=tf\u200b−ti\u200bdtotal\u200b\u200b\n`\nSince\n`\nd≥0d≥0\n`\nand\n`\nΔt>0Δt>0\n`\n, average speed is always non-negative (\n`\nvavg≥0vavg\u200b≥0\n`\n).\n\n## Average Velocity (\n\nvavgvavg\u200b\n)\nAverage Velocity\xa0is the net displacement divided by the total time elapsed:\n`\nvavg=ΔxΔt=xf−xitf−tivavg\u200b=ΔtΔx\u200b=tf\u200b−ti\u200bxf\u200b−xi\u200b\u200b\n`\nIn 1D, average velocity carries an algebraic sign:\n-\nvavg>0⟹vavg\u200b>0⟹\nNet displacement is in the\n+x+x\ndirection.\n-\nvavg<0⟹vavg\u200b<0⟹\nNet displacement is in the\n−x−x\ndirection.\n-\nvavg=0⟹vavg\u200b=0⟹\nThe particle returned to its starting position (\nxf=xixf\u200b=xi\u200b\n).\n\n## Mathematical Note: The Harmonic Mean of Speeds\n\nFor an object travelling two consecutive legs of equal distance\nLL\nat speeds\nv1v1\u200b\nand\nv2v2\u200b\n:\nt1=Lv1,t2=Lv2⟹ttotal=L(1v1+1v2)=L(v1+v2v1v2)t1\u200b=v1\u200bL\u200b,t2\u200b=v2\u200bL\u200b⟹ttotal\u200b=L(v1\u200b1\u200b+v2\u200b1\u200b)=L(v1\u200bv2\u200bv1\u200b+v2\u200b\u200b)\nvavg=dtotalttotal=2LL(v1+v2v1v2)=2v1v2v1+v2vavg\u200b=ttotal\u200bdtotal\u200b\u200b=L(v1\u200bv2\u200bv1\u200b+v2\u200b\u200b)2L\u200b=v1\u200b+v2\u200b2v1\u200bv2\u200b\u200b\nThis harmonic mean reflects the fact that average speed is inherently time-weighted.\n\n## Instantaneous Velocity (\n\nvv\n)\nInstantaneous Velocity\xa0is the time rate of change of position at a specific instant\n`\ntt\n`\n, defined as the limit of average velocity as\n`\nΔt→0Δt→0\n`\n:\n`\nv(t)=lim\u2061Δt→0ΔxΔt=dxdtv(t)=Δt→0lim\u200bΔtΔx\u200b=dtdx\u200b\n`\n\n## Instantaneous Speed (\n\nss\nor\n∣v∣∣v∣\n)\nInstantaneous Speed\xa0is the absolute magnitude of the instantaneous velocity:\ns(t)=∣v(t)∣=∣dxdt∣s(t)=∣v(t)∣=\u200bdtdx\u200b\u200b\nUnlike average quantities, instantaneous speed is always equal to the magnitude of instantaneous velocity.\n─────────────────────────────────────────────────────────────────────────────────────\n\n## 1.5 Acceleration\n\n\n## Definition: Average Acceleration (\n\naavgaavg\u200b\n)\nAverage Acceleration\xa0is the change in velocity divided by the elapsed time:\n`\naavg=ΔvΔt=vf−vitf−tiaavg\u200b=ΔtΔv\u200b=tf\u200b−ti\u200bvf\u200b−vi\u200b\u200b\n`\n\n## Definition: Instantaneous Acceleration (\n\naa\n)\nInstantaneous Acceleration\xa0is the limit of average acceleration as\n`\nΔt→0Δt→0\n`\n:\n`\na(t)=lim\u2061Δt→0ΔvΔt=dvdt=d2xdt2a(t)=Δt→0lim\u200bΔtΔv\u200b=dtdv\u200b=dt2d2x\u200b\n`\nSI\xa0Unit\xa0of\xa0Acceleration:\xa0Metre\xa0per\xa0second\xa0squared\xa0(m/s2\xa0or\xa0m⋅s−2)SI\xa0Unit\xa0of\xa0Acceleration:\xa0Metre\xa0per\xa0second\xa0squared\xa0(m/s2\xa0or\xa0m⋅s−2)\nDimensional\xa0Formula:\xa0[a]=[LT−2]Dimensional\xa0Formula:\xa0[a]=[LT−2]\n─────────────────────────────────────────────────────────────────────────────────────\n\n## 1.6 The Four\n\n(v,a)(v,a)\nSign Combinations\nIn 1D kinematics, the algebraic signs of\nvv\nand\naa\nprovide complete information about the direction of motion and whether speed is increasing or decreasing:\ncodeCode\nSIGN OF VELOCITY v\n                           Positive (v > 0)    Negative (v < 0)\n                         ┌───────────────────┬───────────────────┐\n       Positive (a > 0)  │    SPEEDING UP    │   SLOWING DOWN    │\n                         │   (Moving in +x)  │   (Moving in -x)  │\n  SIGN OF                ├───────────────────┼───────────────────┤\n  ACCELERATION a         │   SLOWING DOWN    │    SPEEDING UP    │\n       Negative (a < 0)  │   (Moving in +x)  │   (Moving in -x)  │\n                         └───────────────────┴───────────────────┘\n\n## The Universal Sign Rule:\n\n-\nsgn\u2061(v)=sgn\u2061(a)⟹sgn(v)=sgn(a)⟹\nSpeeding Up\xa0(Vectors point in the same direction; acceleration reinforces velocity).\n-\nsgn\u2061(v)≠sgn\u2061(a)⟹sgn(v)\ue020=sgn(a)⟹\nSlowing Down\xa0(Vectors point in opposite directions; acceleration opposes velocity).\n─────────────────────────────────────────────────────────────────────────────────────';
+export const comprehensiveLectureNote = `# 12. COMPREHENSIVE LECTURE NOTE (TEXTBOOK-GRADE REFERENCE)
+
+---
+
+## CHAPTER 1: THE LANGUAGE OF MOTION
+
+---
+
+### 1.1 Mechanics and the Role of Kinematics
+
+Classical mechanics is the branch of physics dedicated to quantifying, predicting, and explaining the motion of macroscopic bodies. It is logically structured into two primary disciplines:
+
+- **Kinematics**: The geometric and temporal description of motion over space and time—specifying position, displacement, velocity, and acceleration—without considering the masses of the bodies or the physical forces that create or alter that motion.
+- **Dynamics**: The causal study of motion, examining how forces, energy, and momentum interactions acting upon mass determine kinematic trajectories.
+
+Kinematics provides the foundational mathematical framework for all subsequent physical mechanics, orbital trajectories, robotics, and classical field theories.
+
+---
+
+### 1.2 Reference Frames, Coordinate Systems, and Position
+
+Motion is fundamentally relational. An object cannot be described as being "at rest" or "in motion" without explicitly defining an observer's frame of reference.
+
+> #### DEFINITION: Reference Frame
+> A **Reference Frame** is a physical coordinate system (comprising an origin and spatial axes) combined with a synchronized clock relative to which an observer quantifies the spatial coordinates and temporal evolution of physical events.
+
+#### One-Dimensional Position Coordinate ($x$)
+
+In one-dimensional (1D) rectilinear kinematics, a particle is constrained to move along a single straight line. We construct:
+
+1. **Origin ($O$)**: A fixed reference datum where the spatial coordinate is defined to be zero ($x = 0\\text{ m}$).
+2. **Positive Direction ($+x$)**: A chosen spatial orientation along the axis. The diametrically opposite orientation is defined as the negative direction ($-x$).
+
+The **Position Coordinate** $x(t)$ denotes the particle's directed location along the axis relative to the origin at time $t$. In 1D kinematics, the algebraic sign ($+$ or $-$) completely specifies the orientation of the particle relative to the origin:
+
+- $x > 0$: The particle is located on the positive side of the origin.
+- $x < 0$: The particle is located on the negative side of the origin.
+- $x = 0$: The particle is positioned precisely at the coordinate origin.
+
+**SI Unit of Position:** Metre ($\\text{m}$)  
+**Dimensional Symbol:** $[x] = [\\text{L}]$
+
+\`\`\`interactive:coordinate-system
+Interactive 1D Coordinate & Position Demonstration
+\`\`\`
+
+---
+
+### 1.3 Distance and Displacement
+
+A central conceptual distinction in kinematics exists between the scalar arc length of a path traversed and the net vector change in coordinate position.
+
+\`\`\`diagram:displacement
+Path Traversed (Distance d) vs Net Displacement (Δx)
+\`\`\`
+
+> #### DEFINITION: Distance ($d$)
+> **Distance** ($d$) is a scalar physical quantity equal to the total accumulated length of the continuous path traversed by a particle during a time interval $\\Delta t = t_f - t_i$:
+>
+> $$d = \\int_{t_i}^{t_f} |v(t)|\\,dt$$
+>
+> **Fundamental Properties of Distance:**
+> 1. **Non-Negativity:** $d \\ge 0$ under all physical conditions.
+> 2. **Monotonic Accumulation:** Distance is monotonically non-decreasing over time ($\\Delta d \\ge 0$). A moving body continuously accumulates distance regardless of its direction of travel.
+> 3. **Strict Path-Dependence:** Distance depends on the geometric details of the trajectory connecting the initial and final endpoints.
+
+> #### DEFINITION: Displacement ($\\Delta x$)
+> **Displacement** ($\\Delta x$) is a vector quantity representing the net straight-line change in position coordinate between initial time $t_i$ and final time $t_f$:
+>
+> $$\\Delta x = x(t_f) - x(t_i) = x_f - x_i = \\int_{t_i}^{t_f} v(t)\\,dt$$
+>
+> **Fundamental Properties of Displacement:**
+> 1. **Signed Real Value:** In 1D, $\\Delta x$ can be positive, negative, or zero.
+> 2. **Strict Path-Independence:** Displacement depends exclusively on the endpoints ($x_i, x_f$), completely independent of intermediate trajectory.
+> 3. **Bounding Inequality:** The magnitude of displacement is always bounded by the scalar distance traversed:
+>
+> $$|\\Delta x| \\le d$$
+>
+> *Equality ($|\\Delta x| = d$) holds if and only if rectilinear motion proceeds without any reversal of direction.*
+
+---
+
+### 1.4 Speed and Velocity
+
+#### Average Speed ($v_{\\text{avg}}$)
+
+**Average Speed** is the total scalar distance traversed divided by the total time elapsed:
+
+$$v_{\\text{avg}} = \\frac{d_{\\text{total}}}{\\Delta t} = \\frac{d_{\\text{total}}}{t_f - t_i}$$
+
+Because $d_{\\text{total}} \\ge 0$ and $\\Delta t > 0$, average speed is strictly non-negative ($v_{\\text{avg}} \\ge 0$).
+
+#### Average Velocity ($v_{\\text{avg}}$ or $\\bar{v}$)
+
+**Average Velocity** is the net displacement divided by the total elapsed time:
+
+$$\\bar{v} = \\frac{\\Delta x}{\\Delta t} = \\frac{x_f - x_i}{t_f - t_i}$$
+
+In 1D rectilinear kinematics, the algebraic sign of $\\bar{v}$ conveys the net direction of positional translation:
+
+- $\\bar{v} > 0 \\implies$ Net displacement is directed toward the $+x$ orientation.
+- $\\bar{v} < 0 \\implies$ Net displacement is directed toward the $-x$ orientation.
+- $\\bar{v} = 0 \\implies$ The particle's final position coincides with its initial position ($x_f = x_i$), regardless of total distance travelled.
+
+\`\`\`interactive:speed-velocity
+Comparative Visualizer: Scalar Speed versus Vector Velocity
+\`\`\`
+
+> #### MATHEMATICAL NOTE: The Harmonic Mean of Speeds
+> Consider an object that traverses two consecutive segments of equal distance $L$ at speeds $v_1$ and $v_2$.
+>
+> The transit times for the individual segments are:
+> $$t_1 = \\frac{L}{v_1}, \\quad t_2 = \\frac{L}{v_2}$$
+>
+> The total elapsed time is:
+> $$t_{\\text{total}} = t_1 + t_2 = L\\left(\\frac{1}{v_1} + \\frac{1}{v_2}\\right) = L\\left(\\frac{v_1 + v_2}{v_1 v_2}\\right)$$
+>
+> Therefore, the overall average speed across the total distance $2L$ is:
+> $$v_{\\text{avg}} = \\frac{d_{\\text{total}}}{t_{\\text{total}}} = \\frac{2L}{L\\left(\\frac{v_1 + v_2}{v_1 v_2}\\right)} = \\frac{2 v_1 v_2}{v_1 + v_2}$$
+>
+> *Pedagogical Insight: Average speed is a time-weighted harmonic mean, not an arithmetic mean. Because more time is spent on the slower segment, the lower speed exerts a proportionally larger influence on the overall average.*
+
+#### Instantaneous Velocity ($v(t)$)
+
+**Instantaneous Velocity** is the instantaneous time rate of change of position at a specific temporal instant $t$, defined as the calculus limit of average velocity as $\\Delta t \\to 0$:
+
+$$v(t) = \\lim_{\\Delta t \\to 0} \\frac{\\Delta x}{\\Delta t} = \\lim_{\\Delta t \\to 0} \\frac{x(t + \\Delta t) - x(t)}{\\Delta t} = \\frac{dx}{dt}$$
+
+Geometrically, instantaneous velocity at time $t$ corresponds to the **slope of the tangent line** to the position-time curve $x(t)$.
+
+#### Instantaneous Speed ($s(t)$ or $|v(t)|$)
+
+**Instantaneous Speed** is the absolute magnitude of instantaneous velocity:
+
+$$s(t) = |v(t)| = \\left|\\frac{dx}{dt}\\right|$$
+
+*Distinction Note: While average speed generally does not equal the magnitude of average velocity ($v_{\\text{avg}} \\neq |\\bar{v}|$), instantaneous speed is always identically equal to the magnitude of instantaneous velocity.*
+
+\`\`\`interactive:instantaneous-velocity
+Limit Explorer: Secant Slopes Approaching the Tangent Line
+\`\`\`
+
+---
+
+### 1.5 Acceleration
+
+#### Average Acceleration ($a_{\\text{avg}}$ or $\\bar{a}$)
+
+**Average Acceleration** is the change in velocity divided by the corresponding elapsed time:
+
+$$\\bar{a} = \\frac{\\Delta v}{\\Delta t} = \\frac{v_f - v_i}{t_f - t_i}$$
+
+#### Instantaneous Acceleration ($a(t)$)
+
+**Instantaneous Acceleration** is the time rate of change of velocity at a specific instant $t$, defined as the limit of average acceleration as $\\Delta t \\to 0$:
+
+$$a(t) = \\lim_{\\Delta t \\to 0} \\frac{\\Delta v}{\\Delta t} = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$$
+
+- **SI Unit of Acceleration:** Metre per second squared ($\\text{m/s}^2$ or $\\text{m}\\cdot\\text{s}^{-2}$)
+- **Dimensional Formula:** $[a] = [\\text{L}\\text{T}^{-2}]$
+
+Geometrically, instantaneous acceleration corresponds to the **slope of the tangent line** to the velocity-time curve $v(t)$, and to the **algebraic concavity (second time derivative)** of the position-time curve $x(t)$.
+
+\`\`\`interactive:acceleration
+Interactive Acceleration & Velocity Rate Visualizer
+\`\`\`
+
+---
+
+### 1.6 The Four $(v, a)$ Sign Combinations
+
+In one-dimensional kinematics, whether an object is *speeding up* (magnitude of velocity increasing) or *slowing down* (magnitude of velocity decreasing) is determined strictly by the relative algebraic signs of $v$ and $a$:
+
+| Sign of Acceleration $a$ \\ Sign of Velocity $v$ | Positive Velocity ($v > 0$) | Negative Velocity ($v < 0$) |
+| :--- | :--- | :--- |
+| **Positive Acceleration ($a > 0$)** | **SPEEDING UP**<br>*(Moving in $+x$, speed increasing)* | **SLOWING DOWN**<br>*(Moving in $-x$, speed decreasing)* |
+| **Negative Acceleration ($a < 0$)** | **SLOWING DOWN**<br>*(Moving in $+x$, speed decreasing)* | **SPEEDING UP**<br>*(Moving in $-x$, speed increasing)* |
+
+> #### THE UNIVERSAL SIGN RULE
+> - $\\operatorname{sgn}(v) = \\operatorname{sgn}(a) \\implies$ **Speeding Up**  
+>   When velocity and acceleration vectors point in the same direction, acceleration acts constructively to increase speed $|v|$.
+>
+> - $\\operatorname{sgn}(v) \\neq \\operatorname{sgn}(a) \\implies$ **Slowing Down** (Deceleration)  
+>   When velocity and acceleration vectors point in opposite directions, acceleration acts destructively to decrease speed $|v|$.
+>
+> *Pedagogical Caution: Negative acceleration ($a < 0$) does NOT inherently mean slowing down. An object moving in the negative direction ($v < 0$) with negative acceleration ($a < 0$) is accelerating in the $-x$ direction and therefore speeding up.*
+
+---
+
+### 1.7 Zero Velocity vs. Zero Acceleration: Conceptual Analysis & Critical Pitfalls
+
+Introductory physics students frequently conflate instantaneous velocity with instantaneous acceleration. Because acceleration is the time derivative of velocity ($a = dv/dt$), the instantaneous state value $v(t_0)$ and the instantaneous derivative value $a(t_0)$ are independent degrees of freedom at any isolated instant $t_0$:
+
+$$\\left.v(t)\\right|_{t_0} = 0 \\not\\implies \\left.a(t)\\right|_{t_0} = 0, \\qquad \\left.a(t)\\right|_{t_0} = 0 \\not\\implies \\left.v(t)\\right|_{t_0} = 0$$
+
+\`\`\`interactive:zero-velocity-zero-acceleration
+Case Comparison: Zero Velocity versus Zero Acceleration
+\`\`\`
+
+#### Critical Physical Regimes:
+
+1. **Zero Velocity with Non-Zero Acceleration ($v = 0, a \\neq 0$)**:
+   - *Archetypal Example:* A ball projected vertically upwards at the apex of its trajectory.
+   - At the highest point, $v = 0\\text{ m/s}$ instantaneously as motion transitions from upward to downward.
+   - Gravitational acceleration acts continuously downward: $a = -g = -9.8\\text{ m/s}^2 \\neq 0$. If acceleration were zero at the apex, the ball would remain suspended in mid-air.
+
+2. **Zero Acceleration with Non-Zero Velocity ($a = 0, v \\neq 0$)**:
+   - *Archetypal Example:* A vehicle cruising on a straight, level highway with cruise control engaged at $30\\text{ m/s}$.
+   - Because velocity is constant, $\\Delta v = 0$, giving $a = dv/dt = 0\\text{ m/s}^2$.
+
+3. **Both Zero ($v = 0, a = 0$)**:
+   - *Archetypal Example:* A book resting at equilibrium on a table. The body is persistently at rest.
+
+4. **Simultaneous Non-Zero ($v \\neq 0, a \\neq 0$)**:
+   - *Archetypal Example:* An aircraft accelerating along a runway during takeoff.
+
+---
+
+### 1.8 Summary of Foundational Kinematic Relations & Operational Principles
+
+#### Master Kinematic Variable Matrix
+
+| Physical Quantity | Symbol | Mathematical Definition | Character | SI Unit | Dimensional Formula |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Position** | $x(t)$ | Directed coordinate along axis | Coordinate (Signed in 1D) | $\\text{m}$ | $[\\text{L}]$ |
+| **Distance** | $d$ | Total continuous arc length $\\int_{t_i}^{t_f} \\lvert v(t)\\rvert\\,dt$ | Scalar ($d \\ge 0$) | $\\text{m}$ | $[\\text{L}]$ |
+| **Displacement** | $\\Delta x$ | $x_f - x_i = \\int v\\,dt$ | Vector (Signed in 1D) | $\\text{m}$ | $[\\text{L}]$ |
+| **Average Speed** | $v_{\\text{avg}}$ | $d_{\\text{total}} / \\Delta t$ | Scalar ($v_{\\text{avg}} \\ge 0$) | $\\text{m/s}$ | $[\\text{L}\\text{T}^{-1}]$ |
+| **Average Velocity** | $\\bar{v}$ | $\\Delta x / \\Delta t = (x_f - x_i)/\\Delta t$ | Vector (Signed in 1D) | $\\text{m/s}$ | $[\\text{L}\\text{T}^{-1}]$ |
+| **Instantaneous Velocity** | $v(t)$ | $\\lim_{\\Delta t \\to 0} \\frac{\\Delta x}{\\Delta t} = \\frac{dx}{dt}$ | Vector (Signed in 1D) | $\\text{m/s}$ | $[\\text{L}\\text{T}^{-1}]$ |
+| **Instantaneous Speed** | $s(t)$ | $\\lvert v(t)\\rvert = \\left\\lvert\\frac{dx}{dt}\\right\\rvert$ | Scalar ($s \\ge 0$) | $\\text{m/s}$ | $[\\text{L}\\text{T}^{-1}]$ |
+| **Average Acceleration** | $\\bar{a}$ | $\\Delta v / \\Delta t = (v_f - v_i)/\\Delta t$ | Vector (Signed in 1D) | $\\text{m/s}^2$ | $[\\text{L}\\text{T}^{-2}]$ |
+| **Instantaneous Acceleration** | $a(t)$ | $\\lim_{\\Delta t \\to 0} \\frac{\\Delta v}{\\Delta t} = \\frac{dv}{dt} = \\frac{d^2x}{dt^2}$ | Vector (Signed in 1D) | $\\text{m/s}^2$ | $[\\text{L}\\text{T}^{-2}]$ |
+
+#### Fundamental Calculus Bridges
+
+Kinematics links position, velocity, and acceleration across continuous time via differentiation and definite integration:
+
+$$x(t) \\xrightarrow{\\quad \\frac{d}{dt} \\quad} v(t) \\xrightarrow{\\quad \\frac{d}{dt} \\quad} a(t)$$
+
+$$x(t_f) - x(t_i) = \\int_{t_i}^{t_f} v(t)\\,dt \\xleftarrow{\\quad \\int dt \\quad} v(t_f) - v(t_i) = \\int_{t_i}^{t_f} a(t)\\,dt \\xleftarrow{\\quad \\int dt \\quad} a(t)$$
+
+These calculus relationships apply universally to all one-dimensional trajectories, whether acceleration is constant or time-varying.
+`;
