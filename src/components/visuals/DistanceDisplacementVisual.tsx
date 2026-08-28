@@ -1,59 +1,131 @@
-﻿import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useMemo, useState } from "react";
 import { Play, Pause, RotateCcw, StepForward } from "lucide-react";
 
 export const DistanceDisplacementVisual: React.FC = () => {
-  const [progress, setProgress] = useState(0);
+  /*
+   * Journey model
+   *
+   * Keep the physical journey defined in one place.
+   * All animation, geometry, labels, distance and displacement
+   * calculations are derived from these values.
+   */
+  const journey = useMemo(
+    () => ({
+      initialPosition: 0,
+      forwardDistance: 60,
+      returnDistance: 20,
+    }),
+    [],
+  );
+
+  const totalPathDistance =
+    journey.forwardDistance + journey.returnDistance;
+
+  const turningPoint =
+    journey.initialPosition + journey.forwardDistance;
+
+  const finalPosition = turningPoint - journey.returnDistance;
+const scaleStart = Math.min(journey.initialPosition, finalPosition);
+  const scaleEnd = Math.max(turningPoint, finalPosition);
+
+  const scaleRange = Math.max(scaleEnd - scaleStart, 1);
+
+  const [travelledDistance, setTravelledDistance] = useState(0);
   const [playing, setPlaying] = useState(false);
 
   const position =
-    progress <= 60
-      ? progress
-      : 60 - ((progress - 60) / 40) * 20;
+    travelledDistance <= journey.forwardDistance
+      ? journey.initialPosition + travelledDistance
+      : turningPoint -
+        (travelledDistance - journey.forwardDistance);
 
-  const distance =
-    progress <= 60
-      ? progress
-      : 60 + (progress - 60);
+  const distance = travelledDistance;
 
-  const displacement = position;
+  const displacement = position - journey.initialPosition;
 
   useEffect(() => {
     if (!playing) return;
 
     const timer = window.setInterval(() => {
-      setProgress((value) => {
-        if (value >= 100) {
+      setTravelledDistance((value) => {
+        if (value >= totalPathDistance) {
           setPlaying(false);
-          return 100;
+          return totalPathDistance;
         }
-        return value + 1;
+
+        return Math.min(value + 1, totalPathDistance);
       });
     }, 45);
 
     return () => window.clearInterval(timer);
-  }, [playing]);
+  }, [playing, totalPathDistance]);
 
   const reset = () => {
     setPlaying(false);
-    setProgress(0);
+    setTravelledDistance(0);
   };
 
   const step = () => {
     setPlaying(false);
-    setProgress((value) => Math.min(100, value + 10));
+    setTravelledDistance((value) =>
+      Math.min(value + 10, totalPathDistance),
+    );
   };
 
-  const x = 70 + (position / 80) * 660;
+  /*
+   * SVG geometry is derived from the journey model.
+   * The visual coordinate system is independent of the
+   * physical distances used in the example.
+   */
+  const svgStartX = 70;
+  const svgWidth = 660;
+
+  const positionToX = (value: number) =>
+    svgStartX +
+    ((value - scaleStart) / scaleRange) * svgWidth;
+
+  const x = positionToX(position);
+  const turningPointX = positionToX(turningPoint);
+  const initialPositionX = positionToX(journey.initialPosition);
+
+  const tickCount = 5;
+  const tickValues = Array.from(
+    { length: tickCount + 1 },
+    (_, index) =>
+      scaleStart + (scaleRange / tickCount) * index,
+  );
+
+  const forwardProgress = Math.min(
+    travelledDistance,
+    journey.forwardDistance,
+  );
+
+  const returnProgress = Math.max(
+    travelledDistance - journey.forwardDistance,
+    0,
+  );
+
+  const forwardEndPosition =
+    journey.initialPosition + forwardProgress;
+
+  const returnEndPosition =
+    turningPoint - returnProgress;
 
   return (
     <section className="interactive-visual">
       <div className="visual-header">
         <div>
-          <span className="visual-kicker">INTERACTIVE JOURNEY</span>
+          <span className="visual-kicker">
+            INTERACTIVE JOURNEY
+          </span>
+
           <h3>Distance vs Displacement</h3>
+
           <p>
-            Follow the particle as it travels 60 m forward, then reverses
-            direction and travels 20 m backward.
+            Follow the particle as it travels{" "}
+            {journey.forwardDistance} m forward, then reverses
+            direction and travels {journey.returnDistance} m
+            backward.
           </p>
         </div>
 
@@ -61,17 +133,26 @@ export const DistanceDisplacementVisual: React.FC = () => {
           <button
             className="visual-button"
             onClick={() => setPlaying((value) => !value)}
+            type="button"
           >
             {playing ? <Pause size={15} /> : <Play size={15} />}
             {playing ? "Pause" : "Play"}
           </button>
 
-          <button className="visual-button" onClick={step}>
+          <button
+            className="visual-button"
+            onClick={step}
+            type="button"
+          >
             <StepForward size={15} />
             Step
           </button>
 
-          <button className="visual-button" onClick={reset}>
+          <button
+            className="visual-button"
+            onClick={reset}
+            type="button"
+          >
             <RotateCcw size={15} />
             Reset
           </button>
@@ -79,7 +160,12 @@ export const DistanceDisplacementVisual: React.FC = () => {
       </div>
 
       <div className="journey-visual">
-        <svg viewBox="0 0 800 220" className="journey-svg">
+        <svg
+          viewBox="0 0 800 220"
+          className="journey-svg"
+          role="img"
+          aria-label="Interactive distance and displacement journey"
+        >
           <line
             x1="50"
             y1="130"
@@ -89,8 +175,9 @@ export const DistanceDisplacementVisual: React.FC = () => {
             strokeWidth="4"
           />
 
-          {[0, 20, 40, 60, 80].map((value) => {
-            const tickX = 70 + (value / 80) * 660;
+          {tickValues.map((value) => {
+            const tickX = positionToX(value);
+            const roundedValue = Math.round(value);
 
             return (
               <g key={value}>
@@ -102,6 +189,7 @@ export const DistanceDisplacementVisual: React.FC = () => {
                   stroke="#64748b"
                   strokeWidth="2"
                 />
+
                 <text
                   x={tickX}
                   y="162"
@@ -110,29 +198,31 @@ export const DistanceDisplacementVisual: React.FC = () => {
                   fontSize="11"
                   fontFamily="monospace"
                 >
-                  {value} m
+                  {roundedValue} m
                 </text>
               </g>
             );
           })}
 
           {/* Forward path */}
-          <line
-            x1="70"
-            y1="85"
-            x2={70 + (Math.min(position, 60) / 80) * 660}
-            y2="85"
-            stroke="#38bdf8"
-            strokeWidth="6"
-            strokeLinecap="round"
-          />
+          {forwardProgress > 0 && (
+            <line
+              x1={initialPositionX}
+              y1="85"
+              x2={positionToX(forwardEndPosition)}
+              y2="85"
+              stroke="#38bdf8"
+              strokeWidth="6"
+              strokeLinecap="round"
+            />
+          )}
 
           {/* Return path */}
-          {progress > 60 && (
+          {returnProgress > 0 && (
             <line
-              x1={70 + (60 / 80) * 660}
+              x1={turningPointX}
               y1="55"
-              x2={x}
+              x2={positionToX(returnEndPosition)}
               y2="55"
               stroke="#f43f5e"
               strokeWidth="6"
@@ -141,30 +231,38 @@ export const DistanceDisplacementVisual: React.FC = () => {
           )}
 
           <text
-            x="75"
+            x={positionToX(
+              journey.initialPosition +
+                journey.forwardDistance / 2,
+            )}
             y="72"
+            textAnchor="middle"
             fill="#38bdf8"
             fontSize="11"
             fontWeight="bold"
           >
-            +60 m
+            +{journey.forwardDistance} m
           </text>
 
-          {progress > 60 && (
+          {returnProgress > 0 && (
             <text
-              x="565"
+              x={positionToX(
+                turningPoint -
+                  journey.returnDistance / 2,
+              )}
               y="42"
+              textAnchor="middle"
               fill="#f43f5e"
               fontSize="11"
               fontWeight="bold"
             >
-              −20 m
+              −{journey.returnDistance} m
             </text>
           )}
 
           {/* Displacement */}
           <line
-            x1="70"
+            x1={initialPositionX}
             y1="190"
             x2={x}
             y2="190"
@@ -180,7 +278,8 @@ export const DistanceDisplacementVisual: React.FC = () => {
             fontSize="11"
             fontWeight="bold"
           >
-            Displacement: {displacement >= 0 ? "+" : ""}
+            Displacement:{" "}
+            {displacement >= 0 ? "+" : ""}
             {displacement.toFixed(1)} m
           </text>
 
@@ -229,9 +328,11 @@ export const DistanceDisplacementVisual: React.FC = () => {
 
       <div className="visual-teaching-note">
         <strong>Teaching point:</strong>{" "}
-        Distance accumulates the entire path travelled. Displacement depends
-        only on the change from the initial position to the final position.
+        Distance accumulates the entire path travelled.
+        Displacement depends only on the change from the initial
+        position to the final position.
       </div>
     </section>
   );
 };
+
