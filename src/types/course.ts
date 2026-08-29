@@ -15,6 +15,13 @@ export interface LessonSection {
   content: string[];
   equations?: string[];
   lecturerCue: LecturerCue;
+
+  /*
+   * Optional key resolved against the active part's visual registry
+   * to insert an interactive concept visual beneath this section.
+   * Additive field — sections that omit it render exactly as before.
+   */
+  visualKey?: string;
 }
 
 export type WorkedExampleStepName =

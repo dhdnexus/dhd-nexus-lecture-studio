@@ -2,12 +2,20 @@
 import { BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, PencilLine } from "lucide-react";
 import type { PartContent } from "../../types/course";
 
+interface PartOption {
+  id: string;
+  shortLabel: string;
+}
+
 interface Props {
   part: PartContent;
   currentSectionId: string;
   activeViewMode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE";
   onSelectSection: (id: string) => void;
   onChangeViewMode: (mode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE") => void;
+  parts: PartOption[];
+  activePartId: string;
+  onSelectPart: (id: string) => void;
 }
 
 const modes = [
@@ -23,7 +31,10 @@ export const StudioSidebar: React.FC<Props> = ({
   currentSectionId,
   activeViewMode,
   onSelectSection,
-  onChangeViewMode
+  onChangeViewMode,
+  parts,
+  activePartId,
+  onSelectPart
 }) => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -44,7 +55,18 @@ export const StudioSidebar: React.FC<Props> = ({
         {!collapsed && (
           <div>
             <strong>Lecture Studio</strong>
-            <span>Part 1</span>
+            <select
+              className="sidebar-part-select"
+              value={activePartId}
+              onChange={(e) => onSelectPart(e.target.value)}
+              aria-label="Select episode"
+            >
+              {parts.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.shortLabel}
+                </option>
+              ))}
+            </select>
           </div>
         )}
       </div>

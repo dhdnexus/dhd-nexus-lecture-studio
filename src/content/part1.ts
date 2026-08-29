@@ -32,6 +32,7 @@ export const part1Content: PartContent = {
         "The position coordinate x tells us where the particle is relative to that chosen origin."
       ],
       equations: ["x = position coordinate"],
+      visualKey: "coordinate-system",
       lecturerCue: {
         narrationPrompt: "Establish the number-line model and show how changing the origin or positive direction changes the coordinate description.",
         keyPoints: ["Origin: x = 0", "Choose +x explicitly", "Signs encode direction"],
@@ -85,6 +86,7 @@ export const part1Content: PartContent = {
         "For one-dimensional motion, displacement is calculated from final and initial coordinates."
       ],
       equations: ["Δx = x_f − x_i", "|Δx| ≤ d"],
+      visualKey: "displacement",
       lecturerCue: {
         narrationPrompt: "Contrast path length with the direct change from starting point to ending point.",
         keyPoints: ["Displacement is directional", "It depends only on initial and final position"],
@@ -103,6 +105,7 @@ export const part1Content: PartContent = {
         "The two quantities answer different physical questions."
       ],
       equations: ["Average speed = d_total / Δt", "v_avg = Δx / Δt"],
+      visualKey: "speed-velocity",
       lecturerCue: {
         narrationPrompt: "Make the scalar-versus-directional distinction explicit before introducing instantaneous velocity.",
         keyPoints: ["Speed uses total distance", "Velocity uses displacement"],
@@ -120,6 +123,7 @@ export const part1Content: PartContent = {
         "It is the conceptual bridge from average motion to motion changing continuously."
       ],
       equations: ["v = lim(Δt→0) Δx/Δt"],
+      visualKey: "instantaneous-velocity",
       lecturerCue: {
         narrationPrompt: "Use the speedometer analogy to explain the meaning of velocity at an instant.",
         keyPoints: ["Velocity is a rate of position change", "Instantaneous means at a particular instant"],
@@ -137,6 +141,7 @@ export const part1Content: PartContent = {
         "Its SI unit is m/s²."
       ],
       equations: ["a = Δv / Δt"],
+      visualKey: "acceleration",
       lecturerCue: {
         narrationPrompt: "Shift the student's attention from how position changes to how velocity itself changes.",
         keyPoints: ["Acceleration is a rate of velocity change", "Acceleration is not simply 'how fast something moves'"],
@@ -159,6 +164,7 @@ export const part1Content: PartContent = {
         "v < 0, a > 0 → slowing down",
         "v < 0, a < 0 → speeding up"
       ],
+      visualKey: "sign-cases",
       lecturerCue: {
         narrationPrompt: "Use the four-quadrant visual to destroy the misconception that negative acceleration automatically means deceleration.",
         keyPoints: ["Same direction → speeding up", "Opposite directions → slowing down"],
@@ -179,6 +185,7 @@ export const part1Content: PartContent = {
         "Velocity describes the state of motion; acceleration describes how that state is changing."
       ],
       equations: ["v = 0 does not imply a = 0", "a = 0 does not imply v = 0"],
+      visualKey: "zero-velocity-zero-acceleration",
       lecturerCue: {
         narrationPrompt: "Use the apex of a vertical toss and a cruising car to separate velocity from acceleration.",
         keyPoints: ["v = 0 can occur while a ≠ 0", "a = 0 can occur while v ≠ 0"],

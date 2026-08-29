@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { part1Content } from "./content/part1";
-import { part1WorkedExamples } from "./content/part1WorkedExamples";
+import { parts, getPartById } from "./content/parts";
 import { StudioHeader } from "./components/layout/StudioHeader";
 import { StudioSidebar } from "./components/layout/StudioSidebar";
 import { LecturerPanel } from "./components/layout/LecturerPanel";
@@ -10,23 +9,34 @@ import { WorkedExampleView } from "./components/lecture/WorkedExamplePanel";
 import { CheckpointView } from "./components/lecture/CheckpointView";
 import { PracticeView } from "./components/lecture/PracticeView";
 import { LectureNoteView } from "./components/lecture/LectureNoteView";
-import { part1PracticeProblems } from "./content/practice";
 
 const App: React.FC = () => {
-  const [currentSectionId, setCurrentSectionId] = useState("sec-01");
+  const [activePartId, setActivePartId] = useState(parts[0].id);
+  const activePart = getPartById(activePartId);
+
+  const [currentSectionId, setCurrentSectionId] = useState(
+    activePart.content.sections[0].id
+  );
   const [activeViewMode, setActiveViewMode] = useState<"LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE">("LESSON");
   const [lecturerMode, setLecturerMode] = useState(true);
 
-  const index = part1Content.sections.findIndex((s) => s.id === currentSectionId);
-  const activeSection = part1Content.sections[index] ?? part1Content.sections[0];
+  const handleSelectPart = (id: string) => {
+    const nextPart = getPartById(id);
+    setActivePartId(id);
+    setCurrentSectionId(nextPart.content.sections[0].id);
+    setActiveViewMode("LESSON");
+  };
+
+  const index = activePart.content.sections.findIndex((s) => s.id === currentSectionId);
+  const activeSection = activePart.content.sections[index] ?? activePart.content.sections[0];
 
   const goPrevious = () => {
-    if (index > 0) setCurrentSectionId(part1Content.sections[index - 1].id);
+    if (index > 0) setCurrentSectionId(activePart.content.sections[index - 1].id);
   };
 
   const goNext = () => {
-    if (index < part1Content.sections.length - 1) {
-      setCurrentSectionId(part1Content.sections[index + 1].id);
+    if (index < activePart.content.sections.length - 1) {
+      setCurrentSectionId(activePart.content.sections[index + 1].id);
     }
   };
 
@@ -56,15 +66,20 @@ const App: React.FC = () => {
   return (
     <div className="app-shell">
       <StudioSidebar
-        part={part1Content}
+        part={activePart.content}
         currentSectionId={currentSectionId}
         activeViewMode={activeViewMode}
         onSelectSection={setCurrentSectionId}
         onChangeViewMode={setActiveViewMode}
+        parts={parts.map((p) => ({ id: p.id, shortLabel: p.shortLabel }))}
+        activePartId={activePartId}
+        onSelectPart={handleSelectPart}
       />
 
       <div className="studio-workspace">
         <StudioHeader
+          title={activePart.content.title}
+          subtitle={activePart.content.subtitle}
           lecturerMode={lecturerMode}
           onToggleLecturerMode={() => setLecturerMode((value) => !value)}
           onToggleFullscreen={toggleFullscreen}
@@ -72,20 +87,26 @@ const App: React.FC = () => {
 
         <div className="studio-body">
           <main className="presentation-area">
-            {activeViewMode === "LESSON" && <LectureView section={activeSection} />}
+            {activeViewMode === "LESSON" && (
+              <LectureView section={activeSection} visualRegistry={activePart.lessonVisualRegistry} />
+            )}
             {activeViewMode === "WORKED_EXAMPLE" && (
-              <>
-        <WorkedExampleView examples={part1WorkedExamples} />
-
-      </>
+              <WorkedExampleView key={activePart.id} examples={activePart.workedExamples} />
             )}
             {activeViewMode === "CHECKPOINT" && (
-              <CheckpointView checkpoints={part1Content.checkpoints} />
+              <CheckpointView key={activePart.id} checkpoints={activePart.content.checkpoints} />
             )}
             {activeViewMode === "PRACTICE" && (
-              <PracticeView problems={part1PracticeProblems} />
+              <PracticeView key={activePart.id} problems={activePart.practiceProblems} />
             )}
-            {activeViewMode === "LECTURE_NOTE" && <LectureNoteView />}
+            {activeViewMode === "LECTURE_NOTE" && (
+              <LectureNoteView
+                key={activePart.id}
+                markdown={activePart.lectureNoteMarkdown}
+                partTitle={`${activePart.content.title} — ${activePart.content.subtitle}`}
+                visualRegistry={activePart.lectureNoteVisualRegistry}
+              />
+            )}
 
             {activeViewMode === "LESSON" && (
               <div className="presentation-controls">
@@ -93,11 +114,11 @@ const App: React.FC = () => {
                   <ChevronLeft size={17} /> Previous
                 </button>
 
-                <span>{index + 1} / {part1Content.sections.length}</span>
+                <span>{index + 1} / {activePart.content.sections.length}</span>
 
                 <button
                   onClick={goNext}
-                  disabled={index === part1Content.sections.length - 1}
+                  disabled={index === activePart.content.sections.length - 1}
                 >
                   Next <ChevronRight size={17} />
                 </button>

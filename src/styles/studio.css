@@ -3455,3 +3455,91 @@ h1 {
     width: 100%;
   }
 }
+
+/* ============================================================
+   PART 2 — GRAPH VISUALS
+   Shared conventions for the graph-based interactive visuals
+   (position–time gradient, velocity–time area, SUVAT graphical
+   derivation). Reuses .interactive-visual / .concept-visual,
+   .coordinate-readout, .visual-teaching-note and .iv-teaching-*
+   from the Part 1 canonical template.
+   ============================================================ */
+
+.graph-visual-svg-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px 0 4px;
+}
+
+.graph-visual-svg {
+  display: block;
+  width: 100%;
+  min-width: 620px;
+  height: auto;
+}
+
+.graph-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.suvat-derivation-visual .graph-controls {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.graph-control {
+  min-width: 0;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 9px;
+}
+
+.graph-control label {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin-bottom: 0.65rem;
+}
+
+.graph-control label strong {
+  color: #38bdf8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.graph-control input[type="range"] {
+  width: 100%;
+  accent-color: #38bdf8;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .graph-controls,
+  .suvat-derivation-visual .graph-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ------------------------------------------------------------
+   Sidebar episode/part selector
+   ------------------------------------------------------------ */
+
+.sidebar-part-select {
+  margin-top: 2px;
+  padding: 3px 6px;
+  border: 1px solid #334155;
+  border-radius: 5px;
+  background: #0f172a;
+  color: #94a3b8;
+  font-size: 10px;
+  cursor: pointer;
+  max-width: 140px;
+}
+
+.sidebar-part-select:hover,
+.sidebar-part-select:focus {
+  border-color: #38bdf8;
+  color: #e2e8f0;
+}

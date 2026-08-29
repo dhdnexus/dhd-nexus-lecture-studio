@@ -5,22 +5,24 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 
-import { comprehensiveLectureNote } from "../../content/lectureNote";
-import { NumberLineVisual } from "../visuals/NumberLineVisual";
-import { DistanceDisplacementVisual } from "../visuals/DistanceDisplacementVisual";
-import { SpeedVelocityVisual } from "../visuals/SpeedVelocityVisual";
-import { InstantaneousVelocityVisual } from "../visuals/InstantaneousVelocityVisual";
-import { AccelerationVisual } from "../visuals/AccelerationVisual";
-import { ZeroVelocityAccelerationVisual } from "../visuals/ZeroVelocityAccelerationVisual";
+interface LectureNoteViewProps {
+  markdown: string;
+  partTitle: string;
+  visualRegistry: Record<string, React.FC>;
+}
 
-export const LectureNoteView: React.FC = () => (
+export const LectureNoteView: React.FC<LectureNoteViewProps> = ({
+  markdown,
+  partTitle,
+  visualRegistry
+}) => (
   <section className="lecture-view lecture-note-view">
     <div className="lecture-kicker">REFERENCE NOTE</div>
 
     <h2>Comprehensive Lecture Note</h2>
 
     <p className="lecture-subtitle">
-      Textbook-grade undergraduate reference for Mastering Kinematics — Part 1.
+      Textbook-grade undergraduate reference for {partTitle}.
     </p>
 
     <article className="lecture-note-content">
@@ -29,26 +31,18 @@ export const LectureNoteView: React.FC = () => (
         rehypePlugins={[rehypeKatex]}
         components={{
           code({ className, children, ...props }) {
-            switch (className) {
-              case "language-interactive:coordinate-system":
-                return <NumberLineVisual />;
-              case "language-diagram:displacement":
-                return <DistanceDisplacementVisual />;
-              case "language-interactive:speed-velocity":
-                return <SpeedVelocityVisual />;
-              case "language-interactive:instantaneous-velocity":
-                return <InstantaneousVelocityVisual />;
-              case "language-interactive:acceleration":
-                return <AccelerationVisual />;
-              case "language-interactive:zero-velocity-zero-acceleration":
-                return <ZeroVelocityAccelerationVisual />;
-              default:
-                return (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
+            const fenceKey = className?.replace(/^language-/, "");
+            const FenceVisual = fenceKey ? visualRegistry[fenceKey] : undefined;
+
+            if (FenceVisual) {
+              return <FenceVisual />;
             }
+
+            return (
+              <code className={className} {...props}>
+                {children}
+              </code>
+            );
           },
           table({ children, ...props }) {
             return (
@@ -59,7 +53,7 @@ export const LectureNoteView: React.FC = () => (
           },
         }}
       >
-        {comprehensiveLectureNote}
+        {markdown}
       </ReactMarkdown>
     </article>
   </section>

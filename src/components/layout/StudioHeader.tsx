@@ -2,12 +2,16 @@
 import { Maximize2, PanelRight } from "lucide-react";
 
 interface Props {
+  title: string;
+  subtitle: string;
   lecturerMode: boolean;
   onToggleLecturerMode: () => void;
   onToggleFullscreen: () => void;
 }
 
 export const StudioHeader: React.FC<Props> = ({
+  title,
+  subtitle,
   lecturerMode,
   onToggleLecturerMode,
   onToggleFullscreen
@@ -15,8 +19,8 @@ export const StudioHeader: React.FC<Props> = ({
   <header className="studio-header">
     <div className="brand-block">
       <p className="eyebrow">DHD NEXUS PHYSICS ACADEMY</p>
-      <h1>Mastering Kinematics</h1>
-      <p className="subtitle">Episode 1 — The Language of Motion</p>
+      <h1>{title}</h1>
+      <p className="subtitle">{subtitle}</p>
     </div>
 
     <div className="header-actions">
