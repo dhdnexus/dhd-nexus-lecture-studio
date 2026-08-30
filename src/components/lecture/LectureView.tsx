@@ -27,7 +27,10 @@ const equationTex = (equation: string): string => {
     "v = u + at": "v = u + at",
     "s = ½(u + v)t": "s = \\tfrac12(u+v)t",
     "s = ut + ½at²": "s = ut + \\tfrac12at^2",
-    "v² = u² + 2as": "v^2 = u^2 + 2as"
+    "v² = u² + 2as": "v^2 = u^2 + 2as",
+    "a = dv/dt": "a = \\dfrac{dv}{dt}",
+    "v = ds/dt": "v = \\dfrac{ds}{dt}",
+    "a = v dv/ds": "a = v\\dfrac{dv}{ds}"
   };
 
   return map[equation] ?? equation;

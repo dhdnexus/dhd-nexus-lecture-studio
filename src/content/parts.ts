@@ -16,6 +16,11 @@ import { part3WorkedExamples } from "./part3WorkedExamples";
 import { part3PracticeProblems } from "./practice3";
 import { comprehensiveLectureNotePart3 as part3LectureNote } from "./lectureNote3";
 
+import { part4Content } from "./part4";
+import { part4WorkedExamples } from "./part4WorkedExamples";
+import { part4PracticeProblems } from "./practice4";
+import { comprehensiveLectureNotePart4 as part4LectureNote } from "./lectureNote4";
+
 import { NumberLineVisual } from "../components/visuals/NumberLineVisual";
 import { DistanceDisplacementVisual } from "../components/visuals/DistanceDisplacementVisual";
 import { SpeedVelocityVisual } from "../components/visuals/SpeedVelocityVisual";
@@ -29,6 +34,8 @@ import { VelocityTimeAreaVisual } from "../components/visuals/VelocityTimeAreaVi
 import { SuvatGraphicalDerivationVisual } from "../components/visuals/SuvatGraphicalDerivationVisual";
 
 import { EquationSelectionVisual } from "../components/visuals/EquationSelectionVisual";
+
+import { DerivativeChainVisual } from "../components/visuals/DerivativeChainVisual";
 
 /**
  * A single episode ("Part") of the DHD Nexus Lecture Studio.
@@ -110,7 +117,22 @@ const part3Definition: PartDefinition = {
   }
 };
 
-export const parts: PartDefinition[] = [part1Definition, part2Definition, part3Definition];
+const part4Definition: PartDefinition = {
+  id: "part-4",
+  shortLabel: "Part 4",
+  content: part4Content,
+  workedExamples: part4WorkedExamples,
+  practiceProblems: part4PracticeProblems,
+  lectureNoteMarkdown: part4LectureNote,
+  lessonVisualRegistry: {
+    "derivative-chain": DerivativeChainVisual
+  },
+  lectureNoteVisualRegistry: {
+    "interactive:derivative-chain": DerivativeChainVisual
+  }
+};
+
+export const parts: PartDefinition[] = [part1Definition, part2Definition, part3Definition, part4Definition];
 
 export const getPartById = (id: string): PartDefinition =>
   parts.find((part) => part.id === id) ?? parts[0];
