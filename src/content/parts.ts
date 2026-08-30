@@ -11,6 +11,11 @@ import { part2WorkedExamples } from "./part2WorkedExamples";
 import { part2PracticeProblems } from "./practice2";
 import { comprehensiveLectureNotePart2 as part2LectureNote } from "./lectureNote2";
 
+import { part3Content } from "./part3";
+import { part3WorkedExamples } from "./part3WorkedExamples";
+import { part3PracticeProblems } from "./practice3";
+import { comprehensiveLectureNotePart3 as part3LectureNote } from "./lectureNote3";
+
 import { NumberLineVisual } from "../components/visuals/NumberLineVisual";
 import { DistanceDisplacementVisual } from "../components/visuals/DistanceDisplacementVisual";
 import { SpeedVelocityVisual } from "../components/visuals/SpeedVelocityVisual";
@@ -22,6 +27,8 @@ import { ZeroVelocityAccelerationVisual } from "../components/visuals/ZeroVeloci
 import { PositionTimeGradientVisual } from "../components/visuals/PositionTimeGradientVisual";
 import { VelocityTimeAreaVisual } from "../components/visuals/VelocityTimeAreaVisual";
 import { SuvatGraphicalDerivationVisual } from "../components/visuals/SuvatGraphicalDerivationVisual";
+
+import { EquationSelectionVisual } from "../components/visuals/EquationSelectionVisual";
 
 /**
  * A single episode ("Part") of the DHD Nexus Lecture Studio.
@@ -88,7 +95,22 @@ const part2Definition: PartDefinition = {
   }
 };
 
-export const parts: PartDefinition[] = [part1Definition, part2Definition];
+const part3Definition: PartDefinition = {
+  id: "part-3",
+  shortLabel: "Part 3",
+  content: part3Content,
+  workedExamples: part3WorkedExamples,
+  practiceProblems: part3PracticeProblems,
+  lectureNoteMarkdown: part3LectureNote,
+  lessonVisualRegistry: {
+    "equation-selection": EquationSelectionVisual
+  },
+  lectureNoteVisualRegistry: {
+    "interactive:equation-selection": EquationSelectionVisual
+  }
+};
+
+export const parts: PartDefinition[] = [part1Definition, part2Definition, part3Definition];
 
 export const getPartById = (id: string): PartDefinition =>
   parts.find((part) => part.id === id) ?? parts[0];

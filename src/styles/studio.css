@@ -3543,3 +3543,152 @@ h1 {
   border-color: #38bdf8;
   color: #e2e8f0;
 }
+
+/* ============================================================
+   PART 3 — EQUATION-SELECTION VISUAL
+   Reuses .concept-visual / .concept-visual-header / .iv-intro /
+   .iv-takeaway / .visual-button from the Part 1 canonical template.
+   ============================================================ */
+
+.eqsel-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.eqsel-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1 1 140px;
+  padding: 0.65rem 0.8rem;
+  border-radius: 9px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.7);
+  color: #cbd5e1;
+  cursor: pointer;
+  text-align: left;
+}
+
+.eqsel-toggle:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.eqsel-toggle.known {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.eqsel-toggle-symbol {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.eqsel-toggle.known .eqsel-toggle-symbol {
+  color: #34d399;
+}
+
+.eqsel-toggle-label {
+  font-size: 0.68rem;
+  color: #94a3b8;
+}
+
+.eqsel-toggle-state {
+  margin-top: 0.15rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.eqsel-toggle.known .eqsel-toggle-state {
+  color: #34d399;
+}
+
+.eqsel-reset {
+  flex: 1 1 100%;
+}
+
+.eqsel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.eqsel-card {
+  min-width: 0;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.eqsel-formula {
+  overflow-x: auto;
+  color: #f1f5f9;
+}
+
+.eqsel-formula .katex {
+  color: #f1f5f9 !important;
+}
+
+.eqsel-card-vars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+}
+
+.eqsel-chip {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #94a3b8;
+}
+
+.eqsel-chip.known {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.12);
+  color: #6ee7b7;
+}
+
+.eqsel-card-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.eqsel-status-usable {
+  color: #34d399;
+}
+
+.eqsel-status-blocked {
+  color: #94a3b8;
+}
+
+.eqsel-status-check {
+  color: #7dd3fc;
+}
+
+.eqsel-card.eqsel-status-usable {
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.eqsel-card.eqsel-status-check {
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+@media (max-width: 700px) {
+  .eqsel-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
