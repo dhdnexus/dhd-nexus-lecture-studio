@@ -23,7 +23,7 @@ export const studioSubjects: TaxonomyNode[] = [
         ] },
         { id: "continuum-fluid", label: "Continuum & Fluid Mechanics", description: "Fluid statics, hydrodynamics, viscosity, surface tension, and elasticity.", children: [
           { id: "fluid-statics", label: "Fluid Statics" }, { id: "hydrodynamics", label: "Hydrodynamics" }, { id: "navier-stokes", label: "Navier–Stokes Equations" }, { id: "surface-tension", label: "Surface Tension & Viscosity" }, { id: "elasticity", label: "Elasticity" }
-        ]
+        ] },
       ] },
       { id: "electromagnetism", label: "Classical Electromagnetism", description: "Electric and magnetic fields, potentials, Maxwell's equations, and electromagnetic waves.", children: [
         { id: "electrostatics-magnetostatics", label: "Electrostatics & Magnetostatics", description: "Coulomb, Gauss, electric potential, Ampere, Biot–Savart, and materials." },
