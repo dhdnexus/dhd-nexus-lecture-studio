@@ -7,11 +7,7 @@ export const appendixWorkedExamples: WorkedExample[] = [
     provenance: "DHD NEXUS ORIGINAL PEDAGOGICAL WORKED EXAMPLE",
     provenanceDetails: "Original teaching example adapted from the supplied handwritten problem.",
     problemStatement: "Given that α and β are roots of x² − 3x + 5 = 0, find: (a) α² + β², (b) 1/α + 1/β, (c) αβ(1/α + 1/β), (d) α²β + αβ², (e) α² − αβ + β², (f) (1 + α/β)(1 + β/α), (g) α³ + β³.",
-    lecturerNotes: [
-      "Treat the seven requests as one coherent problem, not seven unrelated questions.",
-      "The central routine is: transform first, substitute second.",
-      "Encourage students to reuse results already established in earlier subparts."
-    ],
+    lecturerNotes: "Treat the seven requests as one coherent problem, not seven unrelated questions. The central routine is: transform first, substitute second. Encourage students to reuse results already established in earlier subparts.",
     steps: [
       {
         stepName: "PROBLEM",
