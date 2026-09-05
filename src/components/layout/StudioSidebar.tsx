@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, PencilLine } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, PencilLine, X } from "lucide-react";
 import type { PartContent } from "../../types/course";
 
 interface ContentOption {
@@ -17,6 +17,8 @@ interface Props {
   appendices: ContentOption[];
   activePartId: string;
   onSelectPart: (id: string) => void;
+  mobileOpen: boolean;
+  onCloseMobile: () => void;
 }
 
 const modes = [
@@ -36,9 +38,12 @@ export const StudioSidebar: React.FC<Props> = ({
   parts,
   appendices,
   activePartId,
-  onSelectPart
+  onSelectPart,
+  mobileOpen,
+  onCloseMobile
 }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const showFullSidebar = !collapsed || mobileOpen;
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,17 +55,32 @@ export const StudioSidebar: React.FC<Props> = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleSelectPart = (id: string) => {
+    onSelectPart(id);
+    onCloseMobile();
+  };
+
+  const handleChangeViewMode = (mode: typeof modes[number]["id"]) => {
+    onChangeViewMode(mode);
+    onCloseMobile();
+  };
+
+  const handleSelectSection = (id: string) => {
+    onSelectSection(id);
+    onCloseMobile();
+  };
+
   return (
-    <aside className={`studio-sidebar ${collapsed ? "collapsed" : ""}`}>
+    <aside className={`studio-sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
       <div className="sidebar-brand">
         <BookOpen size={18} />
-        {!collapsed && (
+        {showFullSidebar && (
           <div>
             <strong>Lecture Studio</strong>
             <select
               className="sidebar-part-select"
               value={activePartId}
-              onChange={(e) => onSelectPart(e.target.value)}
+              onChange={(e) => handleSelectPart(e.target.value)}
               aria-label="Select lecture content"
             >
               <optgroup label="Curriculum">
@@ -80,6 +100,14 @@ export const StudioSidebar: React.FC<Props> = ({
             </select>
           </div>
         )}
+
+        <button
+          className="mobile-sidebar-close"
+          onClick={onCloseMobile}
+          aria-label="Close navigation"
+        >
+          <X size={18} />
+        </button>
       </div>
 
       <button
@@ -95,16 +123,16 @@ export const StudioSidebar: React.FC<Props> = ({
           <button
             key={id}
             className={`sidebar-mode ${activeViewMode === id ? "active" : ""}`}
-            onClick={() => onChangeViewMode(id)}
-            title={collapsed ? label : undefined}
+            onClick={() => handleChangeViewMode(id)}
+            title={collapsed && !mobileOpen ? label : undefined}
           >
             <Icon size={16} />
-            {!collapsed && <span>{label}</span>}
+            {showFullSidebar && <span>{label}</span>}
           </button>
         ))}
       </nav>
 
-      {activeViewMode === "LESSON" && !collapsed && (
+      {activeViewMode === "LESSON" && showFullSidebar && (
         <div className="sidebar-sections">
           <div className="sidebar-heading">
             {part.title || "EPISODE 1"}
@@ -116,7 +144,7 @@ export const StudioSidebar: React.FC<Props> = ({
               className={`sidebar-section ${
                 currentSectionId === section.id ? "active" : ""
               }`}
-              onClick={() => onSelectSection(section.id)}
+              onClick={() => handleSelectSection(section.id)}
             >
               <span className="section-number">
                 {String(index + 1).padStart(2, "0")}
@@ -131,7 +159,7 @@ export const StudioSidebar: React.FC<Props> = ({
         </div>
       )}
 
-      {activeViewMode === "LESSON" && collapsed && (
+      {activeViewMode === "LESSON" && collapsed && !mobileOpen && (
         <div className="sidebar-collapsed-sections">
           {part.sections.map((section, index) => (
             <button
@@ -139,7 +167,7 @@ export const StudioSidebar: React.FC<Props> = ({
               className={`collapsed-section ${
                 currentSectionId === section.id ? "active" : ""
               }`}
-              onClick={() => onSelectSection(section.id)}
+              onClick={() => handleSelectSection(section.id)}
               title={section.title}
             >
               {String(index + 1).padStart(2, "0")}
