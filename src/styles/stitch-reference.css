@@ -1,0 +1,431 @@
+/* DHD Nexus Lecture Studio — Stitch visual reference implementation */
+:root {
+  --nexus-void: #070b13;
+  --nexus-surface: #0e1726;
+  --nexus-surface-2: #122131;
+  --nexus-surface-3: #182638;
+  --nexus-border: #1b2a3d;
+  --nexus-border-strong: #2a3b50;
+  --nexus-text: #f8fafc;
+  --nexus-muted: #94a3b8;
+  --nexus-dim: #64748b;
+  --nexus-cyan: #0ea5e9;
+  --nexus-cyan-soft: #7bd0ff;
+  --nexus-gold: #ffb95f;
+  --nexus-gold-strong: #eab308;
+}
+
+button, a, select { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+
+/* =========================================================
+   ACADEMIC GATEWAY / CURRICULUM NAVIGATOR
+   ========================================================= */
+.studio-navigator {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--nexus-void);
+  color: var(--nexus-text);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.navigator-header {
+  min-height: 72px;
+  padding: 12px clamp(18px, 4vw, 44px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: rgba(7, 11, 19, .96);
+  border-bottom: 1px solid var(--nexus-border);
+}
+
+.navigator-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navigator-mark {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  color: var(--nexus-cyan-soft);
+  border: 1px solid rgba(123, 208, 255, .18);
+  border-radius: 7px;
+  background: rgba(14, 165, 233, .07);
+}
+
+.navigator-eyebrow,
+.navigator-kicker,
+.navigator-rail-label {
+  margin: 0;
+  color: var(--nexus-cyan-soft);
+  font: 700 9px/1.2 "JetBrains Mono", monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.navigator-header h1 {
+  margin: 2px 0 0;
+  color: var(--nexus-text);
+  font: 800 13px/1 "Plus Jakarta Sans", Inter, sans-serif;
+  letter-spacing: -.02em;
+}
+
+.navigator-purpose {
+  color: var(--nexus-dim);
+  font: 500 10px/1.3 "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.navigator-breadcrumbs {
+  min-height: 34px;
+  padding: 0 clamp(18px, 4vw, 44px);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: #0a1321;
+  border-bottom: 1px solid var(--nexus-border);
+  scrollbar-width: none;
+}
+.navigator-breadcrumbs::-webkit-scrollbar { display: none; }
+.navigator-breadcrumbs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 2px;
+  border: 0;
+  background: transparent;
+  color: var(--nexus-dim);
+  cursor: pointer;
+  font: 500 9px/1 "JetBrains Mono", monospace;
+}
+.navigator-breadcrumbs button.current { color: var(--nexus-text); font-weight: 700; }
+.navigator-breadcrumbs svg { flex: 0 0 auto; color: #475569; }
+
+.navigator-layout { min-height: calc(100vh - 106px); display: block; }
+.navigator-rail { display: none; }
+.navigator-columns { min-width: 0; padding: 14px clamp(14px, 3.5vw, 42px) 70px; }
+.navigator-welcome, .navigator-stage { width: min(100%, 1180px); margin: 0 auto; }
+
+/* Stitch-style gateway introduction */
+.navigator-welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.navigator-welcome > svg { display: none; }
+.navigator-welcome .navigator-kicker { margin: 0 0 5px 2px; color: var(--nexus-cyan-soft); }
+.navigator-welcome h2 {
+  margin: 0;
+  padding: 18px 18px 4px;
+  background: linear-gradient(105deg, #0e1b2c, #10263a);
+  border: 1px solid var(--nexus-border);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  color: var(--nexus-text);
+  font: 800 clamp(21px, 3vw, 30px)/1.1 "Plus Jakarta Sans", sans-serif;
+  letter-spacing: -.035em;
+}
+.navigator-welcome > p {
+  margin: 0;
+  padding: 0 18px 17px;
+  background: linear-gradient(105deg, #0e1b2c, #10263a);
+  border: 1px solid var(--nexus-border);
+  border-top: 0;
+  color: var(--nexus-muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+.navigator-welcome::before {
+  content: "RIGOROUS THEORETICAL STUDIO";
+  margin: 0;
+  padding: 15px 18px 0;
+  background: linear-gradient(105deg, #0e1b2c, #10263a);
+  border: 1px solid var(--nexus-border);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  color: var(--nexus-cyan-soft);
+  font: 700 8px/1 "JetBrains Mono", monospace;
+  letter-spacing: .12em;
+}
+.navigator-welcome::after { content: "Choose what you want to study"; }
+
+.subject-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.subject-card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  padding: 16px;
+  border: 1px solid var(--nexus-border);
+  border-radius: 6px;
+  background: var(--nexus-surface);
+  color: var(--nexus-text);
+  text-align: left;
+  cursor: pointer;
+  isolation: isolate;
+  transition: border-color .18s ease, transform .18s ease;
+}
+.subject-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-position: center;
+  background-size: cover;
+  opacity: .5;
+}
+.subject-card.physics-card::before { background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAcSMt5toepRPnldCYZio00O_H9f8mgZyMMiQgCBfGLFqaj9-At9h8zXvyLx4VomI1hDJftVVF0V4im79eIBq2Ra8nkvKv1GbWp355HTa1g5OvLA4RVjEbYDbUW89qtfJ5RYpyLbta4yscLXYsvADiVZHiKu77ejyxVJHxOhSopkhdePmf4F2be7xeSXwWPNk2eNkpuYzt7rMdluHKsEF1LNRN8R3uQWrwnFzN0WrfSrGswuzGyQ39Q"); }
+.subject-card.math-card::before { background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDETTuWIfpN_5YaYCHp68rvny6yNy5gQLTTdcjVSSqqY2tE9L5-DHlYW6cmeZZjjC7zsJ6eUe4_WyzBPaN9ngxwdBEwv2_plgEJ9xbDwZM_LpbfRwEqhqS5GZZpS7QB6uUfgre7Ki9JMze3Zed3yMseBCi4s1KXpp8UcK9X6s-_fIR71LR8mdpgG0vwCyWMi9rjhJDEuTNrJgLoKDKl1qSMHK8dQzbNUAU2koOULW3fYrMLDVDfyc9WjQ"); }
+.subject-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, #07101d 0%, rgba(7,16,29,.92) 35%, rgba(7,16,29,.18) 100%);
+}
+.subject-card:hover { transform: translateY(-2px); border-color: rgba(123, 208, 255, .4); }
+.subject-card-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  margin-bottom: auto;
+  border: 1px solid rgba(123,208,255,.25);
+  border-radius: 5px;
+  background: rgba(7,11,19,.75);
+  color: var(--nexus-cyan-soft);
+}
+.subject-card.math-card .subject-card-icon { color: var(--nexus-gold); border-color: rgba(255,185,95,.25); }
+.subject-card div:nth-child(2) { min-width: 0; }
+.subject-card strong { display: block; font: 700 20px/1.1 "Plus Jakarta Sans", sans-serif; }
+.subject-card p { margin: 6px 0 0; max-width: 500px; color: #b8c5d4; font-size: 10px; line-height: 1.45; }
+.subject-card > svg { position: absolute; right: 15px; top: 15px; color: var(--nexus-cyan-soft); }
+
+/* discipline filter row */
+.navigator-welcome .subject-cards::before {
+  content: "▦  All Disciplines   2     ◉  Physics   1 Live     Σ  Mathematics   Appendix";
+  grid-column: 1 / -1;
+  order: -1;
+  display: block;
+  padding: 7px 9px;
+  color: var(--nexus-muted);
+  background: #0a1321;
+  border: 1px solid var(--nexus-border);
+  border-radius: 5px;
+  font: 600 9px/1.2 "JetBrains Mono", monospace;
+}
+
+/* Curriculum stage */
+.navigator-stage-heading {
+  padding: 15px 16px;
+  margin-bottom: 9px;
+  background: linear-gradient(105deg, #0e1b2c, #10263a);
+  border: 1px solid var(--nexus-border);
+  border-radius: 6px;
+}
+.navigator-stage-heading h2 { margin: 5px 0 4px; font: 800 22px/1.1 "Plus Jakarta Sans", sans-serif; letter-spacing: -.03em; }
+.navigator-stage-heading p { margin: 0; color: var(--nexus-muted); font-size: 10px; line-height: 1.5; }
+.navigator-back { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; padding: 6px 9px; border: 1px solid var(--nexus-border); border-radius: 4px; background: #0a1321; color: var(--nexus-muted); cursor: pointer; font-size: 9px; }
+.navigator-option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.navigator-option {
+  min-width: 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--nexus-border);
+  border-radius: 4px;
+  background: #0d1929;
+  color: var(--nexus-text);
+  text-align: left;
+  cursor: pointer;
+}
+.navigator-option:hover { border-color: rgba(123,208,255,.32); background: #102033; }
+.navigator-option > div { flex: 1; min-width: 0; }
+.navigator-option strong { font-size: 10px; }
+.navigator-option p { margin: 3px 0 0; color: var(--nexus-muted); font-size: 8px; line-height: 1.4; }
+.navigator-option > svg { color: var(--nexus-cyan-soft); flex: 0 0 auto; }
+.navigator-available { display: inline-flex; align-items: center; gap: 3px; margin-top: 5px; color: var(--nexus-gold); font: 600 7px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
+.navigator-empty { padding: 20px; border: 1px dashed var(--nexus-border-strong); color: var(--nexus-muted); font-size: 10px; }
+.navigator-empty span { color: var(--nexus-gold); font: 700 8px/1 "JetBrains Mono", monospace; letter-spacing: .1em; }
+
+/* Mathematics curriculum is deliberately dense, like the Stitch reference */
+.navigator-stage.math-curriculum .navigator-stage-heading { margin-bottom: 5px; }
+.math-taxonomy { display: grid; gap: 4px; }
+.math-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 32px;
+  padding: 0 9px;
+  border: 1px solid var(--nexus-border);
+  border-radius: 3px;
+  background: #0d1929;
+  color: var(--nexus-text);
+  cursor: pointer;
+  text-align: left;
+}
+.math-group:hover { background: #102033; border-color: rgba(123,208,255,.28); }
+.math-group-main { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.math-group-code { color: var(--nexus-dim); font: 600 7px/1 "JetBrains Mono", monospace; }
+.math-group strong { font-size: 9px; }
+.math-group-status { color: var(--nexus-dim); font: 600 7px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
+.math-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.math-tile { min-height: 55px; padding: 8px; border: 1px solid var(--nexus-border); background: #0d1929; border-radius: 3px; }
+.math-tile small { display: block; color: var(--nexus-dim); font: 600 7px/1 "JetBrains Mono", monospace; text-transform: uppercase; margin-bottom: 6px; }
+.math-tile strong { font-size: 9px; }
+.math-appendix-header { display:flex; align-items:center; justify-content:space-between; padding: 7px 9px; margin-top: 4px; background:#162238; border:1px solid var(--nexus-border); color:var(--nexus-gold); font:700 8px/1 "JetBrains Mono", monospace; text-transform:uppercase; }
+.math-feature {
+  margin-top: 4px; padding: 10px; border: 1px solid var(--nexus-border); border-radius: 3px; background: #0d1929; cursor:pointer; text-align:left; color:var(--nexus-text); width:100%;
+}
+.math-feature:hover { border-color: rgba(123,208,255,.32); }
+.math-feature-top { display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--nexus-gold); font:700 7px/1 "JetBrains Mono", monospace; text-transform:uppercase; }
+.math-feature h3 { margin:6px 0 3px; font:700 12px/1.2 "Plus Jakarta Sans", sans-serif; }
+.math-feature p { margin:0; color:var(--nexus-muted); font-size:8px; line-height:1.4; }
+.math-feature-code { margin-top:6px; padding:5px 7px; width:max-content; max-width:100%; background:#09121f; border:1px solid var(--nexus-border); border-radius:3px; color:var(--nexus-cyan-soft); font:500 8px/1.2 "JetBrains Mono", monospace; }
+
+/* =========================================================
+   ACTIVE LECTURE STAGE
+   ========================================================= */
+.app-shell { background: var(--nexus-void); }
+.studio-sidebar { z-index: 80; }
+.studio-workspace { min-width: 0; background: var(--nexus-void); }
+.studio-header {
+  min-height: 62px !important;
+  padding: 10px 14px !important;
+  background: rgba(7,11,19,.97) !important;
+  border-bottom: 1px solid var(--nexus-border) !important;
+}
+.studio-header .brand-block { display:flex; align-items:center; gap:8px; }
+.studio-header .brand-block h1 { font: 800 12px/1.15 "Plus Jakarta Sans", sans-serif; color:var(--nexus-text); }
+.studio-header .brand-block .subtitle { display:none; }
+.studio-header .eyebrow { margin:0; color:var(--nexus-cyan-soft); font:700 8px/1 "JetBrains Mono", monospace; letter-spacing:.1em; }
+.studio-header .header-actions { gap:4px; }
+.studio-header .icon-button { min-width:30px; min-height:30px; padding:5px 7px; border-color:var(--nexus-border); background:#0b1422; color:var(--nexus-muted); }
+.studio-header .icon-button:hover { color:var(--nexus-cyan-soft); border-color:rgba(123,208,255,.35); }
+.studio-home-link { border:0; background:transparent; color:inherit; cursor:pointer; text-align:left; padding:0; }
+.studio-home-link::before { content:"≡"; color:var(--nexus-cyan-soft); font:700 18px/1 "JetBrains Mono",monospace; }
+.studio-navigator-button { display:none !important; }
+
+.studio-content-nav {
+  display:flex;
+  gap:4px;
+  padding:5px 14px;
+  overflow-x:auto;
+  white-space:nowrap;
+  background:#0a1321;
+  border-bottom:1px solid var(--nexus-border);
+  scrollbar-width:none;
+}
+.studio-content-nav::-webkit-scrollbar { display:none; }
+.studio-content-nav button { display:inline-flex; align-items:center; gap:4px; padding:5px 8px; border:1px solid transparent; border-radius:4px; background:#101c2d; color:var(--nexus-dim); cursor:pointer; font:600 8px/1 "JetBrains Mono",monospace; }
+.studio-content-nav button.active { background:#7bd0ff; color:#062033; border-color:#7bd0ff; }
+.studio-content-nav button:hover:not(.active) { color:var(--nexus-text); border-color:var(--nexus-border-strong); }
+
+.studio-body { display:flex; flex-direction:column; overflow:hidden; min-height:0; }
+.presentation-area { flex:1; min-height:0; overflow-y:auto; padding:10px 14px 80px !important; }
+.lecture-view { width:100%; max-width:1000px; margin:0 auto; padding:12px; border:1px solid var(--nexus-border); border-radius:5px; background:#0d1929; }
+.lecture-kicker { display:inline-block; color:var(--nexus-cyan-soft); font:700 7px/1 "JetBrains Mono",monospace; letter-spacing:.12em; margin:0 0 5px; }
+.lecture-view h2 { margin:0 0 2px; font:800 clamp(18px,2.2vw,26px)/1.1 "Plus Jakarta Sans",sans-serif; letter-spacing:-.03em; }
+.lecture-subtitle { margin:0 0 10px; color:var(--nexus-cyan-soft); font-size:9px; }
+.lecture-content { display:grid; gap:8px; }
+.lecture-content p { max-width:none; margin:0; color:#cbd5e1; font-size:10px; line-height:1.6; }
+.equation-stack { margin-top:10px; gap:5px; }
+.equation-card { padding:9px 12px; border-left:2px solid var(--nexus-cyan); border-radius:3px; background:#09121f; color:#e2e8f0; font-size:12px; }
+.interactive-visual { margin-top:10px; padding:8px; border-radius:4px; background:#07101b; border-color:var(--nexus-border); }
+
+.lecturer-panel {
+  width:auto !important;
+  flex:0 0 auto !important;
+  max-width:1000px;
+  margin:0 14px 10px;
+  padding:8px !important;
+  border:1px solid var(--nexus-border) !important;
+  border-radius:5px;
+  background:#0d1929 !important;
+  overflow:auto;
+  order:-1;
+}
+.hud-title { margin:0 0 5px; color:var(--nexus-text); font-size:10px; text-transform:none; letter-spacing:0; }
+.hud-time { margin:0 0 5px; color:var(--nexus-cyan-soft); font-size:7px; }
+.hud-block { margin:4px 0; padding:6px 7px; border-radius:3px; border-color:var(--nexus-border); background:#09121f; }
+.hud-block label { margin-bottom:3px; font-size:7px; }
+.hud-block p, .hud-block li { margin:0; font-size:8px; line-height:1.45; }
+
+.presentation-controls { max-width:1000px; margin:8px auto 0; padding-top:8px; border-top:1px solid var(--nexus-border); }
+.presentation-controls button { padding:6px 8px; border-radius:4px; background:#0b1422; color:var(--nexus-muted); border-color:var(--nexus-border); font-size:8px; }
+.presentation-controls span { font-size:7px; }
+
+/* persistent mobile-style studio dock, matching the reference */
+.studio-workspace::after { content:""; }
+.studio-bottom-dock { position:fixed; left:0; right:0; bottom:0; z-index:70; height:58px; display:grid; grid-template-columns:repeat(4,1fr); background:rgba(8,16,28,.97); border-top:1px solid var(--nexus-border); backdrop-filter:blur(12px); }
+.studio-bottom-dock button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border:0; background:transparent; color:var(--nexus-dim); cursor:pointer; font:600 7px/1 "JetBrains Mono",monospace; }
+.studio-bottom-dock button.active { color:var(--nexus-cyan-soft); }
+.studio-bottom-dock svg { width:14px; height:14px; }
+
+/* Hide the old permanent sidebar; it remains available as a drawer via the hamburger. */
+.studio-sidebar:not(.mobile-open) { display:none !important; }
+.studio-sidebar.mobile-open { position:fixed; inset:0 auto 0 0; width:min(300px,88vw) !important; flex-basis:min(300px,88vw) !important; display:flex !important; box-shadow:18px 0 50px rgba(0,0,0,.45); }
+
+.mobile-sidebar-backdrop { z-index:75 !important; }
+
+@media (min-width: 900px) {
+  .navigator-columns { padding-left:clamp(22px,4vw,60px); padding-right:clamp(22px,4vw,60px); }
+  .subject-card { min-height:340px; }
+  .presentation-area { padding:16px 24px 82px !important; }
+  .lecture-view { padding:16px; }
+  .studio-content-nav { padding-left:24px; padding-right:24px; }
+}
+
+@media (max-width: 700px) {
+  .navigator-purpose { display:none; }
+  .navigator-header { min-height:58px; padding:10px 14px; }
+  .navigator-breadcrumbs { padding:0 14px; }
+  .navigator-columns { padding:10px 10px 68px; }
+  .subject-cards { grid-template-columns:1fr; }
+  .subject-card { min-height:225px; }
+  .navigator-welcome h2 { font-size:21px; padding:14px 14px 4px; }
+  .navigator-welcome > p { padding:0 14px 14px; }
+  .navigator-welcome::before { padding:12px 14px 0; }
+  .navigator-welcome .navigator-kicker { display:none; }
+  .navigator-option-grid { grid-template-columns:1fr; }
+  .math-split { grid-template-columns:1fr 1fr; }
+  .studio-header { min-height:56px !important; padding:8px 10px !important; }
+  .studio-header .brand-block h1 { font-size:11px; }
+  .studio-header .eyebrow { font-size:7px; }
+  .studio-header .header-actions .icon-button:nth-last-child(-n+2) { display:none; }
+  .presentation-area { padding:8px 8px 70px !important; }
+  .lecture-view { padding:10px; }
+  .lecture-view h2 { font-size:18px; }
+  .lecturer-panel { margin:0 8px 8px; }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .subject-cards { grid-template-columns:1fr; }
+  .subject-card { min-height:260px; }
+}
