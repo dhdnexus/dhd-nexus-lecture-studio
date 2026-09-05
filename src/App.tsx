@@ -109,6 +109,7 @@ const App: React.FC = () => {
           onToggleLecturerMode={() => setLecturerMode((value) => !value)}
           onToggleFullscreen={toggleFullscreen}
           onToggleMobileMenu={() => setMobileSidebarOpen((value) => !value)}
+          onOpenNavigator={() => setStudioNavigatorOpen(true)}
         />
 
         <button className="studio-browse-button" onClick={() => setStudioNavigatorOpen(true)}>
