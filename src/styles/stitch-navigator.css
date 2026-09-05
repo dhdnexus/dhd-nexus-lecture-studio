@@ -87,4 +87,74 @@
 .studio-navigator .featured-physics{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:5px;padding:10px;border:1px solid var(--nexus-border);border-radius:4px;background:#0d1929;color:var(--nexus-text);text-align:left;cursor:pointer}.studio-navigator .featured-physics span,.studio-navigator .featured-physics small{display:block;color:var(--nexus-cyan-soft);font:600 7px/1.2 "JetBrains Mono",monospace}.studio-navigator .featured-physics strong{display:block;margin:4px 0;font:700 11px/1.2 "Plus Jakarta Sans",sans-serif}.studio-navigator .featured-physics small{color:var(--nexus-dim)}.studio-navigator .featured-physics svg{color:var(--nexus-cyan-soft)}
 .studio-navigator .math-group{display:flex;align-items:center;justify-content:space-between;min-height:32px;padding:0 9px;border:1px solid var(--nexus-border);border-radius:3px;background:#0d1929;color:var(--nexus-text);cursor:pointer;text-align:left}.studio-navigator .math-group-main{display:flex;align-items:center;gap:7px;min-width:0}.studio-navigator .math-group-code{color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace}.studio-navigator .math-group strong{font-size:9px}.studio-navigator .math-group-status{color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace;text-transform:uppercase}.studio-navigator .math-split{display:grid;grid-template-columns:1fr 1fr;gap:4px}.studio-navigator .math-tile{min-height:55px;padding:8px;border:1px solid var(--nexus-border);background:#0d1929;border-radius:3px;color:var(--nexus-text);cursor:pointer;text-align:left}.studio-navigator .math-tile small{display:block;color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace;text-transform:uppercase;margin-bottom:6px}.studio-navigator .math-tile strong{font-size:9px}.studio-navigator .math-tile span{display:block;margin-top:5px;color:var(--nexus-dim);font:600 6px/1 "JetBrains Mono",monospace}
 .studio-navigator .math-appendix-header{display:flex;align-items:center;justify-content:space-between;padding:7px 9px;margin-top:4px;background:#162238;border:1px solid var(--nexus-border);color:var(--nexus-gold);font:700 8px/1 "JetBrains Mono",monospace;text-transform:uppercase}.studio-navigator .math-feature{margin-top:4px;padding:10px;border:1px solid var(--nexus-border);border-radius:3px;background:#0d1929;cursor:pointer;text-align:left;color:var(--nexus-text);width:100%}.studio-navigator .math-feature-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--nexus-gold);font:700 7px/1 "JetBrains Mono",monospace;text-transform:uppercase}.studio-navigator .math-feature h3{margin:6px 0 3px;font:700 12px/1.2 "Plus Jakarta Sans",sans-serif}.studio-navigator .math-feature p{margin:0;color:var(--nexus-muted);font-size:8px;line-height:1.4}.studio-navigator .math-feature-code{margin-top:6px;padding:5px 7px;width:max-content;max-width:100%;background:#09121f;border:1px solid var(--nexus-border);border-radius:3px;color:var(--nexus-cyan-soft);font:500 8px/1.2 "JetBrains Mono",monospace}.studio-navigator .math-secondary-links{display:grid;gap:3px;margin-top:4px}.studio-navigator .math-secondary-links span{padding:5px 7px;background:#0a1321;color:var(--nexus-dim);border:1px solid #172538;border-radius:3px;font:500 7px/1.25 "JetBrains Mono",monospace}
-@media(max-width:767px){.studio-navigator .navigator-columns{padding:10px 10px 68px}.studio-navigator .subject-cards,.studio-navigator .navigator-option-grid{grid-template-columns:1fr}.studio-navigator .subject-card{min-height:225px}.studio-navigator .gateway-prompt em{margin-left:auto}.studio-navigator .curriculum-hero-row{flex-direction:column}.studio-navigator .hero-status{align-self:flex-start}.studio-navigator .math-split{grid-template-columns:1fr 1fr}}
+
+/* Enlarged Stitch curriculum cards — desktop/tablet/mobile. */
+.studio-navigator .gateway-card{min-height:168px;padding:24px 26px 20px}
+.studio-navigator .gateway-card h2{margin:7px 0 6px}
+.studio-navigator .gateway-card p{margin-bottom:16px}
+.studio-navigator .subject-cards{gap:16px;margin-top:6px}
+.studio-navigator .subject-card{min-height:390px;padding:20px}
+.studio-navigator .subject-card-copy{padding-top:130px}
+.studio-navigator .subject-card-copy strong{font-size:23px}
+.studio-navigator .gateway-status{margin-top:10px;padding:9px 11px}
+.studio-navigator .navigator-stage-heading{padding:22px 24px;margin-bottom:14px;min-height:130px}
+.studio-navigator .navigator-stage-heading h2{font-size:26px}
+.studio-navigator .navigator-option-grid{gap:10px}
+.studio-navigator .navigator-option{min-height:84px;padding:15px 16px;gap:12px}
+.studio-navigator .navigator-option strong{font-size:11px}
+.studio-navigator .navigator-option p{font-size:9px;line-height:1.5}
+.studio-navigator .curriculum-hero{min-height:150px;padding:20px 22px}
+.studio-navigator .curriculum-hero h2{font-size:clamp(22px,3vw,30px)}
+.studio-navigator .academy-switcher{margin-top:14px;gap:6px}
+.studio-navigator .academy-switcher button{padding:7px 10px;font-size:8px}
+.studio-navigator .taxonomy-title{margin:12px 0 7px}
+.studio-navigator .physics-groups,.studio-navigator .math-taxonomy{gap:7px}
+.studio-navigator .physics-group{min-height:58px;padding:12px 14px}
+.studio-navigator .physics-group span{font-size:10px}
+.studio-navigator .featured-physics{min-height:88px;margin-top:8px;padding:14px 16px}
+.studio-navigator .featured-physics strong{font-size:12px}
+.studio-navigator .math-group{min-height:48px;padding:0 13px}
+.studio-navigator .math-group strong{font-size:10px}
+.studio-navigator .math-split{gap:7px}
+.studio-navigator .math-tile{min-height:86px;padding:12px}
+.studio-navigator .math-tile strong{font-size:10px}
+.studio-navigator .math-appendix-header{padding:10px 13px;margin-top:7px}
+.studio-navigator .math-feature{min-height:125px;margin-top:7px;padding:14px}
+.studio-navigator .math-feature h3{font-size:14px}
+.studio-navigator .math-secondary-links{gap:5px;margin-top:7px}.studio-navigator .math-secondary-links span{padding:8px 10px}
+
+@media(min-width:768px) and (max-width:1199px){
+  .studio-navigator .navigator-columns{padding:18px clamp(18px,4vw,34px) 76px}
+  .studio-navigator .gateway-card{min-height:180px;padding:25px 28px 22px}
+  .studio-navigator .subject-card{min-height:340px}
+  .studio-navigator .subject-card-copy{padding-top:105px}
+  .studio-navigator .navigator-option{min-height:78px}
+  .studio-navigator .curriculum-hero{min-height:145px}
+}
+
+@media(max-width:767px){
+  .studio-navigator .navigator-columns{padding:12px 12px 72px}
+  .studio-navigator .gateway-card{min-height:175px;padding:20px 18px 18px}
+  .studio-navigator .gateway-card h2{font-size:24px}
+  .studio-navigator .gateway-card p{margin-bottom:14px}
+  .studio-navigator .subject-cards,.studio-navigator .navigator-option-grid{grid-template-columns:1fr;gap:12px}
+  .studio-navigator .subject-card{min-height:300px;padding:18px}
+  .studio-navigator .subject-card-copy{padding-top:90px}
+  .studio-navigator .subject-card-copy strong{font-size:21px}
+  .studio-navigator .gateway-status{padding:9px 10px}
+  .studio-navigator .navigator-stage-heading{min-height:150px;padding:20px 18px;margin-bottom:12px}
+  .studio-navigator .navigator-stage-heading h2{font-size:23px}
+  .studio-navigator .navigator-option{min-height:82px;padding:14px}
+  .studio-navigator .curriculum-hero{min-height:165px;padding:20px 18px}
+  .studio-navigator .curriculum-hero-row{flex-direction:column}
+  .studio-navigator .hero-status{align-self:flex-start}
+  .studio-navigator .physics-groups,.studio-navigator .math-taxonomy{gap:8px}
+  .studio-navigator .physics-group{min-height:62px;padding:12px 13px}
+  .studio-navigator .featured-physics{min-height:96px;padding:15px}
+  .studio-navigator .math-group{min-height:54px;padding:0 13px}
+  .studio-navigator .math-split{grid-template-columns:1fr 1fr;gap:8px}
+  .studio-navigator .math-tile{min-height:90px;padding:12px}
+  .studio-navigator .math-appendix-header{padding:11px 13px}
+  .studio-navigator .math-feature{min-height:135px;padding:15px}
+  .studio-navigator .math-secondary-links span{padding:9px 10px}
+}
