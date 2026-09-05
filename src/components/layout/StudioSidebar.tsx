@@ -1,8 +1,8 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, PencilLine } from "lucide-react";
 import type { PartContent } from "../../types/course";
 
-interface PartOption {
+interface ContentOption {
   id: string;
   shortLabel: string;
 }
@@ -13,7 +13,8 @@ interface Props {
   activeViewMode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE";
   onSelectSection: (id: string) => void;
   onChangeViewMode: (mode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE") => void;
-  parts: PartOption[];
+  parts: ContentOption[];
+  appendices: ContentOption[];
   activePartId: string;
   onSelectPart: (id: string) => void;
 }
@@ -33,6 +34,7 @@ export const StudioSidebar: React.FC<Props> = ({
   onSelectSection,
   onChangeViewMode,
   parts,
+  appendices,
   activePartId,
   onSelectPart
 }) => {
@@ -59,13 +61,22 @@ export const StudioSidebar: React.FC<Props> = ({
               className="sidebar-part-select"
               value={activePartId}
               onChange={(e) => onSelectPart(e.target.value)}
-              aria-label="Select episode"
+              aria-label="Select lecture content"
             >
-              {parts.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {option.shortLabel}
-                </option>
-              ))}
+              <optgroup label="Curriculum">
+                {parts.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.shortLabel}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Appendices">
+                {appendices.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.shortLabel}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </div>
         )}
@@ -139,7 +150,3 @@ export const StudioSidebar: React.FC<Props> = ({
     </aside>
   );
 };
-
-
-
-
