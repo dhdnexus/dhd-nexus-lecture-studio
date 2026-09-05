@@ -1,4 +1,4 @@
-/* Mobile navigation drawer for DHD Nexus Lecture Studio. */
+/* Responsive and global navigation for DHD Nexus Lecture Studio. */
 
 .mobile-menu-button {
   display: none;
@@ -10,6 +10,73 @@
 
 .mobile-sidebar-backdrop {
   display: none;
+}
+
+.studio-home-link {
+  border: 0;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.studio-home-link:hover .eyebrow {
+  color: var(--cyan);
+}
+
+.sidebar-global-nav {
+  padding: 10px 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-global-nav .sidebar-heading {
+  margin-bottom: 6px;
+}
+
+.sidebar-global-link,
+.sidebar-subject-link {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 36px;
+  padding: 7px 9px;
+  text-align: left;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.sidebar-global-link:hover,
+.sidebar-global-link.active,
+.sidebar-subject-link:hover {
+  color: var(--text);
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.22);
+}
+
+.sidebar-global-link.active {
+  color: var(--cyan);
+}
+
+.sidebar-subject-links {
+  margin: 2px 0 5px 25px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.sidebar-subject-link {
+  min-height: 31px;
+  padding: 5px 8px;
+  font-size: 0.76rem;
+}
+
+.sidebar-global-nav + .sidebar-toggle {
+  margin-top: 8px;
 }
 
 @media (max-width: 767px) {
@@ -39,7 +106,8 @@
     width: min(88vw, 310px);
     flex-basis: min(88vw, 310px);
     transform: translateX(0);
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     background: #080d1a;
     box-shadow: 18px 0 40px rgba(0, 0, 0, 0.45);
   }
@@ -60,6 +128,20 @@
     width: 100%;
     max-width: 100%;
     margin-top: 5px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-global-nav {
+    padding: 10px 10px 14px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-global-link {
+    min-height: 42px;
+    padding: 9px 10px;
+    gap: 11px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-subject-links {
+    margin-left: 28px;
   }
 
   .studio-sidebar.mobile-open .sidebar-modes {
@@ -162,6 +244,10 @@
     height: 36px;
     padding: 8px;
     justify-content: center;
+  }
+
+  .studio-home-link {
+    min-width: 0;
   }
 }
 
