@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { parts, getPartById } from "./content/parts";
+import { appendices } from "./content/appendices";
+import type { AppendixDefinition } from "./content/appendices";
+import type { PartDefinition } from "./content/parts";
 import { StudioHeader } from "./components/layout/StudioHeader";
 import { StudioSidebar } from "./components/layout/StudioSidebar";
 import { LecturerPanel } from "./components/layout/LecturerPanel";
@@ -9,39 +12,53 @@ import { WorkedExampleView } from "./components/lecture/WorkedExamplePanel";
 import { CheckpointView } from "./components/lecture/CheckpointView";
 import { PracticeView } from "./components/lecture/PracticeView";
 import { LectureNoteView } from "./components/lecture/LectureNoteView";
+import "./styles/mobile-sidebar.css";
+
+type StudioContent = PartDefinition | AppendixDefinition;
+
+const getContentById = (id: string): StudioContent => {
+  const appendix = appendices.find((item) => item.id === id);
+  return appendix ?? getPartById(id);
+};
 
 const App: React.FC = () => {
-  const [activePartId, setActivePartId] = useState(parts[0].id);
-  const activePart = getPartById(activePartId);
+  const [activeContentId, setActiveContentId] = useState(parts[0].id);
+  const activeContent = getContentById(activeContentId);
 
   const [currentSectionId, setCurrentSectionId] = useState(
-    activePart.content.sections[0].id
+    activeContent.content.sections[0].id
   );
   const [activeViewMode, setActiveViewMode] = useState<"LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE">("LESSON");
   const [lecturerMode, setLecturerMode] = useState(true);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  const handleSelectPart = (id: string) => {
-    const nextPart = getPartById(id);
-    setActivePartId(id);
-    setCurrentSectionId(nextPart.content.sections[0].id);
+  const handleSelectContent = (id: string) => {
+    const nextContent = getContentById(id);
+    setActiveContentId(id);
+    setCurrentSectionId(nextContent.content.sections[0].id);
     setActiveViewMode("LESSON");
   };
 
-  const index = activePart.content.sections.findIndex((s) => s.id === currentSectionId);
-  const activeSection = activePart.content.sections[index] ?? activePart.content.sections[0];
+  const index = activeContent.content.sections.findIndex((s) => s.id === currentSectionId);
+  const activeSection = activeContent.content.sections[index] ?? activeContent.content.sections[0];
 
   const goPrevious = () => {
-    if (index > 0) setCurrentSectionId(activePart.content.sections[index - 1].id);
+    if (index > 0) setCurrentSectionId(activeContent.content.sections[index - 1].id);
   };
 
   const goNext = () => {
-    if (index < activePart.content.sections.length - 1) {
-      setCurrentSectionId(activePart.content.sections[index + 1].id);
+    if (index < activeContent.content.sections.length - 1) {
+      setCurrentSectionId(activeContent.content.sections[index + 1].id);
     }
   };
 
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileSidebarOpen(false);
+        return;
+      }
+
       if (activeViewMode !== "LESSON") return;
 
       if (event.key === "ArrowRight") goNext();
@@ -55,6 +72,13 @@ const App: React.FC = () => {
     return () => window.removeEventListener("keydown", handler);
   });
 
+  useEffect(() => {
+    document.body.style.overflow = mobileSidebarOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileSidebarOpen]);
+
   const toggleFullscreen = async () => {
     if (!document.fullscreenElement) {
       await document.documentElement.requestFullscreen();
@@ -65,46 +89,58 @@ const App: React.FC = () => {
 
   return (
     <div className="app-shell">
+      {mobileSidebarOpen && (
+        <button
+          className="mobile-sidebar-backdrop"
+          onClick={() => setMobileSidebarOpen(false)}
+          aria-label="Close navigation"
+        />
+      )}
+
       <StudioSidebar
-        part={activePart.content}
+        part={activeContent.content}
         currentSectionId={currentSectionId}
         activeViewMode={activeViewMode}
         onSelectSection={setCurrentSectionId}
         onChangeViewMode={setActiveViewMode}
         parts={parts.map((p) => ({ id: p.id, shortLabel: p.shortLabel }))}
-        activePartId={activePartId}
-        onSelectPart={handleSelectPart}
+        appendices={appendices.map((appendix) => ({ id: appendix.id, shortLabel: appendix.shortLabel }))}
+        activePartId={activeContentId}
+        onSelectPart={handleSelectContent}
+        mobileOpen={mobileSidebarOpen}
+        onCloseMobile={() => setMobileSidebarOpen(false)}
       />
 
       <div className="studio-workspace">
         <StudioHeader
-          title={activePart.content.title}
-          subtitle={activePart.content.subtitle}
+          title={activeContent.content.title}
+          subtitle={activeContent.content.subtitle}
           lecturerMode={lecturerMode}
           onToggleLecturerMode={() => setLecturerMode((value) => !value)}
           onToggleFullscreen={toggleFullscreen}
+          onToggleMobileMenu={() => setMobileSidebarOpen((value) => !value)}
         />
 
         <div className="studio-body">
           <main className="presentation-area">
             {activeViewMode === "LESSON" && (
-              <LectureView section={activeSection} visualRegistry={activePart.lessonVisualRegistry} />
+              <LectureView section={activeSection} visualRegistry={activeContent.lessonVisualRegistry} />
             )}
             {activeViewMode === "WORKED_EXAMPLE" && (
-              <WorkedExampleView key={activePart.id} examples={activePart.workedExamples} />
+              <WorkedExampleView key={activeContent.id} examples={activeContent.workedExamples} />
             )}
             {activeViewMode === "CHECKPOINT" && (
-              <CheckpointView key={activePart.id} checkpoints={activePart.content.checkpoints} />
+              <CheckpointView key={activeContent.id} checkpoints={activeContent.content.checkpoints} />
             )}
             {activeViewMode === "PRACTICE" && (
-              <PracticeView key={activePart.id} problems={activePart.practiceProblems} />
+              <PracticeView key={activeContent.id} problems={activeContent.practiceProblems} />
             )}
             {activeViewMode === "LECTURE_NOTE" && (
               <LectureNoteView
-                key={activePart.id}
-                markdown={activePart.lectureNoteMarkdown}
-                partTitle={`${activePart.content.title} — ${activePart.content.subtitle}`}
-                visualRegistry={activePart.lectureNoteVisualRegistry}
+                key={activeContent.id}
+                markdown={activeContent.lectureNoteMarkdown}
+                partTitle={`${activeContent.content.title} — ${activeContent.content.subtitle}`}
+                visualRegistry={activeContent.lectureNoteVisualRegistry}
               />
             )}
 
@@ -114,11 +150,11 @@ const App: React.FC = () => {
                   <ChevronLeft size={17} /> Previous
                 </button>
 
-                <span>{index + 1} / {activePart.content.sections.length}</span>
+                <span>{index + 1} / {activeContent.content.sections.length}</span>
 
                 <button
                   onClick={goNext}
-                  disabled={index === activePart.content.sections.length - 1}
+                  disabled={index === activeContent.content.sections.length - 1}
                 >
                   Next <ChevronRight size={17} />
                 </button>
@@ -136,8 +172,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-
-
-
-

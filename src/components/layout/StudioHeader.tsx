@@ -1,5 +1,5 @@
-﻿import React from "react";
-import { Maximize2, PanelRight } from "lucide-react";
+import React from "react";
+import { Maximize2, PanelRight, Menu } from "lucide-react";
 
 interface Props {
   title: string;
@@ -7,6 +7,7 @@ interface Props {
   lecturerMode: boolean;
   onToggleLecturerMode: () => void;
   onToggleFullscreen: () => void;
+  onToggleMobileMenu: () => void;
 }
 
 export const StudioHeader: React.FC<Props> = ({
@@ -14,7 +15,8 @@ export const StudioHeader: React.FC<Props> = ({
   subtitle,
   lecturerMode,
   onToggleLecturerMode,
-  onToggleFullscreen
+  onToggleFullscreen,
+  onToggleMobileMenu
 }) => (
   <header className="studio-header">
     <div className="brand-block">
@@ -24,6 +26,14 @@ export const StudioHeader: React.FC<Props> = ({
     </div>
 
     <div className="header-actions">
+      <button
+        className="icon-button mobile-menu-button"
+        onClick={onToggleMobileMenu}
+        aria-label="Open navigation"
+      >
+        <Menu size={17} />
+      </button>
+
       <button className="icon-button" onClick={onToggleLecturerMode}>
         <PanelRight size={17} />
         <span>{lecturerMode ? "Lecturer HUD" : "Lecturer HUD Off"}</span>
