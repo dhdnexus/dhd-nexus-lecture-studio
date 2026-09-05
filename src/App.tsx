@@ -12,6 +12,7 @@ import { WorkedExampleView } from "./components/lecture/WorkedExamplePanel";
 import { CheckpointView } from "./components/lecture/CheckpointView";
 import { PracticeView } from "./components/lecture/PracticeView";
 import { LectureNoteView } from "./components/lecture/LectureNoteView";
+import "./styles/mobile-sidebar.css";
 
 type StudioContent = PartDefinition | AppendixDefinition;
 
@@ -29,6 +30,7 @@ const App: React.FC = () => {
   );
   const [activeViewMode, setActiveViewMode] = useState<"LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE">("LESSON");
   const [lecturerMode, setLecturerMode] = useState(true);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const handleSelectContent = (id: string) => {
     const nextContent = getContentById(id);
@@ -52,6 +54,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileSidebarOpen(false);
+        return;
+      }
+
       if (activeViewMode !== "LESSON") return;
 
       if (event.key === "ArrowRight") goNext();
@@ -65,6 +72,13 @@ const App: React.FC = () => {
     return () => window.removeEventListener("keydown", handler);
   });
 
+  useEffect(() => {
+    document.body.style.overflow = mobileSidebarOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileSidebarOpen]);
+
   const toggleFullscreen = async () => {
     if (!document.fullscreenElement) {
       await document.documentElement.requestFullscreen();
@@ -75,6 +89,14 @@ const App: React.FC = () => {
 
   return (
     <div className="app-shell">
+      {mobileSidebarOpen && (
+        <button
+          className="mobile-sidebar-backdrop"
+          onClick={() => setMobileSidebarOpen(false)}
+          aria-label="Close navigation"
+        />
+      )}
+
       <StudioSidebar
         part={activeContent.content}
         currentSectionId={currentSectionId}
@@ -85,6 +107,8 @@ const App: React.FC = () => {
         appendices={appendices.map((appendix) => ({ id: appendix.id, shortLabel: appendix.shortLabel }))}
         activePartId={activeContentId}
         onSelectPart={handleSelectContent}
+        mobileOpen={mobileSidebarOpen}
+        onCloseMobile={() => setMobileSidebarOpen(false)}
       />
 
       <div className="studio-workspace">
@@ -94,6 +118,7 @@ const App: React.FC = () => {
           lecturerMode={lecturerMode}
           onToggleLecturerMode={() => setLecturerMode((value) => !value)}
           onToggleFullscreen={toggleFullscreen}
+          onToggleMobileMenu={() => setMobileSidebarOpen((value) => !value)}
         />
 
         <div className="studio-body">
