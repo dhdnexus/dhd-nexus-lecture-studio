@@ -1,0 +1,123 @@
+/* Layout refinement for the Stitch-inspired curriculum navigator only. */
+.studio-navigator .navigator-columns {
+  padding-left: clamp(16px, 2vw, 30px);
+  padding-right: clamp(16px, 2vw, 30px);
+}
+
+.studio-navigator .navigator-welcome,
+.studio-navigator .navigator-stage {
+  width: min(100%, 1450px);
+  max-width: 1450px;
+}
+
+/* Desktop: use the available screen rather than a narrow centered column. */
+@media (min-width: 1200px) {
+  .studio-navigator .navigator-welcome,
+  .studio-navigator .navigator-stage {
+    width: min(100%, 1450px);
+  }
+
+  .studio-navigator .curriculum-hero,
+  .studio-navigator .navigator-stage-heading {
+    min-height: 150px;
+    padding: 24px 28px;
+  }
+
+  .studio-navigator .physics-group {
+    min-height: 78px;
+    padding: 16px 18px;
+  }
+
+  .studio-navigator .navigator-option {
+    min-height: 108px;
+    padding: 20px;
+  }
+
+  .studio-navigator .featured-physics {
+    min-height: 104px;
+    padding: 18px 20px;
+  }
+
+  .studio-navigator .math-group {
+    min-height: 60px;
+    padding: 0 16px;
+  }
+
+  .studio-navigator .math-tile {
+    min-height: 104px;
+    padding: 16px;
+  }
+
+  .studio-navigator .math-feature {
+    min-height: 145px;
+    padding: 18px;
+  }
+}
+
+/* Tablet: still fill the viewport, while retaining a comfortable two-column grid. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .studio-navigator .navigator-columns {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .studio-navigator .navigator-welcome,
+  .studio-navigator .navigator-stage {
+    width: 100%;
+    max-width: none;
+  }
+
+  .studio-navigator .curriculum-hero,
+  .studio-navigator .navigator-stage-heading {
+    min-height: 145px;
+    padding: 22px 24px;
+  }
+
+  .studio-navigator .physics-group {
+    min-height: 72px;
+    padding: 14px 16px;
+  }
+
+  .studio-navigator .navigator-option {
+    min-height: 96px;
+    padding: 17px;
+  }
+}
+
+/* Mobile: full-width cards with larger touch targets and no excessive side gutters. */
+@media (max-width: 767px) {
+  .studio-navigator .navigator-columns {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .studio-navigator .navigator-welcome,
+  .studio-navigator .navigator-stage {
+    width: 100%;
+    max-width: none;
+  }
+
+  .studio-navigator .curriculum-hero,
+  .studio-navigator .navigator-stage-heading {
+    min-height: 165px;
+    padding: 20px 18px;
+  }
+
+  .studio-navigator .physics-group {
+    min-height: 76px;
+    padding: 14px 15px;
+  }
+
+  .studio-navigator .navigator-option {
+    min-height: 94px;
+    padding: 16px;
+  }
+
+  .studio-navigator .math-group {
+    min-height: 58px;
+  }
+
+  .studio-navigator .math-tile {
+    min-height: 96px;
+  }
+}
