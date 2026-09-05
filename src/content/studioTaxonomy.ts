@@ -44,6 +44,9 @@ export const studioSubjects: TaxonomyNode[] = [
     { id: "differential-applied", label: "Differential Equations & Applied Mathematics", description: "ODEs, PDEs, dynamical systems, and chaos.", children: [ { id: "odes", label: "Ordinary Differential Equations (ODEs)" }, { id: "pdes", label: "Partial Differential Equations (PDEs)" }, { id: "dynamical-systems", label: "Dynamical Systems & Chaos" } ] },
     { id: "geometry-topology", label: "Geometry & Topology", children: [ { id: "differential-geometry", label: "Differential Geometry" }, { id: "topology", label: "Topology" } ] },
     { id: "discrete-logic", label: "Discrete Mathematics & Logic", children: [ { id: "discrete-structures", label: "Discrete Structures" }, { id: "mathematical-logic", label: "Mathematical Logic & Foundations" } ] },
-    { id: "probability-statistics", label: "Probability & Statistics", children: [ { id: "probability", label: "Probability Theory" }, { id: "mathematical-statistics", label: "Mathematical Statistics" } ] }
+    { id: "probability-statistics", label: "Probability & Statistics", children: [ { id: "probability", label: "Probability Theory" }, { id: "mathematical-statistics", label: "Mathematical Statistics" } ] },
+    { id: "mathematics-appendices", label: "Appendices", description: "Supplementary mathematical methods and reference material.", children: [
+      { id: "appendix-roots", label: "Appendix — Roots of Quadratic Equations", description: "Supplementary algebraic methods for working with roots and root relationships.", contentId: "appendix-roots" }
+    ] }
   ] }
 ];
