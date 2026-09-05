@@ -17,7 +17,6 @@ import "./styles/mobile-sidebar.css";
 import "./styles/studio-navigator.css";
 
 type StudioContent = PartDefinition | AppendixDefinition;
-
 type SubjectId = "physics" | "mathematics";
 
 const getContentById = (id: string): StudioContent => {
@@ -127,10 +126,6 @@ const App: React.FC = () => {
           onOpenNavigator={() => openNavigator([])}
           onOpenHome={() => openNavigator([])}
         />
-
-        <button className="studio-browse-button" onClick={() => openNavigator([])}>
-          Browse Studio
-        </button>
 
         <div className="studio-body">
           <main className="presentation-area">
