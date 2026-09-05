@@ -12,9 +12,9 @@ interface Props {
   onOpenHome: () => void;
 }
 
-export const StudioHeader: React.FC<Props> = ({ lecturerMode, onToggleLecturerMode, onToggleFullscreen, onToggleMobileMenu }) => (
+export const StudioHeader: React.FC<Props> = ({ lecturerMode, onToggleLecturerMode, onToggleFullscreen, onToggleMobileMenu, onOpenHome }) => (
   <header className="studio-header">
-    <button className="brand-block studio-home-link" onClick={() => window.dispatchEvent(new CustomEvent("dhd-studio-home"))} aria-label="Return to DHD Nexus Lecture Studio home">
+    <button className="brand-block studio-home-link" onClick={onOpenHome} aria-label="Return to DHD Nexus Lecture Studio home">
       <span className="studio-brand-wordmark">DHD NEXUS</span>
       <span className="studio-brand-submark">LECTURE STUDIO</span>
     </button>
