@@ -49,7 +49,6 @@ export const StudioSidebar: React.FC<Props> = ({
 }) => {
   const [collapsed, setCollapsed] = useState(false);
   const showFullSidebar = !collapsed || mobileOpen;
-  const currentSubject = studioSubjects.find((subject) => subject.id === currentSubjectId);
 
   useEffect(() => {
     const handleResize = () => {
