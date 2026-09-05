@@ -7,7 +7,7 @@ export type TaxonomyNode = {
 };
 
 export const studioSubjects: TaxonomyNode[] = [
-  { id: "physics", label: "DHD Nexus Physics Academy", description: "Classical, modern, and applied physics.", children: [
+  { id: "physics", label: "Physics", description: "Classical, modern, and applied physics.", children: [
     { id: "classical-physics", label: "Classical Physics", description: "Foundational physics of motion, fields, waves, light, and thermal systems.", children: [
       { id: "classical-mechanics", label: "Classical Mechanics", description: "Kinematics, dynamics, analytical mechanics, fluids, and continuum mechanics.", children: [
         { id: "introductory-newtonian", label: "Introductory / Newtonian Mechanics", description: "Kinematics, Newton's Laws, conservation laws, rotation, projectiles, and gravitation.", children: [
@@ -23,7 +23,7 @@ export const studioSubjects: TaxonomyNode[] = [
         ] },
         { id: "continuum-fluid", label: "Continuum & Fluid Mechanics", description: "Fluid statics, hydrodynamics, viscosity, surface tension, and elasticity.", children: [
           { id: "fluid-statics", label: "Fluid Statics" }, { id: "hydrodynamics", label: "Hydrodynamics" }, { id: "navier-stokes", label: "Navier–Stokes Equations" }, { id: "surface-tension", label: "Surface Tension & Viscosity" }, { id: "elasticity", label: "Elasticity" }
-        ] }
+        ]
       ] },
       { id: "electromagnetism", label: "Classical Electromagnetism", description: "Electric and magnetic fields, potentials, Maxwell's equations, and electromagnetic waves.", children: [
         { id: "electrostatics-magnetostatics", label: "Electrostatics & Magnetostatics", description: "Coulomb, Gauss, electric potential, Ampere, Biot–Savart, and materials." },
@@ -38,7 +38,7 @@ export const studioSubjects: TaxonomyNode[] = [
     { id: "modern-physics", label: "Modern Physics", description: "Quantum, particle, nuclear, and relativistic physics." },
     { id: "applied-physics", label: "Applied / Interdisciplinary Physics", description: "Computational physics, geophysics, and interdisciplinary applications." }
   ] },
-  { id: "mathematics", label: "DHD Nexus Mathematics Academy", description: "Core undergraduate mathematics from calculus and algebra to statistics and logic.", children: [
+  { id: "mathematics", label: "Mathematics", description: "Core undergraduate mathematics from calculus and algebra to statistics and logic.", children: [
     { id: "analysis-calculus", label: "Analysis & Calculus", description: "Calculus, real analysis, and complex analysis.", children: [ { id: "calculus", label: "Calculus (Single / Multivariable)" }, { id: "real-analysis", label: "Real Analysis" }, { id: "complex-analysis", label: "Complex Analysis" } ] },
     { id: "algebra-number-theory", label: "Algebra & Number Theory", description: "Linear algebra, abstract algebra, and number theory.", children: [ { id: "linear-algebra", label: "Linear Algebra" }, { id: "abstract-algebra", label: "Abstract Algebra" }, { id: "number-theory", label: "Number Theory" } ] },
     { id: "differential-applied", label: "Differential Equations & Applied Mathematics", description: "ODEs, PDEs, dynamical systems, and chaos.", children: [ { id: "odes", label: "Ordinary Differential Equations (ODEs)" }, { id: "pdes", label: "Partial Differential Equations (PDEs)" }, { id: "dynamical-systems", label: "Dynamical Systems & Chaos" } ] },
