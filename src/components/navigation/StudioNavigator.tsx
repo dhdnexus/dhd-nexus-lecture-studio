@@ -1,138 +1,25 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, GraduationCap, Layers3, Sigma, Atom, Home } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, ChevronDown, ChevronRight, GraduationCap, Home, Sigma, Atom, PlayCircle, Network, Layers3 } from "lucide-react";
 import { studioSubjects, type TaxonomyNode } from "../../content/studioTaxonomy";
 
-interface Props {
-  onOpenContent: (contentId: string, trail: TaxonomyNode[]) => void;
-  initialTrailIds?: string[];
-}
+interface Props { onOpenContent: (contentId: string, trail: TaxonomyNode[]) => void; initialTrailIds?: string[]; }
+const kinematicsParts: TaxonomyNode[] = [1,2,3,4,5,6].map((part)=>({id:`part-${part}`,label:`Part ${part}`,description:`Kinematics lecture content — Part ${part}.`,contentId:`part-${part}`}));
+const resolveTrail=(ids:string[]=[])=>{const result:TaxonomyNode[]=[];let options=studioSubjects;for(const id of ids){const node=options.find(n=>n.id===id);if(!node)break;result.push(node);options=node.id==="kinematics"?kinematicsParts:node.children??[];}return result;};
+const findNode=(id:string):TaxonomyNode|undefined=>{const walk=(nodes:TaxonomyNode[]):TaxonomyNode|undefined=>{for(const n of nodes){if(n.id===id)return n;if(n.children){const m=walk(n.children);if(m)return m;}}return undefined;};return walk(studioSubjects);};
+const iconFor=(id:string)=>id==="physics"?Atom:id==="mathematics"?Sigma:id==="kinematics"?PlayCircle:Layers3;
 
-const iconFor = (id: string) => {
-  if (id === "physics") return Atom;
-  if (id === "mathematics") return Sigma;
-  return Layers3;
-};
-
-const kinematicsParts: TaxonomyNode[] = [1, 2, 3, 4, 5, 6].map((part) => ({
-  id: `part-${part}`,
-  label: `Part ${part}`,
-  description: `Kinematics lecture content — Part ${part}.`,
-  contentId: `part-${part}`
-}));
-
-const resolveTrail = (ids: string[] = []) => {
-  const result: TaxonomyNode[] = [];
-  let options = studioSubjects;
-
-  for (const id of ids) {
-    const node = options.find((item) => item.id === id);
-    if (!node) break;
-    result.push(node);
-    options = node.id === "kinematics" ? kinematicsParts : node.children ?? [];
-  }
-
-  return result;
-};
-
-export const StudioNavigator: React.FC<Props> = ({ onOpenContent, initialTrailIds = [] }) => {
-  const [trail, setTrail] = useState<TaxonomyNode[]>(() => resolveTrail(initialTrailIds));
-  const current = trail[trail.length - 1];
-  const options = current?.id === "kinematics" ? kinematicsParts : current?.children ?? studioSubjects;
-  const Icon = current ? iconFor(current.id) : GraduationCap;
-
-  useEffect(() => {
-    setTrail(resolveTrail(initialTrailIds));
-  }, [initialTrailIds.join("/")]);
-
-  const selectNode = (node: TaxonomyNode) => {
-    const nextTrail = [...trail, node];
-    setTrail(nextTrail);
-    if (node.contentId) onOpenContent(node.contentId, nextTrail);
-  };
-
-  const goBack = () => setTrail((value) => value.slice(0, -1));
-  const goHome = () => setTrail([]);
-  const breadcrumb = useMemo(() => trail.map((node) => node.label), [trail]);
-
-  return (
-    <section className="studio-navigator" aria-label="DHD Nexus Lecture Studio navigation">
-      <header className="navigator-header">
-        <button className="navigator-brand" onClick={goHome} aria-label="DHD Nexus Lecture Studio home">
-          <div className="navigator-mark"><BookOpen size={20} /></div>
-          <div><p className="navigator-eyebrow">DHD NEXUS</p><h1>LECTURE STUDIO</h1></div>
-        </button>
-        <div className="navigator-purpose">Choose an academy to begin</div>
-      </header>
-
-      <div className="navigator-breadcrumbs" aria-label="Navigation path">
-        <button onClick={goHome} className={trail.length === 0 ? "current" : ""}><Home size={14} /> Home</button>
-        {breadcrumb.map((label, index) => (
-          <React.Fragment key={`${label}-${index}`}>
-            <ChevronRight size={14} />
-            <button className={index === trail.length - 1 ? "current" : ""} onClick={() => setTrail((value) => value.slice(0, index + 1))}>{label}</button>
-          </React.Fragment>
-        ))}
-      </div>
-
-      <div className="navigator-layout">
-        {trail.length > 0 && (
-          <aside className="navigator-rail">
-            <div className="navigator-rail-label">ACADEMIES</div>
-            {studioSubjects.map((subject) => {
-              const SubjectIcon = iconFor(subject.id);
-              return (
-                <button key={subject.id} className={trail[0]?.id === subject.id ? "active" : ""} onClick={() => setTrail([subject])}>
-                  <SubjectIcon size={18} /><span>{subject.label}</span>
-                </button>
-              );
-            })}
-          </aside>
-        )}
-
-        <main className="navigator-columns">
-          {trail.length === 0 ? (
-            <div className="navigator-welcome">
-              <Icon size={28} />
-              <span className="navigator-kicker">DHD NEXUS ACADEMIC GATEWAY</span>
-              <h2>Choose what you want to study</h2>
-              <p>Select an academy to explore its curriculum. The Studio keeps global navigation, academic taxonomy, course content, and lecture views in separate layers.</p>
-              <div className="subject-cards">
-                {studioSubjects.map((subject) => {
-                  const SubjectIcon = iconFor(subject.id);
-                  return (
-                    <button key={subject.id} className="subject-card" onClick={() => selectNode(subject)}>
-                      <div className="subject-card-icon"><SubjectIcon size={24} /></div>
-                      <div><strong>{subject.label}</strong><p>{subject.description}</p></div>
-                      <ArrowRight size={18} />
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ) : (
-            <div className="navigator-stage">
-              <div className="navigator-stage-heading">
-                <div>
-                  <span className="navigator-kicker">{trail.length === 1 ? "ACADEMY" : "CURRICULUM"}</span>
-                  <h2>{current.label}</h2>
-                  {current.description && <p>{current.description}</p>}
-                </div>
-                <button className="navigator-back" onClick={goBack}><ArrowLeft size={16} /> Back</button>
-              </div>
-              <div className="navigator-option-grid">
-                {options.length > 0 ? options.map((node) => (
-                  <button key={node.id} className="navigator-option" onClick={() => selectNode(node)}>
-                    <div><strong>{node.label}</strong>{node.description && <p>{node.description}</p>}{node.contentId && <span className="navigator-available"><BookOpen size={13} /> Available in Lecture Studio</span>}</div>
-                    <ChevronRight size={18} />
-                  </button>
-                )) : (
-                  <div className="navigator-empty"><span>CONTENT NOT YET PUBLISHED</span><p>This area is part of the Academy taxonomy and is ready for future lessons.</p></div>
-                )}
-              </div>
-            </div>
-          )}
-        </main>
-      </div>
-    </section>
-  );
+export const StudioNavigator:React.FC<Props>=({onOpenContent,initialTrailIds=[]})=>{
+ const [trail,setTrail]=useState<TaxonomyNode[]>(()=>resolveTrail(initialTrailIds));
+ const [filter,setFilter]=useState<"all"|"physics"|"mathematics">("all");
+ const physics=studioSubjects[0], mathematics=studioSubjects[1], current=trail.at(-1);
+ const options=current?.id==="kinematics"?kinematicsParts:current?.children??[];
+ useEffect(()=>setTrail(resolveTrail(initialTrailIds)),[initialTrailIds.join("/")]);
+ const selectNode=(node:TaxonomyNode)=>{const next=[...trail,node];setTrail(next);if(node.contentId)onOpenContent(node.contentId,next);};
+ const goHome=()=>setTrail([]),goBack=()=>setTrail(v=>v.slice(0,-1));
+ const breadcrumb=useMemo(()=>trail.map(n=>n.label),[trail]);
+ const switchSubject=(id:"physics"|"mathematics")=>setTrail([id==="physics"?physics:mathematics]);
+ const landingCard=(subject:TaxonomyNode,type:"physics"|"mathematics")=>{if(filter!=="all"&&filter!==type)return null;const I=iconFor(subject.id);return <button key={subject.id} className={`subject-card ${type}-card`} onClick={()=>selectNode(subject)}><div className="subject-card-topline"><span className="subject-discipline"><I size={11}/> DISCIPLINE 0{type==="physics"?"1":"2"}</span><span className={`subject-status ${type==="physics"?"live":"gold"}`}>{type==="physics"?"1 SERIES LIVE • 6 PARTS":"FRAMEWORK & APPENDICES"}</span></div><div className="subject-card-copy"><strong>{subject.label}</strong><span>{type==="physics"?"Classical, Modern and Applied Physics":"Calculus, Algebra, Topology & Appendices"}</span></div><ArrowRight className="subject-card-arrow" size={16}/></button>;};
+ const mathView=()=>{const children=mathematics.children??[],branch=children.find(n=>n.id==="mathematics-appendices"),featured=branch?.children?.[0];return <div className="navigator-stage math-curriculum"><div className="curriculum-hero"><span className="navigator-kicker">DISCIPLINE 02 // MATHEMATICS</span><div className="curriculum-hero-row"><div><h2>Mathematical Foundations &amp; Rigorous Appendices</h2><p>Analysis, Algebra, Topology &amp; Core Analytical Formalisms</p></div><span className="hero-status">SYLLABUS EXPANDED</span></div><div className="academy-switcher"><button onClick={()=>switchSubject("physics")}><Atom size={10}/> 01 // Physics</button><button className="active"><Sigma size={10}/> 02 // Mathematics (Active)</button></div></div><div className="taxonomy-title"><Network size={13}/><strong>Curriculum Taxonomy</strong><span>7 GROUPS • 1 ACTIVE</span></div><div className="math-taxonomy">{children.slice(0,3).map((n,i)=><button key={n.id} className="math-group" onClick={()=>selectNode(n)}><span className="math-group-main"><span className="math-group-code">G{i+1}</span><strong>{n.label}</strong></span><span className="math-group-status">{i===0?"IN PREP":i===1?"IN DEV":"QUEUED"}<ChevronDown size={10}/></span></button>)}<div className="math-split">{children.slice(3,5).map((n,i)=><button key={n.id} className="math-tile" onClick={()=>selectNode(n)}><small>G{i+4} // {i===0?"GEOMETRY":"LOGIC & STATS"}</small><strong>{i===0?"Topology & Diff. Geom.":"Discrete & Probability"}</strong><span>{i===0?"2 MODULES":"4 MODULES"}</span></button>)}</div></div><div className="math-appendix-header"><span>● G7 // APPENDICES &nbsp; Foundational Supplements</span><b>ACTIVE VIEW</b></div>{featured&&<button className="math-feature" onClick={()=>onOpenContent(featured.contentId!,[mathematics,branch!,featured])}><div className="math-feature-top"><span>◉ MATH-APPX-01</span><b>COMPLETE &amp; INTERACTIVE</b></div><h3>{featured.label}</h3><p>Derivation, Discriminant Topology, and Geometric Symmetries</p><div className="math-feature-code">x = (−b ± √(b² − 4ac)) / 2a</div></button>}<div className="math-secondary-links"><span>MATH-APPX-02 &nbsp; Trigonometric Identities &amp; Complex Exponentials</span><span>MATH-APPX-03 &nbsp; Vector Calculus Del Operators (∇, ∇·, ∇×)</span></div></div>;};
+ const physicsView=()=>{const classical=physics.children?.[0];return <div className="navigator-stage physics-curriculum"><div className="curriculum-hero"><span className="navigator-kicker">DISCIPLINE 01 // PHYSICS</span><div className="curriculum-hero-row"><div><h2>Classical Physics &amp; Mechanics</h2><p>Foundations of motion, forces, fields, waves, light and thermal systems</p></div><span className="hero-status">1 SERIES LIVE</span></div><div className="academy-switcher"><button className="active"><Atom size={10}/> 01 // Physics (Active)</button><button onClick={()=>switchSubject("mathematics")}><Sigma size={10}/> 02 // Mathematics</button></div></div><div className="taxonomy-title"><Network size={13}/><strong>Curriculum Taxonomy</strong><span>CLASSICAL PHYSICS</span></div><div className="physics-groups">{physics.children?.map((n,i)=><button key={n.id} className={`physics-group ${i===0?"active":""}`} onClick={()=>selectNode(n)}><span><b>C{String(i+1).padStart(2,"0")}</b>{n.label}</span><small>{i===0?"ACTIVE":"IN DEVELOPMENT"}<ChevronRight size={10}/></small></button>)}</div>{classical?.children?.[0]&&<button className="featured-physics" onClick={()=>selectNode(classical.children[0])}><div><span>LIVE COURSE // INTRODUCTORY / NEWTONIAN</span><strong>Kinematics: The Language of Motion</strong><small>Parts 01–06 Ready • Core Series</small></div><PlayCircle size={18}/></button>}</div>;};
+ return <section className="studio-navigator" aria-label="DHD Nexus Lecture Studio navigation"><header className="navigator-header"><button className="navigator-brand" onClick={goHome} aria-label="Lecture Studio home"><div className="navigator-mark"><BookOpen size={15}/></div><div><p className="navigator-eyebrow">DHD NEXUS</p><h1>LECTURE STUDIO</h1></div></button><div className="navigator-header-right"><span>ACADEMIC WORKBENCH</span><div className="navigator-user"><GraduationCap size={14}/></div></div></header><div className="navigator-breadcrumbs"><button onClick={goHome} className={trail.length===0?"current":""}><Home size={10}/> Home</button>{breadcrumb.map((label,i)=><React.Fragment key={`${label}-${i}`}><ChevronRight size={10}/><button className={i===trail.length-1?"current":""} onClick={()=>setTrail(v=>v.slice(0,i+1))}>{label}</button></React.Fragment>)}</div><div className="navigator-layout"><main className="navigator-columns">{trail.length===0?<div className="navigator-welcome"><div className="gateway-card"><span className="navigator-kicker">RIGOROUS THEORETICAL STUDIO</span><h2>DHD NEXUS LECTURE STUDIO</h2><p>University-level digital lecture workbench and progressive subject mastery deck.</p><div className="gateway-prompt"><span>◉</span> Choose what you want to study <em>AY 2025/2026</em></div></div><div className="discipline-filters"><button className={filter==="all"?"active":""} onClick={()=>setFilter("all")}>▦ All Disciplines <b>2</b></button><button className={filter==="physics"?"active":""} onClick={()=>setFilter("physics")}><Atom size={10}/> Physics <b>1 Live</b></button><button className={filter==="mathematics"?"active":""} onClick={()=>setFilter("mathematics")}><Sigma size={10}/> Mathematics <b>Appendix</b></button></div><div className="subject-cards">{landingCard(physics,"physics")}{landingCard(mathematics,"mathematics")}</div><div className="gateway-status"><span>◉ NEXUS REPOSITORY V3.2</span><b>● SYNCED</b></div></div>:trail.length===1&&trail[0].id==="mathematics"?mathView():trail.length===1&&trail[0].id==="physics"?physicsView():<div className="navigator-stage"><div className="navigator-stage-heading"><div><span className="navigator-kicker">CURRICULUM</span><h2>{current?.label}</h2>{current?.description&&<p>{current.description}</p>}</div><button className="navigator-back" onClick={goBack}><ArrowLeft size={13}/> Back</button></div><div className="navigator-option-grid">{options.length?options.map(n=><button key={n.id} className="navigator-option" onClick={()=>selectNode(n)}><div><strong>{n.label}</strong>{n.description&&<p>{n.description}</p>}{n.contentId&&<span className="navigator-available"><BookOpen size={10}/> Available in Lecture Studio</span>}</div><ChevronRight size={14}/></button>):<div className="navigator-empty"><span>CONTENT NOT YET PUBLISHED</span><p>This area is part of the curriculum taxonomy and is ready for future lessons.</p></div>}</div></div>}</main></div></section>;
 };
