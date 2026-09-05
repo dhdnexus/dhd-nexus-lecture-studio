@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, PencilLine, X } from "lucide-react";
+import { Atom, BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, Home, PencilLine, Sigma, X } from "lucide-react";
 import type { PartContent } from "../../types/course";
+import { studioSubjects, type TaxonomyNode } from "../../content/studioTaxonomy";
 
 interface ContentOption {
   id: string;
@@ -14,11 +15,12 @@ interface Props {
   onSelectSection: (id: string) => void;
   onChangeViewMode: (mode: "LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE") => void;
   parts: ContentOption[];
-  appendices: ContentOption[];
   activePartId: string;
   onSelectPart: (id: string) => void;
   mobileOpen: boolean;
   onCloseMobile: () => void;
+  currentSubjectId: "physics" | "mathematics";
+  onOpenNavigator: (trailIds?: string[]) => void;
 }
 
 const modes = [
@@ -29,6 +31,8 @@ const modes = [
   { id: "LECTURE_NOTE", label: "Lecture Note", icon: BookOpen }
 ] as const;
 
+const subjectIcon = (id: string) => id === "physics" ? Atom : Sigma;
+
 export const StudioSidebar: React.FC<Props> = ({
   part,
   currentSectionId,
@@ -36,14 +40,16 @@ export const StudioSidebar: React.FC<Props> = ({
   onSelectSection,
   onChangeViewMode,
   parts,
-  appendices,
   activePartId,
   onSelectPart,
   mobileOpen,
-  onCloseMobile
+  onCloseMobile,
+  currentSubjectId,
+  onOpenNavigator
 }) => {
   const [collapsed, setCollapsed] = useState(false);
   const showFullSidebar = !collapsed || mobileOpen;
+  const currentSubject = studioSubjects.find((subject) => subject.id === currentSubjectId);
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,6 +76,11 @@ export const StudioSidebar: React.FC<Props> = ({
     onCloseMobile();
   };
 
+  const handleOpenNavigator = (trailIds: string[] = []) => {
+    onOpenNavigator(trailIds);
+    onCloseMobile();
+  };
+
   return (
     <aside className={`studio-sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
       <div className="sidebar-brand">
@@ -83,15 +94,8 @@ export const StudioSidebar: React.FC<Props> = ({
               onChange={(e) => handleSelectPart(e.target.value)}
               aria-label="Select lecture content"
             >
-              <optgroup label="Curriculum">
+              <optgroup label="Published Kinematics">
                 {parts.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.shortLabel}
-                  </option>
-                ))}
-              </optgroup>
-              <optgroup label="Appendices">
-                {appendices.map((option) => (
                   <option key={option.id} value={option.id}>
                     {option.shortLabel}
                   </option>
@@ -108,6 +112,43 @@ export const StudioSidebar: React.FC<Props> = ({
         >
           <X size={18} />
         </button>
+      </div>
+
+      <div className="sidebar-global-nav">
+        <div className="sidebar-heading">{showFullSidebar ? "STUDIO NAVIGATION" : "NAV"}</div>
+        <button className="sidebar-global-link" onClick={() => handleOpenNavigator([])} title="Lecture Studio home">
+          <Home size={16} />
+          {showFullSidebar && <span>Home</span>}
+        </button>
+        {studioSubjects.map((subject) => {
+          const Icon = subjectIcon(subject.id);
+          const isCurrent = subject.id === currentSubjectId;
+          return (
+            <React.Fragment key={subject.id}>
+              <button
+                className={`sidebar-global-link ${isCurrent ? "active" : ""}`}
+                onClick={() => handleOpenNavigator([subject.id])}
+                title={`Browse ${subject.label}`}
+              >
+                <Icon size={16} />
+                {showFullSidebar && <span>{subject.label}</span>}
+              </button>
+              {isCurrent && showFullSidebar && subject.children && (
+                <div className="sidebar-subject-links">
+                  {subject.children.map((branch: TaxonomyNode) => (
+                    <button
+                      key={branch.id}
+                      className="sidebar-subject-link"
+                      onClick={() => handleOpenNavigator([subject.id, branch.id])}
+                    >
+                      <span>{branch.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </React.Fragment>
+          );
+        })}
       </div>
 
       <button
