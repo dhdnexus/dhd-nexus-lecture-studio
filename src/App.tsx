@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { parts, getPartById } from "./content/parts";
-import { appendices, getAppendixById } from "./content/appendices";
+import { appendices } from "./content/appendices";
 import type { AppendixDefinition } from "./content/appendices";
 import type { PartDefinition } from "./content/parts";
 import { StudioHeader } from "./components/layout/StudioHeader";
