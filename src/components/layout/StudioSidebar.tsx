@@ -88,20 +88,24 @@ export const StudioSidebar: React.FC<Props> = ({
         {showFullSidebar && (
           <div>
             <strong>Lecture Studio</strong>
-            <select
-              className="sidebar-part-select"
-              value={activePartId}
-              onChange={(e) => handleSelectPart(e.target.value)}
-              aria-label="Select lecture content"
-            >
-              <optgroup label="Published Kinematics">
-                {parts.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.shortLabel}
-                  </option>
-                ))}
-              </optgroup>
-            </select>
+            {currentSubjectId === "physics" ? (
+              <select
+                className="sidebar-part-select"
+                value={activePartId}
+                onChange={(e) => handleSelectPart(e.target.value)}
+                aria-label="Select published Kinematics lecture part"
+              >
+                <optgroup label="Published Kinematics">
+                  {parts.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.shortLabel}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            ) : (
+              <span className="sidebar-context">Mathematics · Supplementary Appendix</span>
+            )}
           </div>
         )}
 
