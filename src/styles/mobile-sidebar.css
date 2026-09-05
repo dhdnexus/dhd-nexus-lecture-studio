@@ -1,0 +1,174 @@
+/* Mobile navigation drawer for DHD Nexus Lecture Studio. */
+
+.mobile-menu-button {
+  display: none;
+}
+
+.mobile-sidebar-close {
+  display: none;
+}
+
+.mobile-sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .app-shell {
+    position: relative;
+  }
+
+  /* Remove the old permanent 58px mobile rail. */
+  .studio-sidebar,
+  .studio-sidebar.collapsed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    flex: 0 0 0;
+    transform: translateX(-100%);
+    transition: transform 0.22s ease, width 0.22s ease;
+    overflow: hidden;
+    z-index: 100;
+    box-shadow: none;
+  }
+
+  /* Full navigation drawer when opened. */
+  .studio-sidebar.collapsed.mobile-open,
+  .studio-sidebar.mobile-open {
+    width: min(88vw, 310px);
+    flex-basis: min(88vw, 310px);
+    transform: translateX(0);
+    overflow: hidden;
+    background: #080d1a;
+    box-shadow: 18px 0 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .studio-sidebar.mobile-open .sidebar-brand {
+    justify-content: flex-start;
+    min-height: 72px;
+    padding: 16px 52px 16px 16px;
+    gap: 10px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-brand > div {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-part-select {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 5px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-modes {
+    padding: 10px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-mode {
+    min-height: 42px;
+    padding: 9px 10px;
+    gap: 11px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-sections {
+    padding: 14px 10px 24px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-section {
+    min-height: 44px;
+    padding: 9px 8px;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-collapsed-sections {
+    display: none;
+  }
+
+  .studio-sidebar.mobile-open .sidebar-toggle {
+    display: none;
+  }
+
+  .mobile-sidebar-close {
+    position: absolute;
+    top: 18px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #334155;
+    border-radius: 7px;
+    color: #cbd5e1;
+    background: #0f172a;
+    cursor: pointer;
+    z-index: 6;
+  }
+
+  .mobile-sidebar-close:hover {
+    color: #38bdf8;
+    border-color: #38bdf8;
+  }
+
+  .mobile-sidebar-backdrop {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.58);
+    z-index: 90;
+    cursor: pointer;
+  }
+
+  .mobile-menu-button {
+    display: inline-flex;
+  }
+
+  .studio-header {
+    min-height: 72px;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .brand-block {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .brand-block h1 {
+    font-size: 1.15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand-block .subtitle {
+    font-size: 0.78rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-actions {
+    flex-shrink: 0;
+  }
+
+  .header-actions .icon-button {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-button,
+  .mobile-sidebar-close,
+  .mobile-sidebar-backdrop {
+    display: none !important;
+  }
+}
