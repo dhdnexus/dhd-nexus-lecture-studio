@@ -15,6 +15,7 @@ import { PracticeView } from "./components/lecture/PracticeView";
 import { LectureNoteView } from "./components/lecture/LectureNoteView";
 import "./styles/mobile-sidebar.css";
 import "./styles/studio-navigator.css";
+import "./styles/studio-sidebar-refined.css";
 
 type StudioContent = PartDefinition | AppendixDefinition;
 type SubjectId = "physics" | "mathematics";
