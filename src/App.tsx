@@ -16,6 +16,7 @@ import { LectureNoteView } from "./components/lecture/LectureNoteView";
 import "./styles/mobile-sidebar.css";
 import "./styles/studio-navigator.css";
 import "./styles/stitch-navigator.css";
+import "./styles/stitch-navigator-layout.css";
 
 type StudioContent = PartDefinition | AppendixDefinition;
 type SubjectId = "physics" | "mathematics";
