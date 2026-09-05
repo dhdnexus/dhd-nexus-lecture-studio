@@ -1,8 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, ChevronRight, GraduationCap, Layers3, Sigma, Atom } from "lucide-react";
 import { studioSubjects, type TaxonomyNode } from "../../content/studioTaxonomy";
 
-interface Props { onOpenContent: (contentId: string, trail: TaxonomyNode[]) => void; }
+interface Props {
+  onOpenContent: (contentId: string, trail: TaxonomyNode[]) => void;
+  initialTrailIds?: string[];
+}
 
 const iconFor = (id: string) => {
   if (id === "physics") return Atom;
@@ -12,11 +15,29 @@ const iconFor = (id: string) => {
 
 const kinematicsParts: TaxonomyNode[] = [1, 2, 3, 4, 5, 6].map((part) => ({ id: `part-${part}`, label: `Part ${part}`, description: `Kinematics lecture content — Part ${part}.`, contentId: `part-${part}` }));
 
-export const StudioNavigator: React.FC<Props> = ({ onOpenContent }) => {
-  const [trail, setTrail] = useState<TaxonomyNode[]>([]);
+const resolveTrail = (ids: string[] = []) => {
+  const result: TaxonomyNode[] = [];
+  let options = studioSubjects;
+
+  for (const id of ids) {
+    const node = options.find((item) => item.id === id);
+    if (!node) break;
+    result.push(node);
+    options = node.id === "kinematics" ? kinematicsParts : node.children ?? [];
+  }
+
+  return result;
+};
+
+export const StudioNavigator: React.FC<Props> = ({ onOpenContent, initialTrailIds = [] }) => {
+  const [trail, setTrail] = useState<TaxonomyNode[]>(() => resolveTrail(initialTrailIds));
   const current = trail[trail.length - 1];
   const options = current?.id === "kinematics" ? kinematicsParts : current?.children ?? studioSubjects;
   const Icon = current ? iconFor(current.id) : GraduationCap;
+
+  useEffect(() => {
+    setTrail(resolveTrail(initialTrailIds));
+  }, [initialTrailIds.join("/")]);
 
   const selectNode = (node: TaxonomyNode) => {
     const nextTrail = [...trail, node];
