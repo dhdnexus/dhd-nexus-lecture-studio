@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, Maximize2, PanelRight, Menu, LayoutGrid } from "lucide-react";
+import { Maximize2, PanelRight, Menu } from "lucide-react";
 
 interface Props {
   title: string;
@@ -12,24 +12,16 @@ interface Props {
   onOpenHome: () => void;
 }
 
-export const StudioHeader: React.FC<Props> = ({ title, subtitle, lecturerMode, onToggleLecturerMode, onToggleFullscreen, onToggleMobileMenu, onOpenNavigator, onOpenHome }) => (
+export const StudioHeader: React.FC<Props> = ({ lecturerMode, onToggleLecturerMode, onToggleFullscreen, onToggleMobileMenu }) => (
   <header className="studio-header">
-    <button className="brand-block studio-home-link" onClick={onOpenHome} aria-label="Return to DHD Nexus Lecture Studio home">
-      <p className="eyebrow">DHD NEXUS LECTURE STUDIO</p>
-      <h1>{title}</h1>
-      <p className="subtitle">{subtitle}</p>
+    <button className="brand-block studio-home-link" onClick={() => window.dispatchEvent(new CustomEvent("dhd-studio-home"))} aria-label="Return to DHD Nexus Lecture Studio home">
+      <span className="studio-brand-wordmark">DHD NEXUS</span>
+      <span className="studio-brand-submark">LECTURE STUDIO</span>
     </button>
     <div className="header-actions">
-      <button className="icon-button" onClick={onOpenHome} title="Lecture Studio home" aria-label="Lecture Studio home">
-        <Home size={17} />
-      </button>
-      <button className="icon-button studio-navigator-button" onClick={onOpenNavigator} title="Browse subjects and curriculum">
-        <LayoutGrid size={17} />
-        <span>Browse Studio</span>
-      </button>
-      <button className="icon-button mobile-menu-button" onClick={onToggleMobileMenu} title="Open navigation" aria-label="Open navigation"><Menu size={17} /></button>
-      <button className="icon-button" onClick={onToggleLecturerMode}><PanelRight size={17} /><span>{lecturerMode ? "Lecturer HUD" : "Lecturer HUD Off"}</span></button>
-      <button className="icon-button" onClick={onToggleFullscreen}><Maximize2 size={17} /></button>
+      <button className="icon-button mobile-menu-button" onClick={onToggleMobileMenu} title="Open navigation" aria-label="Open navigation"><Menu size={16} /></button>
+      <button className="icon-button" onClick={onToggleLecturerMode} title="Toggle Lecturer HUD"><PanelRight size={15} /><span>{lecturerMode ? "HUD" : "HUD Off"}</span></button>
+      <button className="icon-button" onClick={onToggleFullscreen} title="Fullscreen" aria-label="Fullscreen"><Maximize2 size={15} /></button>
     </div>
   </header>
 );
