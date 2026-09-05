@@ -18,19 +18,31 @@ import "./styles/studio-navigator.css";
 
 type StudioContent = PartDefinition | AppendixDefinition;
 
+type SubjectId = "physics" | "mathematics";
+
 const getContentById = (id: string): StudioContent => {
   const appendix = appendices.find((item) => item.id === id);
   return appendix ?? getPartById(id);
 };
 
+const getSubjectIdForContent = (id: string): SubjectId =>
+  id === "appendix-roots" ? "mathematics" : "physics";
+
 const App: React.FC = () => {
   const [activeContentId, setActiveContentId] = useState(parts[0].id);
   const activeContent = getContentById(activeContentId);
   const [studioNavigatorOpen, setStudioNavigatorOpen] = useState(true);
+  const [navigatorTrailIds, setNavigatorTrailIds] = useState<string[]>([]);
   const [currentSectionId, setCurrentSectionId] = useState(activeContent.content.sections[0].id);
   const [activeViewMode, setActiveViewMode] = useState<"LESSON" | "WORKED_EXAMPLE" | "CHECKPOINT" | "PRACTICE" | "LECTURE_NOTE">("LESSON");
   const [lecturerMode, setLecturerMode] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
+  const openNavigator = (trailIds: string[] = []) => {
+    setNavigatorTrailIds(trailIds);
+    setStudioNavigatorOpen(true);
+    setMobileSidebarOpen(false);
+  };
 
   const handleSelectContent = (id: string) => {
     const nextContent = getContentById(id);
@@ -38,9 +50,11 @@ const App: React.FC = () => {
     setCurrentSectionId(nextContent.content.sections[0].id);
     setActiveViewMode("LESSON");
     setStudioNavigatorOpen(false);
+    setNavigatorTrailIds([]);
     setMobileSidebarOpen(false);
   };
 
+  const currentSubjectId = getSubjectIdForContent(activeContentId);
   const index = activeContent.content.sections.findIndex((s) => s.id === currentSectionId);
   const activeSection = activeContent.content.sections[index] ?? activeContent.content.sections[0];
 
@@ -78,7 +92,7 @@ const App: React.FC = () => {
   };
 
   if (studioNavigatorOpen) {
-    return <StudioNavigator onOpenContent={handleSelectContent} />;
+    return <StudioNavigator onOpenContent={handleSelectContent} initialTrailIds={navigatorTrailIds} />;
   }
 
   return (
@@ -94,11 +108,12 @@ const App: React.FC = () => {
         onSelectSection={setCurrentSectionId}
         onChangeViewMode={setActiveViewMode}
         parts={parts.map((p) => ({ id: p.id, shortLabel: p.shortLabel }))}
-        appendices={appendices.map((appendix) => ({ id: appendix.id, shortLabel: appendix.shortLabel }))}
         activePartId={activeContentId}
         onSelectPart={handleSelectContent}
         mobileOpen={mobileSidebarOpen}
         onCloseMobile={() => setMobileSidebarOpen(false)}
+        currentSubjectId={currentSubjectId}
+        onOpenNavigator={openNavigator}
       />
 
       <div className="studio-workspace">
@@ -109,10 +124,11 @@ const App: React.FC = () => {
           onToggleLecturerMode={() => setLecturerMode((value) => !value)}
           onToggleFullscreen={toggleFullscreen}
           onToggleMobileMenu={() => setMobileSidebarOpen((value) => !value)}
-          onOpenNavigator={() => setStudioNavigatorOpen(true)}
+          onOpenNavigator={() => openNavigator([])}
+          onOpenHome={() => openNavigator([])}
         />
 
-        <button className="studio-browse-button" onClick={() => setStudioNavigatorOpen(true)}>
+        <button className="studio-browse-button" onClick={() => openNavigator([])}>
           Browse Studio
         </button>
 
