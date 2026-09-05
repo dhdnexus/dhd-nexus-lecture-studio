@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Atom, BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, Home, PencilLine, Sigma, X, LibraryBig } from "lucide-react";
+import { Atom, BookOpen, ChevronLeft, ChevronRight, CirclePlay, FileText, CheckCircle2, Home, PencilLine, Sigma, X } from "lucide-react";
 import type { PartContent } from "../../types/course";
-import { studioSubjects } from "../../content/studioTaxonomy";
+import { studioSubjects, type TaxonomyNode } from "../../content/studioTaxonomy";
 
 interface ContentOption {
   id: string;
@@ -49,37 +49,76 @@ export const StudioSidebar: React.FC<Props> = ({
 }) => {
   const [collapsed, setCollapsed] = useState(false);
   const showFullSidebar = !collapsed || mobileOpen;
-  const currentSubject = studioSubjects.find((subject) => subject.id === currentSubjectId);
-  const isAppendix = currentSubjectId === "mathematics" && activePartId === "appendix-roots";
 
   useEffect(() => {
-    const handleResize = () => setCollapsed(window.innerWidth < 1200);
+    const handleResize = () => {
+      setCollapsed(window.innerWidth < 1200);
+    };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const closeMobile = () => onCloseMobile();
-  const handleSelectPart = (id: string) => { onSelectPart(id); closeMobile(); };
-  const handleChangeViewMode = (mode: typeof modes[number]["id"]) => { onChangeViewMode(mode); closeMobile(); };
-  const handleSelectSection = (id: string) => { onSelectSection(id); closeMobile(); };
-  const handleOpenNavigator = (trailIds: string[] = []) => { onOpenNavigator(trailIds); closeMobile(); };
+  const handleSelectPart = (id: string) => {
+    onSelectPart(id);
+    onCloseMobile();
+  };
+
+  const handleChangeViewMode = (mode: typeof modes[number]["id"]) => {
+    onChangeViewMode(mode);
+    onCloseMobile();
+  };
+
+  const handleSelectSection = (id: string) => {
+    onSelectSection(id);
+    onCloseMobile();
+  };
+
+  const handleOpenNavigator = (trailIds: string[] = []) => {
+    onOpenNavigator(trailIds);
+    onCloseMobile();
+  };
 
   return (
     <aside className={`studio-sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
       <div className="sidebar-brand">
         <BookOpen size={18} />
         {showFullSidebar && (
-          <div className="sidebar-brand-copy">
-            <strong>DHD Nexus Lecture Studio</strong>
-            <span>Academic Workbench</span>
+          <div>
+            <strong>Lecture Studio</strong>
+            {currentSubjectId === "physics" ? (
+              <select
+                className="sidebar-part-select"
+                value={activePartId}
+                onChange={(e) => handleSelectPart(e.target.value)}
+                aria-label="Select published Kinematics lecture part"
+              >
+                <optgroup label="Published Kinematics">
+                  {parts.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.shortLabel}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            ) : (
+              <span className="sidebar-context">Mathematics · Supplementary Appendix</span>
+            )}
           </div>
         )}
-        <button className="mobile-sidebar-close" onClick={closeMobile} aria-label="Close navigation"><X size={18} /></button>
+
+        <button
+          className="mobile-sidebar-close"
+          onClick={onCloseMobile}
+          aria-label="Close navigation"
+        >
+          <X size={18} />
+        </button>
       </div>
 
       <div className="sidebar-global-nav">
-        <div className="sidebar-heading">{showFullSidebar ? "GLOBAL" : "NAV"}</div>
+        <div className="sidebar-heading">{showFullSidebar ? "STUDIO NAVIGATION" : "NAV"}</div>
         <button className="sidebar-global-link" onClick={() => handleOpenNavigator([])} title="Lecture Studio home">
           <Home size={16} />
           {showFullSidebar && <span>Home</span>}
@@ -88,64 +127,49 @@ export const StudioSidebar: React.FC<Props> = ({
           const Icon = subjectIcon(subject.id);
           const isCurrent = subject.id === currentSubjectId;
           return (
-            <button
-              key={subject.id}
-              className={`sidebar-global-link ${isCurrent ? "active" : ""}`}
-              onClick={() => handleOpenNavigator([subject.id])}
-              title={subject.label}
-            >
-              <Icon size={16} />
-              {showFullSidebar && <span>{subject.label}</span>}
-            </button>
+            <React.Fragment key={subject.id}>
+              <button
+                className={`sidebar-global-link ${isCurrent ? "active" : ""}`}
+                onClick={() => handleOpenNavigator([subject.id])}
+                title={`Browse ${subject.label}`}
+              >
+                <Icon size={16} />
+                {showFullSidebar && <span>{subject.label}</span>}
+              </button>
+              {isCurrent && showFullSidebar && subject.children && (
+                <div className="sidebar-subject-links">
+                  {subject.children.map((branch: TaxonomyNode) => (
+                    <button
+                      key={branch.id}
+                      className="sidebar-subject-link"
+                      onClick={() => handleOpenNavigator([subject.id, branch.id])}
+                    >
+                      <span>{branch.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </React.Fragment>
           );
         })}
       </div>
 
-      {showFullSidebar && (
-        <div className="sidebar-context-block">
-          <div className="sidebar-heading">CURRENT ACADEMY</div>
-          <button className="sidebar-context-button" onClick={() => handleOpenNavigator([currentSubjectId])}>
-            {currentSubject && React.createElement(subjectIcon(currentSubjectId), { size: 16 })}
-            <span>{currentSubject?.label ?? "Select an academy"}</span>
-            <ChevronRight size={14} />
-          </button>
-          <button className="sidebar-browse-button" onClick={() => handleOpenNavigator([currentSubjectId])}>
-            <LibraryBig size={14} />
-            Browse curriculum
-          </button>
-        </div>
-      )}
-
-      {showFullSidebar && (
-        <div className="sidebar-course-block">
-          <div className="sidebar-heading">CURRENT COURSE</div>
-          {isAppendix ? (
-            <div className="sidebar-current-content">
-              <span className="sidebar-content-label">MATHEMATICS APPENDIX</span>
-              <strong>{part.title}</strong>
-            </div>
-          ) : (
-            <label className="sidebar-course-select-label">
-              <span>Kinematics</span>
-              <select
-                className="sidebar-part-select"
-                value={activePartId}
-                onChange={(e) => handleSelectPart(e.target.value)}
-                aria-label="Select published Kinematics lecture part"
-              >
-                <optgroup label="Published Kinematics">
-                  {parts.map((option) => <option key={option.id} value={option.id}>{option.shortLabel}</option>)}
-                </optgroup>
-              </select>
-            </label>
-          )}
-        </div>
-      )}
+      <button
+        className="sidebar-toggle"
+        onClick={() => setCollapsed((value) => !value)}
+        title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      >
+        {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+      </button>
 
       <nav className="sidebar-modes">
-        <div className="sidebar-heading">{showFullSidebar ? "LECTURE" : "VIEW"}</div>
         {modes.map(({ id, label, icon: Icon }) => (
-          <button key={id} className={`sidebar-mode ${activeViewMode === id ? "active" : ""}`} onClick={() => handleChangeViewMode(id)} title={!showFullSidebar ? label : undefined}>
+          <button
+            key={id}
+            className={`sidebar-mode ${activeViewMode === id ? "active" : ""}`}
+            onClick={() => handleChangeViewMode(id)}
+            title={collapsed && !mobileOpen ? label : undefined}
+          >
             <Icon size={16} />
             {showFullSidebar && <span>{label}</span>}
           </button>
@@ -154,11 +178,26 @@ export const StudioSidebar: React.FC<Props> = ({
 
       {activeViewMode === "LESSON" && showFullSidebar && (
         <div className="sidebar-sections">
-          <div className="sidebar-heading">{part.title || "CURRENT LESSON"}</div>
+          <div className="sidebar-heading">
+            {part.title || "EPISODE 1"}
+          </div>
+
           {part.sections.map((section, index) => (
-            <button key={section.id} className={`sidebar-section ${currentSectionId === section.id ? "active" : ""}`} onClick={() => handleSelectSection(section.id)}>
-              <span className="section-number">{String(index + 1).padStart(2, "0")}</span>
-              <span className="section-text"><strong>{section.title}</strong>{section.subtitle && <small>{section.subtitle}</small>}</span>
+            <button
+              key={section.id}
+              className={`sidebar-section ${
+                currentSectionId === section.id ? "active" : ""
+              }`}
+              onClick={() => handleSelectSection(section.id)}
+            >
+              <span className="section-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <span className="section-text">
+                <strong>{section.title}</strong>
+                {section.subtitle && <small>{section.subtitle}</small>}
+              </span>
             </button>
           ))}
         </div>
@@ -167,16 +206,19 @@ export const StudioSidebar: React.FC<Props> = ({
       {activeViewMode === "LESSON" && collapsed && !mobileOpen && (
         <div className="sidebar-collapsed-sections">
           {part.sections.map((section, index) => (
-            <button key={section.id} className={`collapsed-section ${currentSectionId === section.id ? "active" : ""}`} onClick={() => handleSelectSection(section.id)} title={section.title}>
+            <button
+              key={section.id}
+              className={`collapsed-section ${
+                currentSectionId === section.id ? "active" : ""
+              }`}
+              onClick={() => handleSelectSection(section.id)}
+              title={section.title}
+            >
               {String(index + 1).padStart(2, "0")}
             </button>
           ))}
         </div>
       )}
-
-      <button className="sidebar-toggle" onClick={() => setCollapsed((value) => !value)} title={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
-        {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-      </button>
     </aside>
   );
 };
