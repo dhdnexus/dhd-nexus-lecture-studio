@@ -18,6 +18,7 @@ import "./styles/studio-navigator.css";
 import "./styles/studio-sidebar-refined.css";
 import "./styles/stitch-reference.css";
 import "./styles/stitch-fixes.css";
+import "./styles/stitch-lesson.css";
 
 type StudioContent = PartDefinition | AppendixDefinition;
 type SubjectId = "physics" | "mathematics";
@@ -35,7 +36,6 @@ const App: React.FC = () => {
   const [activeViewMode, setActiveViewMode] = useState<ViewMode>("LESSON");
   const [lecturerMode, setLecturerMode] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-
   const openNavigator = (trailIds: string[] = []) => { setNavigatorTrailIds(trailIds); setStudioNavigatorOpen(true); setMobileSidebarOpen(false); };
   const handleSelectContent = (id: string) => { const next = getContentById(id); setActiveContentId(id); setCurrentSectionId(next.content.sections[0].id); setActiveViewMode("LESSON"); setStudioNavigatorOpen(false); setNavigatorTrailIds([]); setMobileSidebarOpen(false); };
   const currentSubjectId = getSubjectIdForContent(activeContentId);
@@ -43,33 +43,15 @@ const App: React.FC = () => {
   const activeSection = activeContent.content.sections[index] ?? activeContent.content.sections[0];
   const goPrevious = () => { if (index > 0) setCurrentSectionId(activeContent.content.sections[index - 1].id); };
   const goNext = () => { if (index < activeContent.content.sections.length - 1) setCurrentSectionId(activeContent.content.sections[index + 1].id); };
-
-  useEffect(() => {
-    const handler = (event: KeyboardEvent) => {
-      if (event.key === "Escape") { setMobileSidebarOpen(false); return; }
-      if (studioNavigatorOpen || activeViewMode !== "LESSON") return;
-      if (event.key === "ArrowRight") goNext();
-      if (event.key === "ArrowLeft") goPrevious();
-      if (event.key.toLowerCase() === "l") setLecturerMode((value) => !value);
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  });
-
+  useEffect(() => { const handler = (event: KeyboardEvent) => { if (event.key === "Escape") { setMobileSidebarOpen(false); return; } if (studioNavigatorOpen || activeViewMode !== "LESSON") return; if (event.key === "ArrowRight") goNext(); if (event.key === "ArrowLeft") goPrevious(); if (event.key.toLowerCase() === "l") setLecturerMode((value) => !value); }; window.addEventListener("keydown", handler); return () => window.removeEventListener("keydown", handler); });
   useEffect(() => { document.body.style.overflow = mobileSidebarOpen ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [mobileSidebarOpen]);
   const toggleFullscreen = async () => { if (!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen(); };
   const modes = [
-    { id: "LESSON" as const, label: "Lesson", icon: CirclePlay },
-    { id: "WORKED_EXAMPLE" as const, label: "Worked Examples", icon: FileText },
-    { id: "CHECKPOINT" as const, label: "Checkpoints", icon: CheckCircle2 },
-    { id: "PRACTICE" as const, label: "Practice", icon: PencilLine },
-    { id: "LECTURE_NOTE" as const, label: "Lecture Note", icon: BookOpen }
+    { id: "LESSON" as const, label: "Lesson", icon: CirclePlay }, { id: "WORKED_EXAMPLE" as const, label: "Worked Examples", icon: FileText }, { id: "CHECKPOINT" as const, label: "Checkpoints", icon: CheckCircle2 }, { id: "PRACTICE" as const, label: "Practice", icon: PencilLine }, { id: "LECTURE_NOTE" as const, label: "Lecture Note", icon: BookOpen }
   ];
-
   if (studioNavigatorOpen) return <StudioNavigator onOpenContent={handleSelectContent} initialTrailIds={navigatorTrailIds} />;
   const subjectLabel = currentSubjectId === "mathematics" ? "Mathematics" : "Physics";
   const contentLabel = activeContent.content.title;
-
   return (
     <div className="app-shell">
       {mobileSidebarOpen && <button className="mobile-sidebar-backdrop" onClick={() => setMobileSidebarOpen(false)} aria-label="Close navigation" />}
@@ -94,5 +76,4 @@ const App: React.FC = () => {
     </div>
   );
 };
-
 export default App;
