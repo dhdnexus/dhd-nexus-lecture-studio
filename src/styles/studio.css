@@ -3769,3 +3769,25 @@ h1 {
     padding: 0.1rem 0;
   }
 }
+
+/* ============================================================
+   PART 6 — WHICH-METHOD SYNTHESIS VISUAL
+   Reuses .concept-visual / .iv-intro / .iv-takeaway / .eqsel-toggle /
+   .eqsel-formula / .method-flow-* from Part 3 and Part 5's scaffolds.
+   ============================================================ */
+
+.which-method-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.which-method-toggles .eqsel-toggle {
+  flex: 1 1 110px;
+  align-items: center;
+  text-align: center;
+}
+
+.which-method-flow {
+  margin-top: 1.25rem;
+}
