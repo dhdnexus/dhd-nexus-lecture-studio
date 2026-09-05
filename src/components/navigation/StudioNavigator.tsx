@@ -5,7 +5,6 @@ import { studioSubjects, type TaxonomyNode } from "../../content/studioTaxonomy"
 interface Props { onOpenContent: (contentId: string, trail: TaxonomyNode[]) => void; initialTrailIds?: string[]; }
 const kinematicsParts: TaxonomyNode[] = [1,2,3,4,5,6].map((part)=>({id:`part-${part}`,label:`Part ${part}`,description:`Kinematics lecture content — Part ${part}.`,contentId:`part-${part}`}));
 const resolveTrail=(ids:string[]=[])=>{const result:TaxonomyNode[]=[];let options=studioSubjects;for(const id of ids){const node=options.find(n=>n.id===id);if(!node)break;result.push(node);options=node.id==="kinematics"?kinematicsParts:node.children??[];}return result;};
-const findNode=(id:string):TaxonomyNode|undefined=>{const walk=(nodes:TaxonomyNode[]):TaxonomyNode|undefined=>{for(const n of nodes){if(n.id===id)return n;if(n.children){const m=walk(n.children);if(m)return m;}}return undefined;};return walk(studioSubjects);};
 const iconFor=(id:string)=>id==="physics"?Atom:id==="mathematics"?Sigma:id==="kinematics"?PlayCircle:Layers3;
 
 export const StudioNavigator:React.FC<Props>=({onOpenContent,initialTrailIds=[]})=>{
