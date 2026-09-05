@@ -1,0 +1,90 @@
+/* DHD Nexus Lecture Studio — Stitch navigator only.
+   Intentionally scoped to .studio-navigator so the original teaching pages
+   retain their established layout, sidebar, header and Lecturer HUD. */
+.studio-navigator {
+  --nexus-void:#070b13;--nexus-surface:#0e1726;--nexus-border:#1b2a3d;
+  --nexus-border-strong:#2a3b50;--nexus-text:#f8fafc;--nexus-muted:#94a3b8;
+  --nexus-dim:#64748b;--nexus-cyan:#0ea5e9;--nexus-cyan-soft:#7bd0ff;
+  --nexus-gold:#ffb95f;
+  min-height:100vh;width:100%;overflow-x:hidden;background:var(--nexus-void);
+  color:var(--nexus-text);font-family:Inter,system-ui,sans-serif;
+}
+.studio-navigator button{font:inherit;-webkit-tap-highlight-color:transparent}
+.studio-navigator .navigator-header{min-height:72px;padding:12px clamp(18px,4vw,44px);display:flex;align-items:center;justify-content:space-between;gap:20px;background:rgba(7,11,19,.96);border-bottom:1px solid var(--nexus-border)}
+.studio-navigator .navigator-brand{display:inline-flex;align-items:center;gap:10px;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}
+.studio-navigator .navigator-mark{width:30px;height:30px;display:grid;place-items:center;color:var(--nexus-cyan-soft);border:1px solid rgba(123,208,255,.18);border-radius:7px;background:rgba(14,165,233,.07)}
+.studio-navigator .navigator-eyebrow,.studio-navigator .navigator-kicker,.studio-navigator .navigator-rail-label{margin:0;color:var(--nexus-cyan-soft);font:700 9px/1.2 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.studio-navigator .navigator-header h1{margin:2px 0 0;color:var(--nexus-text);font:800 13px/1 "Plus Jakarta Sans",Inter,sans-serif;letter-spacing:-.02em}
+.studio-navigator .navigator-header-right{display:flex;align-items:center;gap:10px;color:var(--nexus-dim);font:600 8px/1 "JetBrains Mono",monospace;letter-spacing:.08em}
+.studio-navigator .navigator-user{width:25px;height:25px;display:grid;place-items:center;color:#062033;background:var(--nexus-cyan-soft);border-radius:6px}
+.studio-navigator .navigator-breadcrumbs{min-height:34px;padding:0 clamp(18px,4vw,44px);display:flex;align-items:center;gap:5px;overflow-x:auto;white-space:nowrap;background:#0a1321;border-bottom:1px solid var(--nexus-border);scrollbar-width:none}
+.studio-navigator .navigator-breadcrumbs::-webkit-scrollbar{display:none}
+.studio-navigator .navigator-breadcrumbs button{display:inline-flex;align-items:center;gap:4px;padding:5px 2px;border:0;background:transparent;color:var(--nexus-dim);cursor:pointer;font:500 9px/1 "JetBrains Mono",monospace}
+.studio-navigator .navigator-breadcrumbs button.current{color:var(--nexus-text);font-weight:700}
+.studio-navigator .navigator-breadcrumbs svg{flex:0 0 auto;color:#475569}
+.studio-navigator .navigator-layout{min-height:calc(100vh - 106px);display:block}
+.studio-navigator .navigator-columns{min-width:0;padding:14px clamp(14px,3.5vw,42px) 70px}
+.studio-navigator .navigator-welcome,.studio-navigator .navigator-stage{width:min(100%,1180px);margin:0 auto}
+.studio-navigator .navigator-welcome{display:flex;flex-direction:column;gap:0}
+.studio-navigator .navigator-welcome>svg{display:none}
+.studio-navigator .navigator-welcome .navigator-kicker{margin:0 0 5px 2px}
+.studio-navigator .gateway-card{padding:15px 16px 12px;border:1px solid var(--nexus-border);border-radius:5px;background:linear-gradient(105deg,#0e1b2c,#10263a)}
+.studio-navigator .gateway-card h2{margin:5px 0 4px;font:800 clamp(22px,3vw,30px)/1.05 "Plus Jakarta Sans",sans-serif;letter-spacing:-.04em}
+.studio-navigator .gateway-card p{margin:0 0 10px;color:var(--nexus-muted);font-size:10px;line-height:1.5}
+.studio-navigator .gateway-prompt{display:flex;align-items:center;gap:6px;width:max-content;max-width:100%;padding:5px 7px;border-radius:3px;background:#09121f;color:#f8fafc;font:600 8px/1.2 "JetBrains Mono",monospace}
+.studio-navigator .gateway-prompt span{color:var(--nexus-gold)}
+.studio-navigator .gateway-prompt em{margin-left:14px;color:var(--nexus-dim);font-style:normal;font-weight:500}
+.studio-navigator .discipline-filters{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none}
+.studio-navigator .discipline-filters::-webkit-scrollbar{display:none}
+.studio-navigator .discipline-filters button{display:inline-flex;align-items:center;gap:4px;flex:0 0 auto;padding:6px 8px;border:1px solid var(--nexus-border);border-radius:4px;background:#0d1929;color:var(--nexus-muted);cursor:pointer;font:600 8px/1 "JetBrains Mono",monospace}
+.studio-navigator .discipline-filters button b{padding:2px 4px;border-radius:3px;background:#122131;color:var(--nexus-cyan-soft);font-size:7px}
+.studio-navigator .discipline-filters button.active{background:var(--nexus-cyan);border-color:var(--nexus-cyan);color:#052033}
+.studio-navigator .discipline-filters button.active b{background:rgba(0,40,65,.2);color:#052033}
+.studio-navigator .subject-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.studio-navigator .subject-card{position:relative;min-width:0;overflow:hidden;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;padding:16px;border:1px solid var(--nexus-border);border-radius:6px;background:var(--nexus-surface);color:var(--nexus-text);text-align:left;cursor:pointer;isolation:isolate;transition:border-color .18s ease,transform .18s ease}
+.studio-navigator .subject-card.physics-card{background-image:linear-gradient(to top,#07101d 0%,rgba(7,16,29,.9) 42%,rgba(7,16,29,.12) 100%),url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAcSMt5toepRPnldCYZio00O_H9f8mgZyMMiQgCBfGLFqaj9-At9h8zXvyLx4VomI1hDJftVVF0V4im79eIBq2Ra8nkvKv1GbWp355HTa1g5OvLA4RVjEbYDbUW89qtfJ5RYpyLbta4yscLXYsvADiVZHiKu77ejyxVJHxOhSopkhdePmf4F2be7xeSXwWPNk2eNkpuYzt7rMdluHKsEF1LNRN8R3uQWrwnFzN0WrfSrGswuzGyQ39Q")}
+.studio-navigator .subject-card.math-card{background-image:linear-gradient(to top,#07101d 0%,rgba(7,16,29,.9) 42%,rgba(7,16,29,.12) 100%),url("https://lh3.googleusercontent.com/aida-public/AB6AXuDETTuWIfpN_5YaYCHp68rvny6yNy5gQLTTdcjVSSqqY2tE9L5-DHlYW6cmeZZjjC7zsJ6eUe4_WyzBPaN9ngxwdBEwv2_plgEJ9xbDwZM_LpbfRwEqhqS5GZZpS7QB6uUfgre7Ki9JMze3Zed3yMseBCi4s1KXpp8UcK9X6s-_fIR71LR8mdpgG0vwCyWMi9rjhJDEuTNrJgLoKDKl1qSMHK8dQzbNUAU2koOULW3fYrMLDVDfyc9WjQ")}
+.studio-navigator .subject-card:hover{transform:translateY(-2px);border-color:rgba(123,208,255,.4)}
+.studio-navigator .subject-card::before,.studio-navigator .subject-card::after{display:none}
+.studio-navigator .subject-card-topline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:auto}
+.studio-navigator .subject-discipline,.studio-navigator .subject-status{display:inline-flex;align-items:center;gap:4px;padding:4px 6px;border-radius:3px;background:rgba(7,11,19,.78);color:#f8fafc;font:700 7px/1 "JetBrains Mono",monospace;letter-spacing:.04em}
+.studio-navigator .subject-status.live{color:var(--nexus-cyan-soft);background:rgba(14,165,233,.16)}
+.studio-navigator .subject-status.gold{color:var(--nexus-gold);background:rgba(216,138,0,.15)}
+.studio-navigator .subject-card-copy{margin-top:auto;padding-top:100px}
+.studio-navigator .subject-card-copy strong{display:block;font:700 20px/1.1 "Plus Jakarta Sans",sans-serif}
+.studio-navigator .subject-card-copy span{display:block;margin-top:4px;color:var(--nexus-cyan-soft);font:500 8px/1.3 "JetBrains Mono",monospace}
+.studio-navigator .math-card .subject-card-copy span{color:var(--nexus-gold)}
+.studio-navigator .subject-card-arrow{position:absolute;right:15px;top:15px;color:var(--nexus-cyan-soft)!important}
+.studio-navigator .gateway-status{display:flex;justify-content:space-between;margin-top:7px;padding:6px 8px;border:1px solid #172538;border-radius:4px;background:rgba(14,23,38,.5);color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace}
+.studio-navigator .gateway-status b{color:var(--nexus-cyan-soft)}
+.studio-navigator .navigator-stage-heading{padding:15px 16px;margin-bottom:9px;background:linear-gradient(105deg,#0e1b2c,#10263a);border:1px solid var(--nexus-border);border-radius:6px}
+.studio-navigator .navigator-stage-heading h2{margin:5px 0 4px;font:800 22px/1.1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.03em}
+.studio-navigator .navigator-stage-heading p{margin:0;color:var(--nexus-muted);font-size:10px;line-height:1.5}
+.studio-navigator .navigator-back{display:inline-flex;align-items:center;gap:5px;margin-top:12px;padding:6px 9px;border:1px solid var(--nexus-border);border-radius:4px;background:#0a1321;color:var(--nexus-muted);cursor:pointer;font-size:9px}
+.studio-navigator .navigator-option-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.studio-navigator .navigator-option{min-width:0;min-height:60px;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--nexus-border);border-radius:4px;background:#0d1929;color:var(--nexus-text);text-align:left;cursor:pointer}
+.studio-navigator .navigator-option:hover{border-color:rgba(123,208,255,.32);background:#102033}
+.studio-navigator .navigator-option>div{flex:1;min-width:0}
+.studio-navigator .navigator-option strong{font-size:10px}
+.studio-navigator .navigator-option p{margin:3px 0 0;color:var(--nexus-muted);font-size:8px;line-height:1.4}
+.studio-navigator .navigator-option>svg{color:var(--nexus-cyan-soft);flex:0 0 auto}
+.studio-navigator .navigator-available{display:inline-flex;align-items:center;gap:3px;margin-top:5px;color:var(--nexus-gold);font:600 7px/1 "JetBrains Mono",monospace;text-transform:uppercase}
+.studio-navigator .navigator-empty{padding:20px;border:1px dashed var(--nexus-border-strong);color:var(--nexus-muted);font-size:10px}
+.studio-navigator .navigator-empty span{color:var(--nexus-gold);font:700 8px/1 "JetBrains Mono",monospace;letter-spacing:.1em}
+.studio-navigator .curriculum-hero{padding:12px;border:1px solid var(--nexus-border);border-radius:5px;background:linear-gradient(105deg,#0e1b2c,#10263a)}
+.studio-navigator .curriculum-hero-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.studio-navigator .curriculum-hero h2{margin:4px 0 3px;font:800 clamp(18px,2.8vw,26px)/1.1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.035em}
+.studio-navigator .curriculum-hero p{margin:0;color:var(--nexus-muted);font-size:9px;line-height:1.4}
+.studio-navigator .hero-status{flex:0 0 auto;padding:4px 6px;color:var(--nexus-cyan-soft);background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.15);border-radius:3px;font:700 7px/1 "JetBrains Mono",monospace}
+.studio-navigator .academy-switcher{display:flex;gap:4px;margin-top:10px;overflow-x:auto;scrollbar-width:none}.studio-navigator .academy-switcher::-webkit-scrollbar{display:none}
+.studio-navigator .academy-switcher button{display:inline-flex;align-items:center;gap:4px;flex:0 0 auto;padding:5px 7px;border:1px solid var(--nexus-border);border-radius:3px;background:#0a1321;color:var(--nexus-dim);cursor:pointer;font:600 7px/1 "JetBrains Mono",monospace}
+.studio-navigator .academy-switcher button.active{color:#052033;background:var(--nexus-cyan-soft);border-color:var(--nexus-cyan-soft)}
+.studio-navigator .taxonomy-title{display:flex;align-items:center;gap:5px;margin:7px 0 4px;color:var(--nexus-cyan-soft);font:700 9px/1 "JetBrains Mono",monospace}.studio-navigator .taxonomy-title span{margin-left:auto;color:var(--nexus-dim);font-size:7px}
+.studio-navigator .physics-groups,.studio-navigator .math-taxonomy{display:grid;gap:4px}
+.studio-navigator .physics-group{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 9px;border:1px solid var(--nexus-border);border-radius:3px;background:#0d1929;color:var(--nexus-text);cursor:pointer;text-align:left}
+.studio-navigator .physics-group.active{border-color:rgba(14,165,233,.25);background:#102033}
+.studio-navigator .physics-group span{display:flex;align-items:center;gap:8px;min-width:0;font-size:9px}.studio-navigator .physics-group b{color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace}.studio-navigator .physics-group small{display:flex;align-items:center;gap:2px;color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace}
+.studio-navigator .featured-physics{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:5px;padding:10px;border:1px solid var(--nexus-border);border-radius:4px;background:#0d1929;color:var(--nexus-text);text-align:left;cursor:pointer}.studio-navigator .featured-physics span,.studio-navigator .featured-physics small{display:block;color:var(--nexus-cyan-soft);font:600 7px/1.2 "JetBrains Mono",monospace}.studio-navigator .featured-physics strong{display:block;margin:4px 0;font:700 11px/1.2 "Plus Jakarta Sans",sans-serif}.studio-navigator .featured-physics small{color:var(--nexus-dim)}.studio-navigator .featured-physics svg{color:var(--nexus-cyan-soft)}
+.studio-navigator .math-group{display:flex;align-items:center;justify-content:space-between;min-height:32px;padding:0 9px;border:1px solid var(--nexus-border);border-radius:3px;background:#0d1929;color:var(--nexus-text);cursor:pointer;text-align:left}.studio-navigator .math-group-main{display:flex;align-items:center;gap:7px;min-width:0}.studio-navigator .math-group-code{color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace}.studio-navigator .math-group strong{font-size:9px}.studio-navigator .math-group-status{color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace;text-transform:uppercase}.studio-navigator .math-split{display:grid;grid-template-columns:1fr 1fr;gap:4px}.studio-navigator .math-tile{min-height:55px;padding:8px;border:1px solid var(--nexus-border);background:#0d1929;border-radius:3px;color:var(--nexus-text);cursor:pointer;text-align:left}.studio-navigator .math-tile small{display:block;color:var(--nexus-dim);font:600 7px/1 "JetBrains Mono",monospace;text-transform:uppercase;margin-bottom:6px}.studio-navigator .math-tile strong{font-size:9px}.studio-navigator .math-tile span{display:block;margin-top:5px;color:var(--nexus-dim);font:600 6px/1 "JetBrains Mono",monospace}
+.studio-navigator .math-appendix-header{display:flex;align-items:center;justify-content:space-between;padding:7px 9px;margin-top:4px;background:#162238;border:1px solid var(--nexus-border);color:var(--nexus-gold);font:700 8px/1 "JetBrains Mono",monospace;text-transform:uppercase}.studio-navigator .math-feature{margin-top:4px;padding:10px;border:1px solid var(--nexus-border);border-radius:3px;background:#0d1929;cursor:pointer;text-align:left;color:var(--nexus-text);width:100%}.studio-navigator .math-feature-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--nexus-gold);font:700 7px/1 "JetBrains Mono",monospace;text-transform:uppercase}.studio-navigator .math-feature h3{margin:6px 0 3px;font:700 12px/1.2 "Plus Jakarta Sans",sans-serif}.studio-navigator .math-feature p{margin:0;color:var(--nexus-muted);font-size:8px;line-height:1.4}.studio-navigator .math-feature-code{margin-top:6px;padding:5px 7px;width:max-content;max-width:100%;background:#09121f;border:1px solid var(--nexus-border);border-radius:3px;color:var(--nexus-cyan-soft);font:500 8px/1.2 "JetBrains Mono",monospace}.studio-navigator .math-secondary-links{display:grid;gap:3px;margin-top:4px}.studio-navigator .math-secondary-links span{padding:5px 7px;background:#0a1321;color:var(--nexus-dim);border:1px solid #172538;border-radius:3px;font:500 7px/1.25 "JetBrains Mono",monospace}
+@media(max-width:767px){.studio-navigator .navigator-columns{padding:10px 10px 68px}.studio-navigator .subject-cards,.studio-navigator .navigator-option-grid{grid-template-columns:1fr}.studio-navigator .subject-card{min-height:225px}.studio-navigator .gateway-prompt em{margin-left:auto}.studio-navigator .curriculum-hero-row{flex-direction:column}.studio-navigator .hero-status{align-self:flex-start}.studio-navigator .math-split{grid-template-columns:1fr 1fr}}
