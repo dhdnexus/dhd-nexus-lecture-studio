@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, CirclePlay, CheckCircle2, FileText, PencilLine, BookOpen, Home, PanelRight, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, CirclePlay, CheckCircle2, FileText, PencilLine, BookOpen, Home, PanelRight } from "lucide-react";
 import { parts, getPartById } from "./content/parts";
 import { appendices } from "./content/appendices";
 import type { AppendixDefinition } from "./content/appendices";
@@ -38,7 +38,6 @@ const App: React.FC = () => {
 
   const openNavigator = (trailIds: string[] = []) => { setNavigatorTrailIds(trailIds); setStudioNavigatorOpen(true); setMobileSidebarOpen(false); };
   const handleSelectContent = (id: string) => { const next = getContentById(id); setActiveContentId(id); setCurrentSectionId(next.content.sections[0].id); setActiveViewMode("LESSON"); setStudioNavigatorOpen(false); setNavigatorTrailIds([]); setMobileSidebarOpen(false); };
-
   const currentSubjectId = getSubjectIdForContent(activeContentId);
   const index = activeContent.content.sections.findIndex((s) => s.id === currentSectionId);
   const activeSection = activeContent.content.sections[index] ?? activeContent.content.sections[0];
@@ -58,38 +57,23 @@ const App: React.FC = () => {
   });
 
   useEffect(() => { document.body.style.overflow = mobileSidebarOpen ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [mobileSidebarOpen]);
-
   const toggleFullscreen = async () => { if (!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen(); };
-  const modes: { id: ViewMode; label: string; icon: React.FC<{size?: number}> }[] = [
-    { id: "LESSON", label: "Lesson", icon: CirclePlay },
-    { id: "WORKED_EXAMPLE", label: "Worked Examples", icon: FileText },
-    { id: "CHECKPOINT", label: "Checkpoints", icon: CheckCircle2 },
-    { id: "PRACTICE", label: "Practice", icon: PencilLine },
-    { id: "LECTURE_NOTE", label: "Lecture Note", icon: BookOpen }
+  const modes = [
+    { id: "LESSON" as const, label: "Lesson", icon: CirclePlay },
+    { id: "WORKED_EXAMPLE" as const, label: "Worked Examples", icon: FileText },
+    { id: "CHECKPOINT" as const, label: "Checkpoints", icon: CheckCircle2 },
+    { id: "PRACTICE" as const, label: "Practice", icon: PencilLine },
+    { id: "LECTURE_NOTE" as const, label: "Lecture Note", icon: BookOpen }
   ];
 
   if (studioNavigatorOpen) return <StudioNavigator onOpenContent={handleSelectContent} initialTrailIds={navigatorTrailIds} />;
-
   const subjectLabel = currentSubjectId === "mathematics" ? "Mathematics" : "Physics";
   const contentLabel = activeContent.content.title;
 
   return (
     <div className="app-shell">
       {mobileSidebarOpen && <button className="mobile-sidebar-backdrop" onClick={() => setMobileSidebarOpen(false)} aria-label="Close navigation" />}
-      <StudioSidebar
-        part={activeContent.content}
-        currentSectionId={currentSectionId}
-        activeViewMode={activeViewMode}
-        onSelectSection={setCurrentSectionId}
-        onChangeViewMode={setActiveViewMode}
-        parts={parts.map((p) => ({ id: p.id, shortLabel: p.shortLabel }))}
-        activePartId={activeContentId}
-        onSelectPart={handleSelectContent}
-        mobileOpen={mobileSidebarOpen}
-        onCloseMobile={() => setMobileSidebarOpen(false)}
-        currentSubjectId={currentSubjectId}
-        onOpenNavigator={openNavigator}
-      />
+      <StudioSidebar part={activeContent.content} currentSectionId={currentSectionId} activeViewMode={activeViewMode} onSelectSection={setCurrentSectionId} onChangeViewMode={setActiveViewMode} parts={parts.map((p) => ({ id: p.id, shortLabel: p.shortLabel }))} activePartId={activeContentId} onSelectPart={handleSelectContent} mobileOpen={mobileSidebarOpen} onCloseMobile={() => setMobileSidebarOpen(false)} currentSubjectId={currentSubjectId} onOpenNavigator={openNavigator} />
       <div className="studio-workspace">
         <StudioHeader title={contentLabel} subtitle={activeContent.content.subtitle} lecturerMode={lecturerMode} onToggleLecturerMode={() => setLecturerMode((value) => !value)} onToggleFullscreen={toggleFullscreen} onToggleMobileMenu={() => setMobileSidebarOpen((value) => !value)} onOpenNavigator={() => openNavigator([])} onOpenHome={() => openNavigator([])} />
         <div className="studio-lesson-breadcrumb"><button onClick={() => openNavigator([])}><Home size={9} /> Home</button><span>/</span><button onClick={() => openNavigator([currentSubjectId])}>{subjectLabel}</button><span>/</span><span>Classical</span><span>/</span><strong>Lesson Stage</strong></div>
@@ -105,11 +89,10 @@ const App: React.FC = () => {
           </main>
           {lecturerMode && activeViewMode === "LESSON" && <LecturerPanel cue={activeSection.lecturerCue} />}
         </div>
-        <nav className="studio-bottom-dock" aria-label="Studio navigation"><button className="active" onClick={() => openNavigator([currentSubjectId])}><NetworkIcon /></button><button onClick={() => setActiveViewMode("LESSON")} className={activeViewMode === "LESSON" ? "active" : ""}><CirclePlay size={14} /><span>Lesson</span></button><button onClick={() => setLecturerMode((value) => !value)} className={lecturerMode ? "active" : ""}><PanelRight size={14} /><span>HUD</span></button><button onClick={() => setActiveViewMode("LECTURE_NOTE")} className={activeViewMode === "LECTURE_NOTE" ? "active" : ""}><BookOpen size={14} /><span>Notes</span></button></nav>
+        <nav className="studio-bottom-dock" aria-label="Studio navigation"><button onClick={() => openNavigator([currentSubjectId])}><span className="dock-icon-grid">⌘</span><span>Curriculum</span></button><button onClick={() => setActiveViewMode("LESSON")} className={activeViewMode === "LESSON" ? "active" : ""}><CirclePlay size={14} /><span>Lesson</span></button><button onClick={() => setLecturerMode((value) => !value)} className={lecturerMode ? "active" : ""}><PanelRight size={14} /><span>HUD</span></button><button onClick={() => setActiveViewMode("LECTURE_NOTE")} className={activeViewMode === "LECTURE_NOTE" ? "active" : ""}><BookOpen size={14} /><span>Notes</span></button></nav>
       </div>
     </div>
   );
 };
 
-const NetworkIcon: React.FC = () => <><span className="dock-icon-grid">⌘</span><span>Curriculum</span></>;
 export default App;
