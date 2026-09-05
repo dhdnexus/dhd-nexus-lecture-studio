@@ -46,7 +46,7 @@ export const part6Content: PartContent = {
       content: [
         "Every problem in this series falls into one of five branches. Constant acceleration: use Part 3's equation-selection framework. Acceleration given as a(t): use Part 5's Case A, integrating a = dv/dt with respect to time. Velocity given as v(t): integrate v = ds/dt with respect to time. Acceleration given as a(s): use Part 5's Case C, a = v dv/ds, integrating with respect to position.",
         "The fifth branch is staged or piecewise motion: when a single problem changes regime partway through, split it into physically meaningful stages, solve each with whichever of the first four branches applies to that stage, and carry the final state of one stage forward as the initial state of the next.",
-        "If none of these five branches seems to apply immediately, that is not a signal to guess — it is the signal to fall back to the full seven-step DHD Nexus framework, developed in Section 8."
+        "If none of these five branches seems to apply immediately, do not guess. Instead, fall back to the full seven-step DHD Nexus problem-solving framework, which we develop in Section 8."
       ],
       visualKey: "which-method",
       lecturerCue: {
